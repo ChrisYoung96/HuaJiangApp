@@ -1,4 +1,4 @@
-package com.chrisyoung.huajiangapp;
+package com.chrisyoung.huajiangapp.test;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.chrisyoung.huajiangapp.R;
 import com.chrisyoung.huajiangapp.dao.impl.BillDaoImpl;
 import com.chrisyoung.huajiangapp.dao.impl.RecordDaoImpl;
 import com.chrisyoung.huajiangapp.dao.impl.UserDaoImpl;
