@@ -1,0 +1,20 @@
+package com.chrisyoung.huajiangapp.biz;
+
+import com.chrisyoung.huajiangapp.dto.SBill;
+import com.chrisyoung.huajiangapp.dto.SRecord;
+import com.chrisyoung.huajiangapp.dto.SUserDiy;
+import com.chrisyoung.huajiangapp.dto.SychronizeDataItem;
+
+import java.util.LinkedList;
+
+ public interface IScynDataBiz {
+    LinkedList<SychronizeDataItem<SBill>> synchronizeBillC2S(String filename) ;
+
+    LinkedList<SychronizeDataItem<SRecord>> synchronizeRecordC2S(String filename) ;
+
+    LinkedList<SychronizeDataItem<SUserDiy>> synchronizeKindC2S(String filename);
+
+
+
+
+}

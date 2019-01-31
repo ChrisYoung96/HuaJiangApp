@@ -11,7 +11,8 @@ public class CUserDiyKind extends RealmObject {
     private String uId; //用户ID
     private String dType; //收入或支出
     private String dKind; //自定义类型
-    private boolean isSychronized;
+    private int dStatus; //记录状态
+    private int dVersion; //记录版本
 
     public CUserDiyKind() {
         dId=UUIDUtils.getUUID();
@@ -49,11 +50,19 @@ public class CUserDiyKind extends RealmObject {
         this.dKind = dKind;
     }
 
-    public boolean isSychronized() {
-        return isSychronized;
+    public int getdStatus() {
+        return dStatus;
     }
 
-    public void setSychronized(boolean sychronized) {
-        isSychronized = sychronized;
+    public void setdStatus(int dStatus) {
+        this.dStatus = dStatus;
+    }
+
+    public int getdVersion() {
+        return dVersion;
+    }
+
+    public void setdVersion(int dVersion) {
+        this.dVersion = dVersion;
     }
 }

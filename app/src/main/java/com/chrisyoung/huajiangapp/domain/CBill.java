@@ -15,7 +15,8 @@ public class CBill extends RealmObject {
     private String bName; //账本名称
     private Date bDate; //创建日期
     private String bDesc; //备注
-    private boolean isSychronized;
+    private int bStatus; //记录状态
+    private int bVersion;  //记录版本
 
     private RealmList<CRecord> cRecords;
 
@@ -72,11 +73,19 @@ public class CBill extends RealmObject {
         this.cRecords = cRecords;
     }
 
-    public boolean isSychronized() {
-        return isSychronized;
+    public int getbStatus() {
+        return bStatus;
     }
 
-    public void setSychronized(boolean sychronized) {
-        isSychronized = sychronized;
+    public void setbStatus(int bStatus) {
+        this.bStatus = bStatus;
+    }
+
+    public int getbVersion() {
+        return bVersion;
+    }
+
+    public void setbVersion(int bVersion) {
+        this.bVersion = bVersion;
     }
 }

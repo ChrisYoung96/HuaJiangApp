@@ -66,8 +66,23 @@ public class DateFormatUtil {
     }
 
     public static Date getEndOfMonth(String year,String month) {
-        String sd = year + "-" + month + "-" + getDay(year, month) + " 00:00:00";
+        String sd = year + "-" + month + "-" + getDay(year, month) + " 23:59:59";
         return stringtoDateAndTime(sd);
+    }
+
+    public static Date getStartOfDay(Date day){
+        String sd=dateToString(day)+" 00:00:00";
+        return stringtoDateAndTime(sd);
+    }
+
+    public static  Date getEndOfDay(Date day){
+        String sd=dateToString(day)+" 23:59:59";
+        return stringtoDateAndTime(sd);
+    }
+
+    public static Date longDateToshortDate(Date ldate){
+        String temp=dateAndTimeToString(ldate);
+        return stringToDate(temp);
     }
 
 

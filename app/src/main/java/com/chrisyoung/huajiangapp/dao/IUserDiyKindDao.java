@@ -12,4 +12,6 @@ public interface IUserDiyKindDao {
 
     ArrayList<CUserDiyKind> showAllKinds(String uId);
 
+    ArrayList<CUserDiyKind> showKindsNeedSynchronize(String uId);
+
 }

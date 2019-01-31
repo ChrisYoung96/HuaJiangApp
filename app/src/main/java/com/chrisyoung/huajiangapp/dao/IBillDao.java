@@ -13,6 +13,8 @@ public interface IBillDao {
 
     ArrayList<CBill> showAllBills(String uId);
 
+    ArrayList<CBill> showBillNeedSynchronize(String uId);
+
     CBill findBill(String bId);
 
 }

@@ -30,10 +30,10 @@ public interface ApiService {
     Observable<HttpResult<String>> register(@Body UserAuths auths);
 
 
-    @POST("modifyInfo")
-    Observable<HttpResult<String>> modifyInfo(@Header("Authorization") String token,@Body CUser userInfo);
+    @POST("usr/modifyInfo")
+    Observable<HttpResult<String>> modifyInfo(@Header("Authorization") String token,@Body SUser userInfo);
 
-    @GET("modifyPwd")
+    @GET("usr/modifyPwd")
     Observable<HttpResult<String>> modifPwd(@Header("Authorization") String token,@Query("identify") String identify,@Query("newPwd") String newPwd);
 
     @GET("usr/auth/getmsg")
@@ -43,7 +43,7 @@ public interface ApiService {
 //    Observable<HttpResult<String>> uploadImage(@Header("Authorization") String token, @Multipart("image") )
 
     @GET("sychdata/userInfos2c")
-    Observable<HttpResult<SUser>> sychronizeUserInfoS2C(@Query("UserId") String uId);
+    Observable<HttpResult<SUser>> sychronizeUserInfoS2C(@Header("Authorization") String token,@Query("UserId") String uId);
 
     @GET("sychdata/bills2c")
     Observable<HttpResult<LinkedList<SychronizeDataItem<SBill>>>> sychronizeBillS2C(@Header("Authorization") String token,@Query("UserId") String uId);
@@ -62,6 +62,9 @@ public interface ApiService {
 
     @POST("sychdata/diykindsc2s")
     Observable<HttpResult<String>> sychronizeDiyKindsC2S(@Header("Authorization") String token,@Body LinkedList<SychronizeDataItem<SUserDiy>> kinds);
+
+
+
 
 
 

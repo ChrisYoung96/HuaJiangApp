@@ -37,6 +37,7 @@ dependencies {
     implementation 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.0'
 
     implementation 'com.jakewharton:butterknife:8.8.1'
+    implementation 'com.android.support:design:27.1.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.qmuiteam:qmui:1.1.3'
 

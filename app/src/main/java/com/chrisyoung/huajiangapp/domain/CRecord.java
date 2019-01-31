@@ -18,13 +18,14 @@ public class CRecord extends RealmObject {
     private String rKind; //收入或支出的类型（支持自定义）
     private Double rMoney; //金额
     private String rWay; //支付方式
+    private int rStatus; //记录状态
+    private int rVersion; //记录版本
 
 
     @Index
     private Date rTime; //交易时间
 
     private String rDesc; //备注
-    private boolean isSychronized;
 
     public CRecord() {
         rId=UUIDUtils.getUUID();
@@ -94,11 +95,19 @@ public class CRecord extends RealmObject {
         this.rDesc = rDesc;
     }
 
-    public boolean isSychronized() {
-        return isSychronized;
+    public int getrStatus() {
+        return rStatus;
     }
 
-    public void setSychronized(boolean sychronized) {
-        isSychronized = sychronized;
+    public void setrStatus(int rStatus) {
+        this.rStatus = rStatus;
+    }
+
+    public int getrVersion() {
+        return rVersion;
+    }
+
+    public void setrVersion(int rVersion) {
+        this.rVersion = rVersion;
     }
 }

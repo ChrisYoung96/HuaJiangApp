@@ -6,8 +6,11 @@ import com.chrisyoung.huajiangapp.domain.CBill;
 import com.chrisyoung.huajiangapp.domain.CUser;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import io.realm.RealmObject;
+import io.realm.RealmResults;
 
 public class BillDaoImpl extends BaseDao implements IBillDao {
 
@@ -42,6 +45,14 @@ public class BillDaoImpl extends BaseDao implements IBillDao {
             bills.add(cb);
         }
         return bills;
+    }
+
+    @Override
+    public ArrayList<CBill> showBillNeedSynchronize(String uId) {
+
+        RealmResults<CBill> bs=realm.where(CBill.class).equalTo("uId",uId).lessThan("bStatus",9).findAll();
+        List<CBill> tem =realm.copyFromRealm(bs);
+        return new ArrayList<>(tem);
     }
 
     @Override

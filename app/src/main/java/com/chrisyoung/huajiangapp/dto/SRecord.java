@@ -19,6 +19,8 @@ public class SRecord {
 
   private String rDesc; //备注
 
+  private int rVersioin;
+
 
   public SRecord(){
     this.rId=UUID.randomUUID().toString().replace("-","");
@@ -102,4 +104,11 @@ public class SRecord {
     this.rDesc = rDesc;
   }
 
+  public int getrVersioin() {
+    return rVersioin;
+  }
+
+  public void setrVersioin(int rVersioin) {
+    this.rVersioin = rVersioin;
+  }
 }

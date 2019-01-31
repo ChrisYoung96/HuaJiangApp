@@ -8,9 +8,13 @@ import java.util.Date;
 public interface IRecordDao {
     boolean addOrUpdateRecord(CRecord newRecord);
 
-    boolean deleteRecord(String bId);
+    boolean deleteRecord(String rId);
+
+    CRecord showARecord(String rId);
 
     ArrayList<CRecord> showAllRecords(String bId);
+
+    ArrayList<CRecord> showRecordsNeedSynchronize(String bId);
 
     ArrayList<CRecord> showRecordsByMonth(String bId,Date monthStart,Date monthEnd);
 
@@ -19,7 +23,6 @@ public interface IRecordDao {
     ArrayList<CRecord> showRecordsByMonthAndType(String bId,Date monthStart,Date monthEnd,String type);
 
     ArrayList<CRecord> showRecordsByWayAndMonth(String bId,String way,Date monthStart,Date monthEnd,String type);
-
 
     Double sumAllMoneyInAMonth(String bId,Date monthStart,Date monthEnd,String type);
 

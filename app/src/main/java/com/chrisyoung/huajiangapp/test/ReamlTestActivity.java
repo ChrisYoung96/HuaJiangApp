@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.chrisyoung.huajiangapp.R;
+import com.chrisyoung.huajiangapp.biz.impl.RecordManageBizImpl;
 import com.chrisyoung.huajiangapp.dao.impl.BillDaoImpl;
 import com.chrisyoung.huajiangapp.dao.impl.RecordDaoImpl;
 import com.chrisyoung.huajiangapp.dao.impl.UserDaoImpl;
@@ -15,6 +16,7 @@ import com.chrisyoung.huajiangapp.domain.CBill;
 import com.chrisyoung.huajiangapp.domain.CRecord;
 import com.chrisyoung.huajiangapp.domain.CUser;
 import com.chrisyoung.huajiangapp.domain.CUserDiyKind;
+import com.chrisyoung.huajiangapp.domain.RViewModel;
 import com.chrisyoung.huajiangapp.uitils.DateFormatUtil;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
 
@@ -34,6 +36,7 @@ public class ReamlTestActivity extends AppCompatActivity implements View.OnClick
     private Button btnDeleteKind;
     private Button btnAddRecord;
     private Button btnShowRecord;
+    private Button btnShowViewRecord;
     private Button btnSum;
     private TextView txtView;
     private UserDaoImpl userDao;
@@ -66,6 +69,8 @@ public class ReamlTestActivity extends AppCompatActivity implements View.OnClick
         btnSum=this.findViewById(R.id.btnSum);
         btnShowRecord=this.findViewById(R.id.btnShowRecords);
         txtView=this.findViewById(R.id.txtView);
+        btnShowViewRecord=this.findViewById(R.id.btnShowViewRecord);
+
         btnAddUser.setOnClickListener(this);
         btnShowUser.setOnClickListener(this);
         btnAddBill.setOnClickListener(this);
@@ -77,6 +82,7 @@ public class ReamlTestActivity extends AppCompatActivity implements View.OnClick
         btnAddRecord.setOnClickListener(this);
         btnShowRecord.setOnClickListener(this);
         btnSum.setOnClickListener(this);
+        btnShowViewRecord.setOnClickListener(this);
     }
 
     private void testAddUser(){
@@ -107,21 +113,18 @@ public class ReamlTestActivity extends AppCompatActivity implements View.OnClick
         CBill b1=new CBill();
         b1.setuId("6354b0d876244d8686c5a9b65b765a55");
         b1.setbName("book2");
-        b1.setSychronized(false);
         b1.setbDate(DateFormatUtil.stringToDate("2018-01-01"));
         b1.setcRecords(new RealmList<>());
         billDao.addBillForUser(user,b1);
         CBill b2=new CBill();
         b2.setuId(user.getuId());
         b2.setbName("book3");
-        b2.setSychronized(false);
         b2.setbDate(DateFormatUtil.stringToDate("2018-11-01"));
         b2.setcRecords(new RealmList<>());
         billDao.addBillForUser(user,b2);
         CBill b3=new CBill();
         b3.setuId(user.getuId());
         b3.setbName("book4");
-        b3.setSychronized(false);
         b3.setbDate(DateFormatUtil.stringToDate("2018-01-01"));
         b3.setcRecords(new RealmList<>());
         billDao.addBillForUser(user,b3);
@@ -150,7 +153,6 @@ public class ReamlTestActivity extends AppCompatActivity implements View.OnClick
         kind.setuId(uId);
         kind.setdType(" 支出");
         kind.setdKind("吃饭");
-        kind.setSychronized(false);
         if (userDiyKindDao.addKindForUser(user,kind)) {
             ToastUtil.showShort(this, "success");
         }
@@ -289,6 +291,23 @@ public class ReamlTestActivity extends AppCompatActivity implements View.OnClick
         txtView.append(result.toString());
     }
 
+    private void testShowViewRecord(){
+        String bId="c97eb25e45aa41508b7f36a772984ef0";
+        Date startOfMonth=DateFormatUtil.getStartOfMonth("2018","2");
+        Date endOfMonth=DateFormatUtil.getEndOfMonth("2018","2");
+        ArrayList<RViewModel> rViewModels=new RecordManageBizImpl().showRecordsInAMonth(bId,startOfMonth,endOfMonth);
+        txtView.setText("");
+        for (RViewModel r :
+                rViewModels) {
+            txtView.append(DateFormatUtil.dateToString(r.getDay())+" 支出："+r.getTotalCost().toString()+" 收入："+r.getTotalIncome().toString()+"\n");
+            for (CRecord c :
+                    r.getRecords()) {
+                txtView.append(c.getrWay()+" "+c.getrKind()+" "+c.getrMoney().toString()+"\n");
+            }
+        }
+
+    }
+
     @Override
     public void onClick(View view) {
         if(view.getId()==btnAddUser.getId()){
@@ -311,14 +330,16 @@ public class ReamlTestActivity extends AppCompatActivity implements View.OnClick
         }else if(view.getId()==btnAddRecord.getId()){
             testAddRecord();
         }else if(view.getId()==btnShowRecord.getId()){
-            testShowRecord();
-            //testShowRecordByMonth();
+            //testShowRecord();
+            testShowRecordByMonth();
             //testShowRecordByMonthAndType();
             //testShowRecordByWay();
         }else if(view.getId()==btnSum.getId()){
             //testSumAllMoneyInAMonth();
             testsumAllMoneyOfWayInAMonth();
             //testsumAllMoneyOfKindInAMonth();
+        }else if(view.getId()==btnShowViewRecord.getId()){
+            testShowViewRecord();
         }
     }
 }

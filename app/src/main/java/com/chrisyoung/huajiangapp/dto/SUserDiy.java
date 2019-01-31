@@ -7,6 +7,7 @@ public class SUserDiy {
   private String uId; //用户ID
   private String dType; //收入或支出
   private String dKind; //自定义类型
+  private int dVersion;//记录版本
 
 
   public String getDId() {
@@ -42,6 +43,14 @@ public class SUserDiy {
 
   public void setDKind(String dKind) {
     this.dKind = dKind;
+  }
+
+  public int getdVersion() {
+    return dVersion;
+  }
+
+  public void setdVersion(int dVersion) {
+    this.dVersion = dVersion;
   }
 
 }

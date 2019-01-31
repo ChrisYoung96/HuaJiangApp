@@ -36,10 +36,22 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
     }
 
     @Override
+    public CRecord showARecord(String rId) {
+        return realm.where(CRecord.class).equalTo("rId",rId).findFirst();
+    }
+
+    @Override
     public ArrayList<CRecord> showAllRecords(String bId) {
         RealmResults<CRecord> records = realm.where(CRecord.class).equalTo("bId", bId).findAll().sort("rTime");
         List<CRecord> results = realm.copyFromRealm(records);
-        return new ArrayList<>(records);
+        return new ArrayList<>(results);
+    }
+
+    @Override
+    public ArrayList<CRecord> showRecordsNeedSynchronize(String bId) {
+        RealmResults<CRecord> r=realm.where(CRecord.class).equalTo("bId",bId).lessThan("rVersion",9).findAll().sort("rTime");
+        List<CRecord> re=realm.copyFromRealm(r);
+        return new ArrayList<>(re);
     }
 
     @Override

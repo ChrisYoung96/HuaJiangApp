@@ -14,6 +14,7 @@ public class SBill {
   private String bName; //账本名称
   private Date bDate; //创建日期
   private String bDesc; //备注
+  private int bVersion;//记录版本
 
   public SBill(){
     this.bId=UUID.randomUUID().toString().replace("-","");
@@ -64,6 +65,14 @@ public class SBill {
 
   public void setbDate(Date bDate) {
     this.bDate = bDate;
+  }
+
+  public int getbVersion() {
+    return bVersion;
+  }
+
+  public void setbVersion(int bVersion) {
+    this.bVersion = bVersion;
   }
 
 }
