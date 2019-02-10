@@ -11,6 +11,7 @@ import java.util.List;
 
 import io.realm.RealmObject;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 public class RecordDaoImpl extends BaseDao implements IRecordDao {
     public RecordDaoImpl() {
@@ -23,6 +24,7 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
         return insertOrUpdateRealmObject(newRecord);
     }
 
+    @Override
     public boolean addRecordForBill(CBill bill, CRecord newRecord) {
         realm.beginTransaction();
         boolean result = bill.getcRecords().add(newRecord);
@@ -95,6 +97,61 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
         return new ArrayList<>(r);
     }
 
+    @Override
+    public ArrayList<CRecord> showRecordsByKindAndMonth(String bId, Date monthStart, Date monthEnd, String type, String kind) {
+        RealmResults<CRecord> records = realm.where(CRecord.class)
+                .between("rTime", monthStart, monthEnd)
+                .equalTo("bId", bId)
+                .equalTo("rType", type)
+                .equalTo("rKind", kind)
+                .findAll()
+                .sort("rTime");
+        List<CRecord> r = realm.copyFromRealm(records);
+        return new ArrayList<>(r);
+    }
+
+    @Override
+    public ArrayList<CRecord> findMaxRecords(String bId, Date monthStart, Date monthEnd, String type) {
+       RealmResults<CRecord> records=realm.where(CRecord.class)
+                .between("rTime",monthStart,monthEnd)
+                .equalTo("bId",bId)
+                .equalTo("rType",type)
+                .findAll()
+                .sort("rMoney",Sort.DESCENDING);
+        List<CRecord> r = realm.copyFromRealm(records);
+        ArrayList<CRecord>max5=new ArrayList<>();
+        if(r.size()>=5){
+            for(int i=0;i<5;i++){
+                max5.add(r.get(i));
+            }
+        }else{
+            max5=new ArrayList<>(r);
+        }
+
+        return max5;
+    }
+
+    @Override
+    public ArrayList<CRecord> findMinRecords(String bId, Date monthStart, Date monthEnd, String type) {
+        RealmResults<CRecord> records=realm.where(CRecord.class)
+                .between("rTime",monthStart,monthEnd)
+                .equalTo("bId",bId)
+                .equalTo("rType",type)
+                .findAll()
+                .sort("rMoney",Sort.ASCENDING);
+        List<CRecord> r = realm.copyFromRealm(records);
+        ArrayList<CRecord>min5=new ArrayList<>();
+        if(r.size()>=5){
+            for(int i=0;i<5;i++){
+                min5.add(r.get(i));
+            }
+        }else{
+            min5=new ArrayList<>(r);
+        }
+
+        return min5;
+    }
+
 
     @Override
     public Double sumAllMoneyInAMonth(String bId, Date monthStart, Date monthEnd, String type) {
@@ -126,6 +183,17 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
                 .equalTo("rKind", kind)
                 .findAll();
         return (Double) records.sum("rMoney");
+    }
+
+    @Override
+    public Double avrgAllMoneyInAMonth(String bId, Date monthStart, Date monthEnd, String type) {
+        return realm.where(CRecord.class)
+                .equalTo("bId", bId)
+                .between("rTime", monthStart, monthEnd)
+                .equalTo("rType", type)
+                .findAll()
+                .average("rMoney");
+
     }
 
 

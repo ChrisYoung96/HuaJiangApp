@@ -1,8 +1,10 @@
 package com.chrisyoung.huajiangapp.biz.impl;
 
 import com.chrisyoung.huajiangapp.biz.IRecordManageBiz;
+import com.chrisyoung.huajiangapp.constant.StatusCode;
 import com.chrisyoung.huajiangapp.dao.IRecordDao;
 import com.chrisyoung.huajiangapp.dao.impl.RecordDaoImpl;
+import com.chrisyoung.huajiangapp.domain.CBill;
 import com.chrisyoung.huajiangapp.domain.CRecord;
 import com.chrisyoung.huajiangapp.domain.RViewModel;
 import com.chrisyoung.huajiangapp.uitils.DateFormatUtil;
@@ -67,18 +69,30 @@ public class RecordManageBizImpl implements IRecordManageBiz {
     }
 
     @Override
+    public boolean fakeDeleteRecord(CRecord record) {
+        record.setrStatus(StatusCode.DELETE);
+        return recordDao.addOrUpdateRecord(record);
+    }
+
+    @Override
     public CRecord showRecordInformation(String rId) {
         return recordDao.showARecord(rId);
     }
 
     @Override
     public boolean updateNewRecord(CRecord record) {
-        return false;
+        record.setrStatus(StatusCode.UPDATE);
+        int version=record.getrVersion();
+        version++;
+        record.setrVersion(version);
+        return recordDao.addOrUpdateRecord(record);
     }
 
     @Override
-    public boolean addRecord(String bId, CRecord newRecord) {
-        return false;
+    public boolean addRecord(CBill bill, CRecord newRecord) {
+        newRecord.setrVersion(1);
+        newRecord.setrStatus(StatusCode.INSERT);
+        return recordDao.addRecordForBill(bill,newRecord);
     }
 
 

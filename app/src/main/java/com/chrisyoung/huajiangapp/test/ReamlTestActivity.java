@@ -109,22 +109,22 @@ public class ReamlTestActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void testAddBills(){
-        CUser user=userDao.showUserInfo("6354b0d876244d8686c5a9b65b765a55");
+        CUser user=userDao.showUserInfo("94d5f9cbd27b4526a9b90176f44037d7");
         CBill b1=new CBill();
-        b1.setuId("6354b0d876244d8686c5a9b65b765a55");
-        b1.setbName("book2");
+        b1.setuId("94d5f9cbd27b4526a9b90176f44037d7");
+        b1.setbName("book1");
         b1.setbDate(DateFormatUtil.stringToDate("2018-01-01"));
         b1.setcRecords(new RealmList<>());
         billDao.addBillForUser(user,b1);
         CBill b2=new CBill();
         b2.setuId(user.getuId());
-        b2.setbName("book3");
+        b2.setbName("book2");
         b2.setbDate(DateFormatUtil.stringToDate("2018-11-01"));
         b2.setcRecords(new RealmList<>());
         billDao.addBillForUser(user,b2);
         CBill b3=new CBill();
         b3.setuId(user.getuId());
-        b3.setbName("book4");
+        b3.setbName("book3");
         b3.setbDate(DateFormatUtil.stringToDate("2018-01-01"));
         b3.setcRecords(new RealmList<>());
         billDao.addBillForUser(user,b3);
@@ -147,7 +147,7 @@ public class ReamlTestActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void testAddKind() {
-        CUser user=userDao.showUserInfo("6354b0d876244d8686c5a9b65b765a55");
+        CUser user=userDao.showUserInfo("94d5f9cbd27b4526a9b90176f44037d7");
         String uId = user.getuId();
         CUserDiyKind kind = new CUserDiyKind();
         kind.setuId(uId);
@@ -159,7 +159,7 @@ public class ReamlTestActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void testShowKind(){
-        String uid="6354b0d876244d8686c5a9b65b765a55";
+        String uid="94d5f9cbd27b4526a9b90176f44037d7";
         ArrayList<CUserDiyKind> kinds=userDiyKindDao.showAllKinds(uid);
         for(CUserDiyKind k:kinds){
             ToastUtil.showShort(this,k.getdId());
@@ -167,27 +167,27 @@ public class ReamlTestActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void testAddRecord(){
-        CBill b=billDao.findBill("c97eb25e45aa41508b7f36a772984ef0");
+        CBill b=billDao.findBill("385ca5a9ee1340148ce3977b99e6660b");
         CRecord r1=new CRecord();
-        r1.setbId("c97eb25e45aa41508b7f36a772984ef0");
-        r1.setrType("收入");
-        r1.setrKind("工资");
+        r1.setbId("385ca5a9ee1340148ce3977b99e6660b");
+        r1.setrType("支出");
+        r1.setrKind("购物");
         r1.setrMoney(332.21);
-        r1.setrTime(DateFormatUtil.stringtoDateAndTime("2018-02-25 15:12:49"));
+        r1.setrTime(DateFormatUtil.stringtoDateAndTime("2018-02-25 15:13:49"));
         r1.setrWay("银行卡");
         recordDao.addRecordForBill(b,r1);
 
         CRecord r2=new CRecord();
-        r2.setbId("c97eb25e45aa41508b7f36a772984ef0");
-        r2.setrType("收入");
+        r2.setbId("385ca5a9ee1340148ce3977b99e6660b");
+        r2.setrType("支出");
         r2.setrKind("红包");
         r2.setrMoney(22.21);
-        r2.setrTime(DateFormatUtil.stringtoDateAndTime("2018-02-05 15:24:21"));
+        r2.setrTime(DateFormatUtil.stringtoDateAndTime("2018-02-05 15:22:21"));
         r2.setrWay("微信");
         recordDao.addRecordForBill(b,r2);
 
         CRecord r3=new CRecord();
-        r3.setbId("c97eb25e45aa41508b7f36a772984ef0");
+        r3.setbId("385ca5a9ee1340148ce3977b99e6660b");
         r3.setrType("收入");
         r3.setrKind("红包");
         r3.setrMoney(14.41);
@@ -195,32 +195,32 @@ public class ReamlTestActivity extends AppCompatActivity implements View.OnClick
         r3.setrWay("支付宝");
         recordDao.addRecordForBill(b,r3);
 
-//        CRecord r4=new CRecord();
-////        r4.setbId("c97eb25e45aa41508b7f36a772984ef0");
-////        r4.setrType("支出");
-////        r4.setrKind("购物");
-////        r4.setrMoney(52.41);
-////        r4.setrTime(DateFormatUtil.stringtoDateAndTime("2018-03-25 20:23:21"));
-////        r4.setrWay("微信");
-////        recordDao.addRecordForBill(b,r4);
-////
-////        CRecord r5=new CRecord();
-////        r5.setbId("c97eb25e45aa41508b7f36a772984ef0");
-////        r5.setrType("支出");
-////        r5.setrKind("购物");
-////        r5.setrMoney(166.41);
-////        r5.setrTime(DateFormatUtil.stringtoDateAndTime("2018-04-01 20:23:21"));
-////        r5.setrWay("支付宝");
-////        recordDao.addRecordForBill(b,r5);
-////
-////        CRecord r6=new CRecord();
-////        r6.setbId("c97eb25e45aa41508b7f36a772984ef0");
-////        r6.setrType("支出");
-////        r6.setrKind("娱乐");
-////        r6.setrMoney(16.41);
-////        r6.setrTime(DateFormatUtil.stringtoDateAndTime("2018-04-11 20:23:21"));
-////        r6.setrWay("微信");
-////        recordDao.addRecordForBill(b,r6);
+        CRecord r4=new CRecord();
+        r4.setbId("385ca5a9ee1340148ce3977b99e6660b");
+        r4.setrType("支出");
+        r4.setrKind("购物");
+        r4.setrMoney(52.41);
+        r4.setrTime(DateFormatUtil.stringtoDateAndTime("2018-03-25 20:22:21"));
+        r4.setrWay("微信");
+        recordDao.addRecordForBill(b,r4);
+
+        CRecord r5=new CRecord();
+        r5.setbId("385ca5a9ee1340148ce3977b99e6660b");
+        r5.setrType("支出");
+        r5.setrKind("购物");
+        r5.setrMoney(166.41);
+        r5.setrTime(DateFormatUtil.stringtoDateAndTime("2018-04-01 20:24:21"));
+        r5.setrWay("支付宝");
+        recordDao.addRecordForBill(b,r5);
+
+        CRecord r6=new CRecord();
+        r6.setbId("385ca5a9ee1340148ce3977b99e6660b");
+        r6.setrType("支出");
+        r6.setrKind("娱乐");
+        r6.setrMoney(16.41);
+        r6.setrTime(DateFormatUtil.stringtoDateAndTime("2018-04-11 20:25:21"));
+        r6.setrWay("微信");
+        recordDao.addRecordForBill(b,r6);
 
 
         if(recordDao.addRecordForBill(b,r1)){
@@ -229,13 +229,13 @@ public class ReamlTestActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void testShowRecord(){
-        String bId="c97eb25e45aa41508b7f36a772984ef0";
+        String bId="385ca5a9ee1340148ce3977b99e6660b";
         ArrayList<CRecord> records=recordDao.showAllRecords(bId);
         txtView.setText(showRecordResults(records));
     }
 
     private void testShowRecordByMonth(){
-        String bId="c97eb25e45aa41508b7f36a772984ef0";
+        String bId="385ca5a9ee1340148ce3977b99e6660b";
         Date startOfMonth=DateFormatUtil.getStartOfMonth("2018","2");
         Date endOfMonth=DateFormatUtil.getEndOfMonth("2018","2");
         ArrayList<CRecord> records=recordDao.showRecordsByMonth(bId,startOfMonth,endOfMonth);
@@ -243,7 +243,7 @@ public class ReamlTestActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void testShowRecordByMonthAndType(){
-        String bId="c97eb25e45aa41508b7f36a772984ef0";
+        String bId="385ca5a9ee1340148ce3977b99e6660b";
         Date startOfMonth=DateFormatUtil.getStartOfMonth("2018","2");
         Date endOfMonth=DateFormatUtil.getEndOfMonth("2018","2");
         ArrayList<CRecord> records=recordDao.showRecordsByMonthAndType(bId,startOfMonth,endOfMonth,"收入");
@@ -251,7 +251,7 @@ public class ReamlTestActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void testShowRecordByWay(){
-        String bId="c97eb25e45aa41508b7f36a772984ef0";
+        String bId="385ca5a9ee1340148ce3977b99e6660b";
         Date startOfMonth=DateFormatUtil.getStartOfMonth("2018","2");
         Date endOfMonth=DateFormatUtil.getEndOfMonth("2018","2");
         ArrayList<CRecord> records=recordDao.showRecordsByWayAndMonth(bId,"支付宝",startOfMonth,endOfMonth,"支出");
@@ -268,7 +268,7 @@ public class ReamlTestActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void testSumAllMoneyInAMonth(){
-        String bId="c97eb25e45aa41508b7f36a772984ef0";
+        String bId="385ca5a9ee1340148ce3977b99e6660b";
         Date startOfMonth=DateFormatUtil.getStartOfMonth("2018","2");
         Date endOfMonth=DateFormatUtil.getEndOfMonth("2018","2");
         Double result=recordDao.sumAllMoneyInAMonth(bId,startOfMonth,endOfMonth,"支出");
@@ -276,7 +276,7 @@ public class ReamlTestActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void testsumAllMoneyOfWayInAMonth(){
-        String bId="c97eb25e45aa41508b7f36a772984ef0";
+        String bId="385ca5a9ee1340148ce3977b99e6660b";
         Date startOfMonth=DateFormatUtil.getStartOfMonth("2018","3");
         Date endOfMonth=DateFormatUtil.getEndOfMonth("2018","3");
         Double result=recordDao.sumAllMoneyOfWayInAMonth(bId,startOfMonth,endOfMonth,"支出","微信");
@@ -284,7 +284,7 @@ public class ReamlTestActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void testsumAllMoneyOfKindInAMonth(){
-        String bId="c97eb25e45aa41508b7f36a772984ef0";
+        String bId="385ca5a9ee1340148ce3977b99e6660b";
         Date startOfMonth=DateFormatUtil.getStartOfMonth("2018","3");
         Date endOfMonth=DateFormatUtil.getEndOfMonth("2018","3");
         Double result=recordDao.sumAllMoneyOfKindInAMonth(bId,startOfMonth,endOfMonth,"支出","购物");
@@ -292,7 +292,7 @@ public class ReamlTestActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void testShowViewRecord(){
-        String bId="c97eb25e45aa41508b7f36a772984ef0";
+        String bId="385ca5a9ee1340148ce3977b99e6660b";
         Date startOfMonth=DateFormatUtil.getStartOfMonth("2018","2");
         Date endOfMonth=DateFormatUtil.getEndOfMonth("2018","2");
         ArrayList<RViewModel> rViewModels=new RecordManageBizImpl().showRecordsInAMonth(bId,startOfMonth,endOfMonth);

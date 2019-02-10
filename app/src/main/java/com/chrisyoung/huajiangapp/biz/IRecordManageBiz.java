@@ -1,5 +1,6 @@
 package com.chrisyoung.huajiangapp.biz;
 
+import com.chrisyoung.huajiangapp.domain.CBill;
 import com.chrisyoung.huajiangapp.domain.CRecord;
 import com.chrisyoung.huajiangapp.domain.RViewModel;
 
@@ -15,10 +16,12 @@ public interface IRecordManageBiz {
 
     boolean deleteRecord(String rId);
 
+    boolean fakeDeleteRecord(CRecord record);
+
     CRecord showRecordInformation(String rId);
 
     boolean updateNewRecord(CRecord record);
 
-    boolean addRecord(String bId,CRecord newRecord);
+    boolean addRecord(CBill bill, CRecord newRecord);
 
 }
