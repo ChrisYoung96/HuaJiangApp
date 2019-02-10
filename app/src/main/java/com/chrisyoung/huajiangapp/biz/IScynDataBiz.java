@@ -8,11 +8,11 @@ import com.chrisyoung.huajiangapp.dto.SychronizeDataItem;
 import java.util.LinkedList;
 
  public interface IScynDataBiz {
-    LinkedList<SychronizeDataItem<SBill>> synchronizeBillC2S() ;
+    LinkedList<SychronizeDataItem<SBill>> synchronizeBillC2S(String uId) ;
 
-    LinkedList<SychronizeDataItem<SRecord>> synchronizeRecordC2S() ;
+    LinkedList<SychronizeDataItem<SRecord>> synchronizeRecordC2S(String bId) ;
 
-    LinkedList<SychronizeDataItem<SUserDiy>> synchronizeKindC2S();
+    LinkedList<SychronizeDataItem<SUserDiy>> synchronizeKindC2S(String uId);
 
     boolean synchronizeBillS2C(LinkedList<SBill> bills);
 

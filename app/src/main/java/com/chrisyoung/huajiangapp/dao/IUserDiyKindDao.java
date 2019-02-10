@@ -12,6 +12,8 @@ public interface IUserDiyKindDao {
 
     boolean deleteKind(String kId);
 
+    CUserDiyKind findAKind(String kId);
+
 
     ArrayList<CUserDiyKind> showAllKinds(String uId);
 
