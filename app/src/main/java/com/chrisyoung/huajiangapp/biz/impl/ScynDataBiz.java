@@ -137,7 +137,7 @@ public class ScynDataBiz implements IScynDataBiz {
     }
 
     @Override
-    public boolean synchronizeRecords(LinkedList<SRecord> records) {
+    public boolean synchronizeRecordS2C(LinkedList<SRecord> records) {
         boolean result=false;
         if(records!=null){
             while(!records.isEmpty()){
@@ -169,7 +169,7 @@ public class ScynDataBiz implements IScynDataBiz {
     }
 
     @Override
-    public boolean synchronizeKinds(LinkedList<SUserDiy> kinds) {
+    public boolean synchronizeKindS2C(LinkedList<SUserDiy> kinds) {
         boolean result=false;
         if(kinds!=null){
             while(!kinds.isEmpty()){

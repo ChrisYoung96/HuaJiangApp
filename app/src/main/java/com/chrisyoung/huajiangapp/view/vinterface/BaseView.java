@@ -1,4 +1,4 @@
-package com.chrisyoung.huajiangapp.view;
+package com.chrisyoung.huajiangapp.view.vinterface;
 
 public interface BaseView {
     void showProgressDialog();

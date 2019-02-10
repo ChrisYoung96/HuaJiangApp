@@ -4,4 +4,13 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mingxi">明细</string>
+    <string name="tubiao">图表</string>
+    <string name="zhangben">账本</string>
+    <string name="mine">我的</string>
+    <string name="remeber_code">记住密码</string>
+    <string name="login">登录</string>
+    <string name="password">密码</string>
+    <string name="regist">注册</string>
 </resources>

@@ -1,49 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.MainActivity">
+    tools:context=".view.MainActivity"
+    >
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.457"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.063" />
 
-    <Button
-        android:id="@+id/btnTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Test"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.475"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.188" />
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/tabs_rg"
+        android:layout_marginTop="-56dp" />
 
-    <Button
-        android:id="@+id/btnNetTest"
-        android:layout_width="74dp"
-        android:layout_height="40dp"
-        android:text="NetTest"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498" />
+    <RadioGroup
+        android:id="@+id/tabs_rg"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFDFD"
+        android:orientation="horizontal">
 
-</android.support.constraint.ConstraintLayout>
+        <RadioButton
+            android:id="@+id/today_tab"
+            style="@style/Custom.TabRadioButton"
+            android:checked="true"
+            android:drawableTop="@drawable/tab_records_selector"
+            android:text="@string/mingxi"
+            android:textSize="12sp"/>
+
+        <RadioButton
+            android:id="@+id/record_tab"
+            style="@style/Custom.TabRadioButton"
+            android:drawableTop="@drawable/tab_graph_selector"
+            android:text="@string/tubiao"
+            android:textSize="12sp"/>
+
+        <View style="@style/Custom.TabRadioButton" />
+
+        <RadioButton
+            android:id="@+id/contact_tab"
+            style="@style/Custom.TabRadioButton"
+            android:drawableTop="@drawable/tab_bill_selector"
+            android:text="@string/zhangben"
+            android:textSize="12sp"/>
+
+        <RadioButton
+            android:id="@+id/settings_tab"
+            style="@style/Custom.TabRadioButton"
+            android:drawableTop="@drawable/tab_my_selector"
+            android:text="@string/mine"
+            android:textSize="12sp"/>
+    </RadioGroup>
+
+    <ImageView
+        android:id="@+id/sign_iv"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/transparent"
+        android:src="@mipmap/tab_add_default" />
+</RelativeLayout>

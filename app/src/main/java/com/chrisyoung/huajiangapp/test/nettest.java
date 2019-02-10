@@ -9,11 +9,10 @@ import android.widget.TextView;
 import com.chrisyoung.huajiangapp.R;
 import com.chrisyoung.huajiangapp.network.HttpResult;
 import com.chrisyoung.huajiangapp.presenter.LoginPresenter;
-import com.chrisyoung.huajiangapp.uitils.SharedPreferenceUtil;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
 import com.chrisyoung.huajiangapp.view.BaseActivity;
-import com.chrisyoung.huajiangapp.view.ILoginView;
-import com.chrisyoung.huajiangapp.view.MainActivity;
+import com.chrisyoung.huajiangapp.view.vinterface.ILoginView;
+import com.chrisyoung.huajiangapp.view.TestActivity;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import butterknife.BindView;
@@ -56,7 +55,7 @@ public class nettest extends BaseActivity implements ILoginView {
 
     @Override
     public void jump2MainActivity() {
-        Intent i=new Intent(this,MainActivity.class);
+        Intent i=new Intent(this, TestActivity.class);
         this.startActivity(i);
     }
 

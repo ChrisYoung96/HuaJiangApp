@@ -5,7 +5,7 @@ import android.content.Context;
 import com.chrisyoung.huajiangapp.network.DataManager;
 import com.chrisyoung.huajiangapp.network.HttpResult;
 import com.chrisyoung.huajiangapp.uitils.SharedPreferenceUtil;
-import com.chrisyoung.huajiangapp.view.ILoginView;
+import com.chrisyoung.huajiangapp.view.vinterface.ILoginView;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 

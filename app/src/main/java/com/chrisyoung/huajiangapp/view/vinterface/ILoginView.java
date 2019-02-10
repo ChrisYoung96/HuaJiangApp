@@ -1,4 +1,4 @@
-package com.chrisyoung.huajiangapp.view;
+package com.chrisyoung.huajiangapp.view.vinterface;
 
 import com.chrisyoung.huajiangapp.network.HttpResult;
 

@@ -16,8 +16,8 @@ import java.util.LinkedList;
 
     boolean synchronizeBillS2C(LinkedList<SBill> bills);
 
-    boolean synchronizeRecords(LinkedList<SRecord> records);
+    boolean synchronizeRecordS2C(LinkedList<SRecord> records);
 
-    boolean synchronizeKinds(LinkedList<SUserDiy> kinds);
+    boolean synchronizeKindS2C(LinkedList<SUserDiy> kinds);
 
 }
