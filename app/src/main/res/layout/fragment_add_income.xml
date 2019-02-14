@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.AddCostFragment">
+    <com.flipboard.bottomsheet.BottomSheetLayout
+        android:id="@+id/btsChooseIncomeKind"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/rl_adi_layer1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp">
+
+            <EditText
+                android:id="@+id/txtIncomeMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="35dp"
+                android:background="@null"
+                android:hint="金额"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/ui_txt_income_yuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="134dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="31dp"
+                android:layout_toStartOf="@+id/ui_income_shugang1"
+                android:text="元"
+                android:textColor="#a6a3a3"
+                android:textSize="20sp" />
+
+            <View
+                android:id="@+id/ui_income_shugang1"
+                android:layout_width="1dip"
+                android:layout_height="20dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="43dp"
+                android:layout_marginEnd="21dp"
+                android:layout_toStartOf="@+id/imgIncomeKindImg"
+                android:background="#BBB5B5" />
+
+            <ImageView
+                android:id="@+id/imgIncomeKindImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="3dp"
+                android:layout_toStartOf="@+id/btnChooseIncomeKind"
+                android:src="@mipmap/tab_account_default" />
+
+            <Button
+                android:id="@+id/btnChooseIncomeKind"
+                android:layout_width="40dp"
+                android:layout_height="32dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="31dp"
+                android:layout_marginEnd="5dp"
+                android:layout_toStartOf="@+id/textView6"
+                android:background="@color/qmui_config_color_transparent"
+                android:text="消费"
+                android:textSize="15sp" />
+
+            <View
+                android:id="@+id/ui_income_henggang1"
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_below="@+id/btnChooseIncomeKind"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:background="#BBB5B5" />
+
+            <TextView
+                android:id="@+id/txtIncomeRecordDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ui_income_henggang1"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="27dp"
+                android:text="2019年12月01日"
+                android:textSize="19sp" />
+
+            <com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
+                android:id="@+id/btnChooseIncomeDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ui_income_henggang1"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="21dp"
+                android:layout_toEndOf="@+id/txtIncomeRecordDate"
+                android:background="@color/qmui_config_color_transparent"
+                android:src="@mipmap/calendar" />
+
+            <View
+                android:id="@+id/ui_income_shugang2"
+                android:layout_width="1dip"
+                android:layout_height="20dp"
+                android:layout_below="@id/ui_income_henggang1"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="33dp"
+                android:layout_marginEnd="16dp"
+                android:layout_toEndOf="@+id/btnChooseIncomeDate"
+                android:background="#BBB5B5" />
+
+            <Button
+                android:id="@+id/btnChooseIncomeWay"
+                android:layout_width="60dp"
+                android:layout_height="31dp"
+                android:layout_below="@id/ui_income_henggang1"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@+id/textView5"
+                android:layout_toEndOf="@+id/ui_income_shugang2"
+                android:background="@color/qmui_config_color_transparent"
+                android:text="支付宝" />
+
+            <View
+                android:id="@+id/ui_income_henggang2"
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_below="@+id/btnChooseIncomeWay"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:background="#BBB5B5" />
+
+            <EditText
+                android:id="@+id/txtIncomeRecordDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ui_income_henggang2"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:background="@null"
+                android:hint="备注\n" />
+
+            <View
+                android:id="@+id/ui_income_henggang3"
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_below="@+id/txtIncomeRecordDesc"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:background="#BBB5B5" />
+
+            <Button
+                android:id="@+id/addIncomeRecord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ui_income_henggang3"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="20dp"
+                android:text="添加" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ui_income_henggang1"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="27dp"
+                android:layout_marginEnd="20dp"
+                android:text=" ▼" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="37dp"
+                android:layout_marginEnd="20dp"
+                android:text=" ▼" />
+
+        </RelativeLayout>
+
+    </com.flipboard.bottomsheet.BottomSheetLayout>
+    <!-- TODO: Update blank fragment layout -->
+
+
+
+
+</RelativeLayout>
+
+
+
+
+

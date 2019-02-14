@@ -1,16 +1,19 @@
 package com.chrisyoung.huajiangapp.view;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.View;
+import android.view.Window;
 import android.widget.RadioGroup;
 
 import com.chrisyoung.huajiangapp.R;
+import com.chrisyoung.huajiangapp.uitils.ToastUtil;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ShowRecordFragment.OnFragmentInteractionListener,ChartFragment.OnFragmentInteractionListener,BillFragment.OnFragmentInteractionListener,MineFragment.OnFragmentInteractionListener{
 
     private RadioGroup mTabRadioGroup;
     private SparseArray<Fragment> mFragmentSparseArray;
@@ -18,17 +21,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         initView();
+        ToastUtil.showShort(this,getIntent().getStringExtra("uId"));
     }
 
     private void initView() {
         mTabRadioGroup = findViewById(R.id.tabs_rg);
         mFragmentSparseArray = new SparseArray<>();
-        mFragmentSparseArray.append(R.id.today_tab, BlankFragment.newInstance("今日"));
-        mFragmentSparseArray.append(R.id.record_tab, BlankFragment.newInstance("记录"));
-        mFragmentSparseArray.append(R.id.contact_tab, BlankFragment.newInstance("通讯录"));
-        mFragmentSparseArray.append(R.id.settings_tab, BlankFragment.newInstance("设置"));
+        mFragmentSparseArray.append(R.id.today_tab, ShowRecordFragment.newInstance("今日","llal"));
+        mFragmentSparseArray.append(R.id.record_tab, ChartFragment.newInstance("ddd","ddd"));
+        mFragmentSparseArray.append(R.id.contact_tab, BillFragment.newInstance("通讯录","sdf"));
+        mFragmentSparseArray.append(R.id.settings_tab, MineFragment.newInstance("设置","jkjl"));
         mTabRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -48,4 +53,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }

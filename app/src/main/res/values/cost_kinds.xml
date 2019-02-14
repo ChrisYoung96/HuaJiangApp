@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="canyin">餐饮</string>
+    <string name="zhuanzhang">转账</string>
+    <string name="yule">娱乐</string>
+    <string name="jiaotong">交通</string>
+    <string name="tongxun">通讯</string>
+    <string name="yiliao">医疗</string>
+    <string name="shuma">数码</string>
+    <string name="lingshi">零食</string>
+    <string name="fushi">服饰</string>
+    <string name="meirong">美容</string>
+    <string name="xianhua">鲜花</string>
+    <string name="liwu">礼物</string>
+</resources>

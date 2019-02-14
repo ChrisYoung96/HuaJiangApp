@@ -44,8 +44,8 @@ public class RetrofitHelper {
                     .client(httpClientBuilder.build())
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    //.baseUrl("https://huajiangzhangben.xin:8443/appserver/")
-                    .baseUrl("http://10.0.2.2:8080/")
+                    .baseUrl("https://huajiangzhangben.xin:8443/appserver/")
+                    //.baseUrl("http://10.0.2.2:8080/")
                     .build().create(ApiService.class);
         }
         return service;

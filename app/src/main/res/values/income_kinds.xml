@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gongzi">工资</string>
+    <string name="shenghuofei">生活费</string>
+    <string name="jianzhi">兼职</string>
+    <string name="licai">理财</string>
+</resources>

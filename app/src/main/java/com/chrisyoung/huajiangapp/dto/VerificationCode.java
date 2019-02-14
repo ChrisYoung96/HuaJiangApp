@@ -12,12 +12,11 @@ import java.sql.Time;
 
 public class VerificationCode {
     private String code;
-    private Time createTime;
-    private Time verifyTime;
+    private long createTime;
 
     public VerificationCode(String code) {
-        this.code=code;
-        this.createTime=new Time(System.currentTimeMillis());
+        this.code = code;
+        this.createTime = System.currentTimeMillis();
     }
 
     public String getCode() {
@@ -28,19 +27,11 @@ public class VerificationCode {
         this.code = code;
     }
 
-    public Time getCreateTime() {
+    public long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Time createTime) {
+    public void setCreateTime(long createTime) {
         this.createTime = createTime;
-    }
-
-    public Time getVerifyTime() {
-        return verifyTime;
-    }
-
-    public void setVerifyTime(Time verifyTime) {
-        this.verifyTime = verifyTime;
     }
 }

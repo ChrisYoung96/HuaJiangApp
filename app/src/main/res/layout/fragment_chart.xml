@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ChartFragment">
+
+    <RelativeLayout
+        android:id="@+id/rl_c_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="50dp"
+        android:background="@color/titleBackground">
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ellipsize="marquee"
+            android:gravity="center_horizontal|center"
+            android:singleLine="true"
+            android:text="@string/cost"
+            android:textColor="@color/titleText"
+            android:textSize="20sp" />
+
+
+        <ImageButton
+            android:id="@+id/btnCSwitch"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="19dp"
+            android:layout_marginRight="19dp"
+            android:background="@color/qmui_config_color_transparent"
+            android:src="@mipmap/switcher"
+            android:drawablePadding="6dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:paddingStart="5dp"
+            android:singleLine="true"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_c_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_c_titlebar"
+        android:layout_marginTop="0dp">
+
+        <TextView
+            android:id="@+id/ui_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="116dp"
+            android:layout_toStartOf="@+id/ui_avrg"
+            android:text="收入"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/ui_avrg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="58dp"
+            android:text="平均收入"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txtTotalMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ui_money"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="110dp"
+            android:layout_toStartOf="@+id/txtavrgMoney"
+            android:text="0.00"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/txtavrgMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ui_avrg"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="79dp"
+            android:text="0.00"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="9dp"
+            android:src="@mipmap/calendar" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="52dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="48dp"
+            android:background="@android:color/transparent"
+            android:text="2019年1月▼"
+            android:textAlignment="textStart" />
+
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_c_subtitle">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           >
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lineChart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pieChart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lineChart"/>
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

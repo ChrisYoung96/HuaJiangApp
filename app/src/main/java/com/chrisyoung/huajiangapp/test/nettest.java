@@ -54,7 +54,7 @@ public class nettest extends BaseActivity implements ILoginView {
     }
 
     @Override
-    public void jump2MainActivity() {
+    public void jump2MainActivity(String prapm) {
         Intent i=new Intent(this, TestActivity.class);
         this.startActivity(i);
     }
@@ -79,5 +79,10 @@ public class nettest extends BaseActivity implements ILoginView {
     @Override
     public void showError(String msg) {
         ToastUtil.showShort(this,msg);
+    }
+
+    @Override
+    public void hideErrorDialog() {
+
     }
 }

@@ -76,5 +76,8 @@ public class DataManager {
         return service.sychronizeDiyKindsC2S(token, kinds);
     }
 
+    public Observable<HttpResult<String>> getUid(String token){
+        return service.getUid(token);
+    }
 
 }

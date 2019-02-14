@@ -47,4 +47,9 @@ public class BillManageBiz implements IBillManageBiz {
     public ArrayList<CBill> showAllBills(String uId) {
         return billDao.showAllBills(uId);
     }
+
+    @Override
+    public CBill queryBill(String bId) {
+        return billDao.findBill(bId);
+    }
 }

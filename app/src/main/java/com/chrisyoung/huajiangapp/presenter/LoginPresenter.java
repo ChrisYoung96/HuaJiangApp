@@ -4,20 +4,26 @@ import android.content.Context;
 
 import com.chrisyoung.huajiangapp.network.DataManager;
 import com.chrisyoung.huajiangapp.network.HttpResult;
+import com.chrisyoung.huajiangapp.uitils.NetUtil;
 import com.chrisyoung.huajiangapp.uitils.SharedPreferenceUtil;
 import com.chrisyoung.huajiangapp.view.vinterface.ILoginView;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class LoginPresenter extends BasePresenter {
     private ILoginView loginView;
     private DataManager dataManager;
     private Context context;
+    private String token;
     public LoginPresenter(LifecycleProvider<ActivityEvent> provider, ILoginView loginView, Context context) {
         super(provider);
         this.loginView=loginView;
@@ -26,37 +32,59 @@ public class LoginPresenter extends BasePresenter {
     }
 
     public void getLoginResult(String indentify,String credential){
-        loginView.showProgressDialog();
+        if(NetUtil.isConnected(context)){
+            Observable<HttpResult<String>> getToken=dataManager.login(indentify, credential);
 
-        dataManager.login(indentify, credential)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(getProvider().bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new Observer<HttpResult<String>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
 
-                    }
+            loginView.showProgressDialog();
 
-                    @Override
-                    public void onNext(HttpResult<String> stringHttpResult) {
+            getToken.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnNext(new Consumer<HttpResult<String>>() {
+                        @Override
+                        public void accept(HttpResult<String> result) throws Exception {
+                            token=result.getData();
+                            SharedPreferenceUtil.put(context,"token",token);
 
-                        SharedPreferenceUtil.put(context,"token",stringHttpResult.getData());
-                        loginView.jump2MainActivity();
-                    }
+                        }
+                    })
+                    .observeOn(Schedulers.io())
+                    .flatMap(new Function<HttpResult<String>, ObservableSource<HttpResult<String>>>() {
+                        @Override
+                        public ObservableSource<HttpResult<String>> apply(HttpResult<String> result) throws Exception {
+                            return dataManager.getUid(token);
+                        }
+                    })
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<HttpResult<String>>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
-                    @Override
-                    public void onError(Throwable e) {
-                        loginView.showError(e.getMessage());
-                        loginView.hideProgressDialog();
+                        }
 
-                    }
+                        @Override
+                        public void onNext(HttpResult<String> result) {
+                            String uId=result.getData();
+                            SharedPreferenceUtil.put(context,"uId",uId);
+                            loginView.hideProgressDialog();
+                            loginView.jump2MainActivity(uId);
+                        }
 
-                    @Override
-                    public void onComplete() {
-                        loginView.hideProgressDialog();
+                        @Override
+                        public void onError(Throwable e) {
+                            loginView.showError(e.getMessage());
+                        }
 
-                    }
-                });
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+
+
+        }else {
+            loginView.showError("网络未连接");
+        }
+
     }
 }

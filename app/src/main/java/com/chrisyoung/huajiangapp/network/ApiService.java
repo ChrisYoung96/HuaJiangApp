@@ -63,6 +63,9 @@ public interface ApiService {
     @POST("sychdata/diykindsc2s")
     Observable<HttpResult<String>> sychronizeDiyKindsC2S(@Header("Authorization") String token,@Body LinkedList<SychronizeDataItem<SUserDiy>> kinds);
 
+    @GET("usr/getuid")
+    Observable<HttpResult<String>> getUid(@Header("Authorization") String token);
+
 
 
 

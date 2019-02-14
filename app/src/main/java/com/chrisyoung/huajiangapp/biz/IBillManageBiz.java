@@ -16,4 +16,6 @@ public interface IBillManageBiz {
 
     ArrayList<CBill> showAllBills(String uId);
 
+    CBill queryBill(String bId);
+
 }

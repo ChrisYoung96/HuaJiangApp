@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:icon="@mipmap/calendar"
+        android:title="@string/canyin"/>
+    <item
+        android:icon="@mipmap/calendar"
+        android:title="@string/fushi"/>
+    <item
+        android:icon="@mipmap/calendar"
+        android:title="@string/jiaotong"/>
+    <item
+        android:icon="@mipmap/calendar"
+        android:title="@string/tongxun"/>
+    <item
+        android:icon="@mipmap/calendar"
+        android:title="@string/shuma"/>
+    <item
+        android:icon="@mipmap/calendar"
+        android:title="@string/yule"/>
+
+</menu>

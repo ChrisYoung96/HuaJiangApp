@@ -1,6 +1,8 @@
 package com.chrisyoung.huajiangapp.dto;
 
 
+import com.chrisyoung.huajiangapp.uitils.UUIDUtils;
+
 import java.util.UUID;
 
 public class UserAuths {
@@ -15,6 +17,7 @@ public class UserAuths {
 
   public UserAuths(){
     this.uId=UUID.randomUUID().toString().replace("-","");
+    this.uaId=UUIDUtils.getUUID();
     this.identityType="";
     this.identify="";
     this.credential="";
