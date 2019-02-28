@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ModifyBillActivity">
+    <RelativeLayout
+        android:id="@+id/rl_mr_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="0dp"
+        android:background="@color/titleBackground">
+
+        <TextView
+            android:id="@+id/text_mr_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ellipsize="marquee"
+            android:gravity="center_horizontal|center"
+            android:singleLine="true"
+            android:text="@string/添加账本"
+            android:textColor="@color/titleText"
+            android:textSize="20dp" />
+
+
+        <ImageButton
+            android:id="@+id/btnBack2ShowBill"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:drawablePadding="6dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:background="@color/qmui_config_color_transparent"
+            android:singleLine="true"
+            android:src="@mipmap/back"
+            android:textSize="18sp"
+             />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/ui_mr_layer1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_below="@+id/rl_mr_titlebar">
+        <TextView
+            android:id="@+id/ui_txt_billname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zhangbenmingcheng"
+            android:textSize="19sp"/>
+        <EditText
+            android:id="@+id/txtBillName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/ui_txt_billname"
+            android:layout_marginStart="5dp"
+            android:textSize="19sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ui_mr_layer2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_below="@+id/ui_mr_layer1">
+        <TextView
+            android:id="@+id/ui_txt_billdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:text="@string/chuangjianshijian"
+            android:textSize="19sp"/>
+        <TextView
+            android:id="@+id/txtBillDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="19sp"
+            android:text="2019年12月02日"
+            android:layout_toEndOf="@+id/ui_txt_billdate"
+            android:layout_marginStart="5dp"/>
+        <ImageButton
+            android:id="@+id/btnChooseBillDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/txtBillDate"
+            android:layout_marginStart="10dp"
+            android:background="@color/qmui_config_color_transparent"
+            android:src="@mipmap/calendar"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/ui_mr_layer3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_below="@+id/ui_mr_layer2">
+        <TextView
+            android:id="@+id/ui_txt_billdesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="备        注"
+            android:textSize="19sp"/>
+        <EditText
+            android:id="@+id/txtBillDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/ui_txt_billdesc"
+            android:layout_marginStart="5dp"
+            android:textSize="19sp"/>
+    </RelativeLayout>
+    <Button
+        android:id="@+id/btnAddBill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ui_mr_layer3"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/保存"/>
+
+
+
+</RelativeLayout>

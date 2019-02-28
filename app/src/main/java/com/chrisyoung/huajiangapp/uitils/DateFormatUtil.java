@@ -64,11 +64,35 @@ public class DateFormatUtil {
         String sd=year+"-"+month+"-01 00:00:00";
         return stringtoDateAndTime(sd);
     }
+    public static Date getStartOfMonth(long millseconds){
+        String sd=dateToString(new Date(millseconds));
+        sd +=" 00:00:00";
+        return stringtoDateAndTime(sd);
+    }
+
 
     public static Date getEndOfMonth(String year,String month) {
         String sd = year + "-" + month + "-" + getDay(year, month) + " 23:59:59";
         return stringtoDateAndTime(sd);
     }
+
+    public static Date getEndOfMonth(long millseconds){
+        String sd=dateToString(new Date(millseconds));
+        String year=sd.substring(0,4);
+        String month=sd.substring(5,7);
+        sd = year + "-" + month + "-" + getDay(year, month) + " 23:59:59";
+        return stringtoDateAndTime(sd);
+    }
+
+    public static String getYearAndMonth(long millseconds){
+        String sd=dateToString(new Date(millseconds));
+        String year=sd.substring(0,4);
+        String month=sd.substring(5,7);
+        sd = year + "年" + month + "月" + getDay(year, month);
+        return sd;
+
+    }
+
 
     public static Date getStartOfDay(Date day){
         String sd=dateToString(day)+" 00:00:00";
@@ -84,6 +108,7 @@ public class DateFormatUtil {
         String temp=dateAndTimeToString(ldate);
         return stringToDate(temp);
     }
+
 
 
 

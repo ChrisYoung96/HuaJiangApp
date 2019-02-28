@@ -112,16 +112,13 @@
 
 
     </RelativeLayout>
-
-
-
-    <com.daimajia.swipe.SwipeLayout
+    <ListView
+        android:id="@+id/recordModelListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/rl_r_subtitle">
+        android:layout_below="@+id/rl_r_subtitle"
+        android:layout_height="wrap_content">
 
-    </com.daimajia.swipe.SwipeLayout>
-
+    </ListView>
 
 </RelativeLayout>
 

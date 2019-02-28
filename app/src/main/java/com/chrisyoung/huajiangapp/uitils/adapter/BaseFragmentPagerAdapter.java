@@ -1,4 +1,4 @@
-package com.chrisyoung.huajiangapp.uitils;
+package com.chrisyoung.huajiangapp.uitils.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

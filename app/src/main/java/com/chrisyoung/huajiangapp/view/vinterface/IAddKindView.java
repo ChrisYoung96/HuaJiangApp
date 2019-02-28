@@ -1,4 +1,4 @@
 package com.chrisyoung.huajiangapp.view.vinterface;
 
-public class IAddKindView {
+public interface IAddKindView {
 }

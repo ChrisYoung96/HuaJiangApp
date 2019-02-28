@@ -16,12 +16,10 @@ public class AddCostRecordPresenter {
     private IAddCostRecordView addCostRecordView;
     private IRecordManageBiz recordManageBiz;
     private IBillManageBiz billManageBiz;
-    private Context context;
     private CRecord record;
 
-    public AddCostRecordPresenter(IAddCostRecordView view,Context context){
+    public AddCostRecordPresenter(IAddCostRecordView view){
         this.addCostRecordView=view;
-        this.context=context;
         recordManageBiz=new RecordManageBizImpl();
         billManageBiz=new BillManageBiz();
 

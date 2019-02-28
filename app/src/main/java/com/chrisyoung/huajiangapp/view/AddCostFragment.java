@@ -74,7 +74,7 @@ public class AddCostFragment extends BaseFragment implements IAddCostRecordView,
 
     private OnFragmentInteractionListener mListener;
 
-    private AddCostRecordPresenter presenter=new AddCostRecordPresenter(this,getContext());
+    private AddCostRecordPresenter presenter=new AddCostRecordPresenter(this);
 
     public AddCostFragment() {
         // Required empty public constructor
@@ -102,8 +102,8 @@ public class AddCostFragment extends BaseFragment implements IAddCostRecordView,
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            bId = getArguments().getString(ARG_PARAM1);
-            rType = getArguments().getString(ARG_PARAM2);
+            rType = getArguments().getString(ARG_PARAM1);
+            bId = getArguments().getString(ARG_PARAM2);
         }
     }
 

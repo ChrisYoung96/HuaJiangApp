@@ -102,8 +102,8 @@ public class AddIncomeFragment extends BaseFragment implements IAddIncomeRecordV
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            bId = getArguments().getString(ARG_PARAM1);
-            rType = getArguments().getString(ARG_PARAM2);
+            rType = getArguments().getString(ARG_PARAM1);
+            bId = getArguments().getString(ARG_PARAM2);
         }
     }
 
