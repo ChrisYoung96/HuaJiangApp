@@ -15,7 +15,7 @@ import com.chrisyoung.huajiangapp.R;
 import com.chrisyoung.huajiangapp.uitils.SharedPreferenceUtil;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
 
-public class MainActivity extends BaseActivity implements ShowRecordFragment.OnFragmentInteractionListener,ChartFragment.OnFragmentInteractionListener,BillFragment.OnFragmentInteractionListener,MineFragment.OnFragmentInteractionListener{
+public class MainActivity extends BaseActivity implements ShowRecordFragment.OnFragmentInteractionListener,ChartFragment.OnFragmentInteractionListener,BillFragment.OnFragmentInteractionListener,MineFragment.OnFragmentInteractionListener,StatisticsCostView.OnFragmentInteractionListener,StatisticsIncomeView.OnFragmentInteractionListener{
 
     private RadioGroup mTabRadioGroup;
     private SparseArray<Fragment> mFragmentSparseArray;
@@ -45,7 +45,7 @@ public class MainActivity extends BaseActivity implements ShowRecordFragment.OnF
         mTabRadioGroup = findViewById(R.id.tabs_rg);
         mFragmentSparseArray = new SparseArray<>();
         mFragmentSparseArray.append(R.id.today_tab, ShowRecordFragment.newInstance(curBId,uId));
-        mFragmentSparseArray.append(R.id.record_tab, ChartFragment.newInstance(curBId,"dd"));
+        mFragmentSparseArray.append(R.id.record_tab, ChartFragment.newInstance(uId,curBId));
         mFragmentSparseArray.append(R.id.contact_tab, BillFragment.newInstance(uId,"sdf"));
         mFragmentSparseArray.append(R.id.settings_tab, MineFragment.newInstance("设置","jkjl"));
         mTabRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

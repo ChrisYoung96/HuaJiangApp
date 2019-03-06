@@ -7,14 +7,14 @@
     tools:context=".view.ChartFragment">
 
     <RelativeLayout
-        android:id="@+id/rl_c_titlebar"
+        android:id="@+id/rl_sv_titlebar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="50dp"
         android:background="@color/titleBackground">
 
         <TextView
-            android:id="@+id/text_title"
+            android:id="@+id/text_sv_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ellipsize="marquee"
@@ -26,7 +26,7 @@
 
 
         <ImageButton
-            android:id="@+id/btnCSwitch"
+            android:id="@+id/btnSvSwitch"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentEnd="true"
@@ -45,98 +45,21 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_c_subtitle"
+    <com.qmuiteam.qmui.widget.QMUITabSegment
+        android:id="@+id/tabStatisticsSegment"
+        android:layout_below="@+id/rl_sv_titlebar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_c_titlebar"
-        android:layout_marginTop="0dp">
+        android:layout_height="40dp"
+        android:background="#ffffff"
+        />
 
-        <TextView
-            android:id="@+id/ui_money"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="116dp"
-            android:layout_toStartOf="@+id/ui_avrg"
-            android:text="收入"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/ui_avrg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="58dp"
-            android:text="平均收入"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/txtTotalMoney"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ui_money"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="110dp"
-            android:layout_toStartOf="@+id/txtavrgMoney"
-            android:text="0.00"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/txtavrgMoney"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ui_avrg"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="79dp"
-            android:text="0.00"
-            android:textSize="20sp" />
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="9dp"
-            android:src="@mipmap/calendar" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="52dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="48dp"
-            android:background="@android:color/transparent"
-            android:text="2019年1月▼"
-            android:textAlignment="textStart" />
-
-
-    </RelativeLayout>
-
-
-    <ScrollView
+    <android.support.v4.view.ViewPager
+        android:id="@+id/contentStatisticsViewPager"
+        android:layout_below="@+id/tabStatisticsSegment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/rl_c_subtitle">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-           >
-
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/lineChart"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/pieChart"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/lineChart"/>
-
-
-        </RelativeLayout>
-    </ScrollView>
+        android:background="#FFFFFF"
+        />
 
 
 </RelativeLayout>

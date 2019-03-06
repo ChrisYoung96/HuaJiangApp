@@ -65,7 +65,7 @@ public class ShowRecordFragment extends BaseFragment implements OnDateSetListene
     ImageButton btnRSwitch;
     @BindView(R.id.btnChooseDate)
     Button btnChooseDate;
-    private Layout title;
+
     TimePickerDialog mDialogYearMonth;
 
     private ArrayList<RViewModel> records;

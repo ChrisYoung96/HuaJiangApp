@@ -1,37 +1,93 @@
 package com.chrisyoung.huajiangapp.view;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.chrisyoung.huajiangapp.R;
+import com.chrisyoung.huajiangapp.domain.CBill;
+import com.chrisyoung.huajiangapp.presenter.ChartPresenter;
+import com.chrisyoung.huajiangapp.presenter.RecordPresenter;
+import com.chrisyoung.huajiangapp.uitils.adapter.BaseFragmentPagerAdapter;
+import com.chrisyoung.huajiangapp.view.vinterface.IChartView;
+import com.qmuiteam.qmui.util.QMUIDisplayHelper;
+import com.qmuiteam.qmui.widget.QMUITabSegment;
+import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
+
+import java.util.ArrayList;
+import java.util.Objects;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ChartFragment.OnFragmentInteractionListener} interface
+ * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link ChartFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ChartFragment extends BaseFragment {
+public class ChartFragment extends BaseFragment implements IChartView {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    @BindView(R.id.text_sv_title)
+    TextView textSvTitle;
+    @BindView(R.id.btnSvSwitch)
+    ImageButton btnSvSwitch;
+    @BindView(R.id.tabStatisticsSegment)
+    QMUITabSegment tabStatisticsSegment;
+    @BindView(R.id.contentStatisticsViewPager)
+    ViewPager contentStatisticsViewPager;
+    Unbinder unbinder;
+
+    StatisticsCostView statisticsCostView;
+    StatisticsIncomeView statisticsIncomeView;
+    ArrayList<android.support.v4.app.Fragment> fragments=new ArrayList<>();
+    BaseFragmentPagerAdapter baseFragmentPagerAdapter;
+
+    ChartPresenter chartPresenter;
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String uId;
+    private String curBId;
 
     private OnFragmentInteractionListener mListener;
 
     public ChartFragment() {
         // Required empty public constructor
+    }
+
+
+    private void init(){
+        statisticsCostView=StatisticsCostView.newInstance(curBId,"支出");
+        statisticsIncomeView=StatisticsIncomeView.newInstance(curBId,"收入");
+        fragments.add(statisticsCostView);
+        fragments.add(statisticsIncomeView);
+        baseFragmentPagerAdapter=new BaseFragmentPagerAdapter(getFragmentManager(),fragments);
+        contentStatisticsViewPager.setAdapter(baseFragmentPagerAdapter);
+        tabStatisticsSegment.addTab(new QMUITabSegment.Tab("支出"));
+        tabStatisticsSegment.addTab(new QMUITabSegment.Tab("收入"));
+        int space = QMUIDisplayHelper.dp2px(Objects.requireNonNull(getContext()), 16);
+        tabStatisticsSegment.setHasIndicator(true);
+        tabStatisticsSegment.setIndicatorWidthAdjustContent(true);
+        tabStatisticsSegment.setMode(QMUITabSegment.MODE_FIXED);
+        tabStatisticsSegment.setItemSpaceInScrollMode(space);
+        tabStatisticsSegment.setupWithViewPager(contentStatisticsViewPager, false);
+        tabStatisticsSegment.setPadding(space, 0, space, 0);
+        chartPresenter=new ChartPresenter(this);
+
     }
 
     /**
@@ -56,8 +112,9 @@ public class ChartFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            uId = getArguments().getString(ARG_PARAM1);
+            curBId = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
@@ -65,7 +122,10 @@ public class ChartFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chart, container, false);
+        View view = inflater.inflate(R.layout.fragment_chart, container, false);
+        unbinder = ButterKnife.bind(this, view);
+        init();
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -92,6 +152,47 @@ public class ChartFragment extends BaseFragment {
         mListener = null;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @OnClick(R.id.btnSvSwitch)
+    public void onViewClicked() {
+        chartPresenter.showBillList(uId);
+    }
+
+
+
+    @Override
+    public void showBillList(ArrayList<CBill> bills) {
+        QMUIBottomSheet.BottomListSheetBuilder bottomSheetBuilder=new QMUIBottomSheet.BottomListSheetBuilder(getActivity());
+        if(bills!=null && !bills.isEmpty()){
+            for (CBill b:bills
+                    ) {
+                bottomSheetBuilder.addItem(b.getbName(),b.getbId());
+            }
+            bottomSheetBuilder.setOnSheetItemClickListener(new QMUIBottomSheet.BottomListSheetBuilder.OnSheetItemClickListener() {
+                @Override
+                public void onClick(QMUIBottomSheet dialog, View itemView, int position, String tag) {
+                    dialog.dismiss();
+                    curBId=bills.get(position).getbId();
+                    textSvTitle.setText(bills.get(position).getbName());
+                    statisticsCostView.refresh(curBId);
+                    statisticsIncomeView.refresh(curBId);
+                }
+            });
+            bottomSheetBuilder.build().show();
+        }
+    }
+
+    @Override
+    public void showResult(String result) {
+
+    }
+
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -105,5 +206,9 @@ public class ChartFragment extends BaseFragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public interface OnBillChanageListener{
+        void refresh(String bId);
     }
 }
