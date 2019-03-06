@@ -29,7 +29,8 @@
             android:name=".view.AddRecordActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".test.ReamlTestActivity" />
-        <activity android:name=".view.ModifyBillActivity"></activity>
+        <activity android:name=".view.ModifyBillActivity" />
+        <activity android:name=".view.ModifyRecordActivity"></activity>
     </application>
 
 </manifest>

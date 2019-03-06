@@ -10,14 +10,15 @@ import android.widget.ImageButton;
 
 import com.chrisyoung.huajiangapp.R;
 import com.chrisyoung.huajiangapp.presenter.RegistPresenter;
-import com.chrisyoung.huajiangapp.view.vinterface.IRegisterView;
+import com.chrisyoung.huajiangapp.uitils.ToastUtil;
+import com.chrisyoung.huajiangapp.view.vinterface.IRegisterInternetView;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RegisterActivity extends BaseActivity implements IRegisterView {
+public class RegisterActivity extends BaseActivity implements IRegisterInternetView {
 
     @BindView(R.id.btbReBack)
     ImageButton btbReBack;
@@ -117,4 +118,8 @@ public class RegisterActivity extends BaseActivity implements IRegisterView {
     }
 
 
+    @Override
+    public void showResult(String result) {
+        ToastUtil.showShort(this, result);
+    }
 }

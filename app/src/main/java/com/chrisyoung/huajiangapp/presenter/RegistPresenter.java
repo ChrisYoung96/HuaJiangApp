@@ -7,28 +7,26 @@ import com.chrisyoung.huajiangapp.dto.VerificationCode;
 import com.chrisyoung.huajiangapp.network.DataManager;
 import com.chrisyoung.huajiangapp.network.HttpResult;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
-import com.chrisyoung.huajiangapp.view.vinterface.IRegisterView;
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+import com.chrisyoung.huajiangapp.view.vinterface.IRegisterInternetView;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import java.sql.Time;
 
-import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class RegistPresenter extends BasePresenter{
-    private IRegisterView registerView;
+    private IRegisterInternetView registerView;
     private Context context;
     private UserAuths auths;
     private DataManager dataManager;
     private VerificationCode code;
 
 
-    public RegistPresenter(LifecycleProvider<ActivityEvent> provider, Context context, IRegisterView registerView) {
+    public RegistPresenter(LifecycleProvider<ActivityEvent> provider, Context context, IRegisterInternetView registerView) {
         super(provider);
         this.registerView=registerView;
         this.context=context;

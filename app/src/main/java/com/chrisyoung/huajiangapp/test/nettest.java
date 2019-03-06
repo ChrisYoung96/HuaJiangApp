@@ -11,7 +11,7 @@ import com.chrisyoung.huajiangapp.network.HttpResult;
 import com.chrisyoung.huajiangapp.presenter.LoginPresenter;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
 import com.chrisyoung.huajiangapp.view.BaseActivity;
-import com.chrisyoung.huajiangapp.view.vinterface.ILoginView;
+import com.chrisyoung.huajiangapp.view.vinterface.ILoginInternetView;
 import com.chrisyoung.huajiangapp.view.TestActivity;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
@@ -19,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class nettest extends BaseActivity implements ILoginView {
+public class nettest extends BaseActivity implements ILoginInternetView {
 
     @BindView(R.id.btnTestLogin)
     Button btnTestLogin;
@@ -59,10 +59,7 @@ public class nettest extends BaseActivity implements ILoginView {
         this.startActivity(i);
     }
 
-    @Override
-    public void showResult(HttpResult<String> result) {
 
-    }
 
     @Override
     public void showProgressDialog() {
@@ -83,6 +80,11 @@ public class nettest extends BaseActivity implements ILoginView {
 
     @Override
     public void hideErrorDialog() {
+
+    }
+
+    @Override
+    public void showResult(String result) {
 
     }
 }

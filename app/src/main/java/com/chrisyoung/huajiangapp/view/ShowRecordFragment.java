@@ -14,12 +14,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.chrisyoung.huajiangapp.R;
-import com.chrisyoung.huajiangapp.domain.CRecord;
+import com.chrisyoung.huajiangapp.domain.CBill;
 import com.chrisyoung.huajiangapp.domain.RViewModel;
 import com.chrisyoung.huajiangapp.presenter.RecordPresenter;
 import com.chrisyoung.huajiangapp.uitils.DateFormatUtil;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
-import com.chrisyoung.huajiangapp.uitils.adapter.ShowRecordListViewAdapter;
 import com.chrisyoung.huajiangapp.uitils.adapter.ShowRecordModleListViewAdapter;
 import com.chrisyoung.huajiangapp.view.vinterface.IRecordsView;
 import com.chrisyoung.huajiangapp.view.vinterface.OnViewGenerateListener;
@@ -29,7 +28,10 @@ import com.daimajia.swipe.SwipeLayout;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
+import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -72,7 +74,7 @@ public class ShowRecordFragment extends BaseFragment implements OnDateSetListene
 
     // TODO: Rename and change types of parameters
     private String bId;
-    private String mParam2;
+    private String uId;
     private String curMonth;
     private SwipeLayout swipeLayout;
     @BindView(R.id.recordModelListView)
@@ -124,7 +126,7 @@ public class ShowRecordFragment extends BaseFragment implements OnDateSetListene
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             bId = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            uId = getArguments().getString(ARG_PARAM2);
             recordPresenter = new RecordPresenter(this);
         }
 
@@ -136,6 +138,7 @@ public class ShowRecordFragment extends BaseFragment implements OnDateSetListene
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_show_record, container, false);
         unbinder = ButterKnife.bind(this, rootView);
+        //init();
         return rootView;
     }
 
@@ -184,8 +187,10 @@ public class ShowRecordFragment extends BaseFragment implements OnDateSetListene
 
     @Override
     public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
+        txtTotalCost.setText("");
+        txtTotalIncome.setText("");
+        btnChooseDate.setText("");
         month = millseconds;
-
         btnChooseDate.setText(DateFormatUtil.dateToString(new Date(millseconds)).substring(0, 4) + "年" + DateFormatUtil.dateToString(new Date(millseconds)).substring(5, 7) + "月▼");
         refresh(month);
 
@@ -197,9 +202,13 @@ public class ShowRecordFragment extends BaseFragment implements OnDateSetListene
         }
 
         records = recordPresenter.showRecords(bId, millseconds);
-        adapter = new ShowRecordModleListViewAdapter(records, getContext(), this);
-        adapter.notifyDataSetChanged();
-        listView.setAdapter(adapter);
+        if(records!=null && !records.isEmpty()){
+            adapter = new ShowRecordModleListViewAdapter(records, getContext(), this);
+            adapter.notifyDataSetChanged();
+            listView.setAdapter(adapter);
+        }else{
+            ToastUtil.showShort(getContext(),"当月账本中还没有记录呦！");
+        }
 
 
     }
@@ -208,9 +217,9 @@ public class ShowRecordFragment extends BaseFragment implements OnDateSetListene
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_r_switch:
+                recordPresenter.showBillList(uId);
                 break;
             case R.id.btnChooseDate:
-                btnChooseDate.setText("");
                 initDatePicker();
                 break;
         }
@@ -269,6 +278,39 @@ public class ShowRecordFragment extends BaseFragment implements OnDateSetListene
     @Override
     public void showResult(String msg) {
         ToastUtil.showShort(getContext(), msg);
+    }
+
+    @Override
+    public void showTotalIncome(BigDecimal num) {
+        DecimalFormat df1 = new DecimalFormat("0.00");
+        txtTotalIncome.setText(df1.format(num));
+    }
+
+    @Override
+    public void showTotalCost(BigDecimal num) {
+        DecimalFormat df1 = new DecimalFormat("0.00");
+        txtTotalCost.setText(df1.format(num));
+    }
+
+    @Override
+    public void showBillList(ArrayList<CBill> bills) {
+        QMUIBottomSheet.BottomListSheetBuilder bottomSheetBuilder=new QMUIBottomSheet.BottomListSheetBuilder(getActivity());
+        if(bills!=null && !bills.isEmpty()){
+            for (CBill b:bills
+                 ) {
+                bottomSheetBuilder.addItem(b.getbName(),b.getbId());
+            }
+            bottomSheetBuilder.setOnSheetItemClickListener(new QMUIBottomSheet.BottomListSheetBuilder.OnSheetItemClickListener() {
+                @Override
+                public void onClick(QMUIBottomSheet dialog, View itemView, int position, String tag) {
+                    dialog.dismiss();
+                    bId=tag;
+                    textRTitle.setText(bills.get(position).getbName());
+                    refresh(System.currentTimeMillis());
+                }
+            });
+            bottomSheetBuilder.build().show();
+        }
     }
 
 

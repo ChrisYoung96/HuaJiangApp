@@ -1,6 +1,5 @@
 package com.chrisyoung.huajiangapp.view;
 
-import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
@@ -15,10 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chrisyoung.huajiangapp.R;
+import com.chrisyoung.huajiangapp.domain.CRecord;
 import com.chrisyoung.huajiangapp.presenter.AddIncomeRecordPresenter;
 import com.chrisyoung.huajiangapp.uitils.DateFormatUtil;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
-import com.chrisyoung.huajiangapp.view.vinterface.IAddIncomeRecordView;
+import com.chrisyoung.huajiangapp.view.vinterface.IAddOrModifyRecordView;
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.flipboard.bottomsheet.commons.MenuSheetView;
 import com.jzxiang.pickerview.TimePickerDialog;
@@ -41,7 +41,7 @@ import butterknife.Unbinder;
  * Use the {@link AddIncomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddIncomeFragment extends BaseFragment implements IAddIncomeRecordView ,OnDateSetListener {
+public class AddIncomeFragment extends BaseFragment implements IAddOrModifyRecordView,OnDateSetListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -72,7 +72,7 @@ public class AddIncomeFragment extends BaseFragment implements IAddIncomeRecordV
 
 
     TimePickerDialog mDialogYearMonth;
-    AddIncomeRecordPresenter presenter=new AddIncomeRecordPresenter(this,getContext());
+    AddIncomeRecordPresenter presenter=new AddIncomeRecordPresenter(this);
 
     private OnFragmentInteractionListener mListener;
 
@@ -208,14 +208,14 @@ public class AddIncomeFragment extends BaseFragment implements IAddIncomeRecordV
 
     private void showDatePicker() {
         mDialogYearMonth = new TimePickerDialog.Builder()
-                .setType(Type.YEAR_MONTH_DAY)
+                .setType(Type.ALL)
                 .setThemeColor(getContext().getColor(R.color.titleBackground))
                 .setTitleStringId("选择日期")
                 .setCallBack(this)
                 .setWheelItemTextNormalColorId(getContext().getColor(R.color.timepickerbackground))
                 .build();
         assert this.getFragmentManager() != null;
-        mDialogYearMonth.show(this.getFragmentManager(), "year_month");
+        mDialogYearMonth.show(this.getFragmentManager(), "All");
     }
 
 
@@ -228,11 +228,7 @@ public class AddIncomeFragment extends BaseFragment implements IAddIncomeRecordV
         showChoosCostWayMenuAndChoose(MenuSheetView.MenuType.LIST);
     }
 
-    @Override
-    public void showAddResult(String result) {
-        ToastUtil.showShort(getContext(), result);
 
-    }
 
     @Override
     public void cleareText() {
@@ -243,11 +239,26 @@ public class AddIncomeFragment extends BaseFragment implements IAddIncomeRecordV
     }
 
     @Override
+    public void showRecord(CRecord cRecord) {
+
+    }
+
+    @Override
+    public void jump2MainActivity() {
+
+    }
+
+    @Override
     public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
         Date date = new Date(millseconds);
-        String s = DateFormatUtil.dateToString(date).substring(0, 4) + "年" + DateFormatUtil.dateToString(date).substring(5, 7) + "月" + DateFormatUtil.dateToString(date).substring(8, 10) + "日";
+        String s =DateFormatUtil.dateAndTimeToString(date);
         txtIncomeRecordDate.setText(s);
 
+    }
+
+    @Override
+    public void showResult(String result) {
+        ToastUtil.showShort(getContext(), result);
     }
 
     /**

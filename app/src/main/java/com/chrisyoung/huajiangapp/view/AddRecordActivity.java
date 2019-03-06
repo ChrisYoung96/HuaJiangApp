@@ -40,14 +40,14 @@ public class AddRecordActivity extends FragmentActivity implements AddCostFragme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_record);
         ButterKnife.bind(this);
-        uId = getIntent().getStringExtra("uId");
-        bId = getIntent().getStringExtra("curBId");
-        addIncomeFragment = AddIncomeFragment.newInstance("收入", bId);
-        addCostFragment = AddCostFragment.newInstance("支出", bId);
         init();
     }
 
     private void init() {
+        uId = getIntent().getStringExtra("uId");
+        bId = getIntent().getStringExtra("curBId");
+        addIncomeFragment = AddIncomeFragment.newInstance("收入", bId);
+        addCostFragment = AddCostFragment.newInstance("支出", bId);
         fragments.add(addCostFragment);
         fragments.add(addIncomeFragment);
         baseFragmentPagerAdapter = new BaseFragmentPagerAdapter(getSupportFragmentManager(), fragments);

@@ -160,7 +160,7 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
                 .between("rTime", monthStart, monthEnd)
                 .equalTo("rType", type)
                 .findAll();
-        return (Double) records.sum("rMoney");
+        return records.sum("rMoney").doubleValue();
     }
 
     @Override

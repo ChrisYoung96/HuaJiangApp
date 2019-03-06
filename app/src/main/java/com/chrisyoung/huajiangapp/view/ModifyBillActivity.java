@@ -89,6 +89,7 @@ public class ModifyBillActivity extends BaseActivity implements IAddBillView,OnD
         switch (view.getId()) {
             case R.id.btnBack2ShowBill:
                 startActivity(new Intent(this, MainActivity.class));
+                this.finish();
                 break;
             case R.id.btnChooseBillDate:
                 showDatePicker();
@@ -97,9 +98,11 @@ public class ModifyBillActivity extends BaseActivity implements IAddBillView,OnD
                 if(action==StatusCode.INSERT){
                     addBill();
                     startActivity(new Intent(this, MainActivity.class));
+                    this.finish();
                 }else{
                     updateBill();
                     startActivity(new Intent(this, MainActivity.class));
+                    this.finish();
                 }
                 break;
         }

@@ -22,9 +22,14 @@ public class RecordManageBizImpl implements IRecordManageBiz {
     }
 
     @Override
+    public CRecord getRecord(String rId) {
+        return recordDao.showARecord(rId);
+    }
+
+    @Override
     public ArrayList<RViewModel> showRecordsInAMonth(String bId, Date start, Date end) {
         ArrayList<CRecord> records = recordDao.showRecordsByMonth(bId,start,end);
-        if (records != null) {
+        if (records != null && !records.isEmpty()) {
             Date temp = DateFormatUtil.stringToDate("1900-01-01");
             RViewModel rViewModel = new RViewModel();
             for (CRecord r : records

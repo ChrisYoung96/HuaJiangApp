@@ -16,16 +16,15 @@ import com.chrisyoung.huajiangapp.presenter.LoginPresenter;
 import com.chrisyoung.huajiangapp.uitils.EditTextClearTools;
 import com.chrisyoung.huajiangapp.uitils.SharedPreferenceUtil;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
-import com.chrisyoung.huajiangapp.view.vinterface.ILoginView;
+import com.chrisyoung.huajiangapp.view.vinterface.ILoginInternetView;
 import com.qmuiteam.qmui.layout.QMUIButton;
-import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends BaseActivity implements ILoginView {
+public class LoginActivity extends BaseActivity implements ILoginInternetView {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -100,11 +99,6 @@ public class LoginActivity extends BaseActivity implements ILoginView {
         startActivity(intent);
     }
 
-    @Override
-    public void showResult(HttpResult<String> result) {
-        ToastUtil.showShort(this,result.getMsg());
-
-    }
 
     @Override
     public void showProgressDialog() {
@@ -130,5 +124,10 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     @Override
     public void hideErrorDialog() {
         edialog.hide();
+    }
+
+    @Override
+    public void showResult(String result) {
+        ToastUtil.showShort(this, result);
     }
 }

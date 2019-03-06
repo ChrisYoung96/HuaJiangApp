@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public interface IRecordManageBiz {
+    CRecord getRecord(String rId);
+
     ArrayList<RViewModel> showRecordsInAMonth(String bId, Date start, Date end);
 
     Double getTotalCostInAMonth(String bId,Date monthStart,Date monthEnd);

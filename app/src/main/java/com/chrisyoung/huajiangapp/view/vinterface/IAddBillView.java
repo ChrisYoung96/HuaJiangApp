@@ -1,7 +1,6 @@
 package com.chrisyoung.huajiangapp.view.vinterface;
 
-public interface IAddBillView {
-    void showResult(String result);
+public interface IAddBillView extends BaseView {
 
     void resetUI();
 }

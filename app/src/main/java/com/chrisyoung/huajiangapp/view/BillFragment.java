@@ -160,7 +160,7 @@ public class BillFragment extends BaseFragment implements IAddBillView ,OnViewGe
 
     @Override
     public void showResult(String result) {
-
+        ToastUtil.showShort(getContext(), result);
     }
 
     @Override

@@ -15,7 +15,7 @@ import com.chrisyoung.huajiangapp.R;
 import com.chrisyoung.huajiangapp.uitils.SharedPreferenceUtil;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
 
-public class MainActivity extends AppCompatActivity implements ShowRecordFragment.OnFragmentInteractionListener,ChartFragment.OnFragmentInteractionListener,BillFragment.OnFragmentInteractionListener,MineFragment.OnFragmentInteractionListener{
+public class MainActivity extends BaseActivity implements ShowRecordFragment.OnFragmentInteractionListener,ChartFragment.OnFragmentInteractionListener,BillFragment.OnFragmentInteractionListener,MineFragment.OnFragmentInteractionListener{
 
     private RadioGroup mTabRadioGroup;
     private SparseArray<Fragment> mFragmentSparseArray;
@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity implements ShowRecordFragmen
         uId=getIntent().getStringExtra("uId");
         //curBId=(String) SharedPreferenceUtil.get(this,"curBId",curBId);
         curBId="385ca5a9ee1340148ce3977b99e6660b";
-        initView();
+        uId="94d5f9cbd27b4526a9b90176f44037d7";
+        //initView();
 
 
 
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements ShowRecordFragmen
         btnAddBill=findViewById(R.id.contact_tab);
         mTabRadioGroup = findViewById(R.id.tabs_rg);
         mFragmentSparseArray = new SparseArray<>();
-        mFragmentSparseArray.append(R.id.today_tab, ShowRecordFragment.newInstance(curBId,"llal"));
+        mFragmentSparseArray.append(R.id.today_tab, ShowRecordFragment.newInstance(curBId,uId));
         mFragmentSparseArray.append(R.id.record_tab, ChartFragment.newInstance(curBId,"dd"));
         mFragmentSparseArray.append(R.id.contact_tab, BillFragment.newInstance(uId,"sdf"));
         mFragmentSparseArray.append(R.id.settings_tab, MineFragment.newInstance("设置","jkjl"));
@@ -81,6 +82,12 @@ public class MainActivity extends AppCompatActivity implements ShowRecordFragmen
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initView();
     }
 
 

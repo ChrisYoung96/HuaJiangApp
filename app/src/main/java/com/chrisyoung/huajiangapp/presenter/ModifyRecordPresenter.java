@@ -2,28 +2,30 @@ package com.chrisyoung.huajiangapp.presenter;
 
 import com.chrisyoung.huajiangapp.biz.IBillManageBiz;
 import com.chrisyoung.huajiangapp.biz.IRecordManageBiz;
-import com.chrisyoung.huajiangapp.biz.impl.BillManageBiz;
 import com.chrisyoung.huajiangapp.biz.impl.RecordManageBizImpl;
 import com.chrisyoung.huajiangapp.domain.CBill;
 import com.chrisyoung.huajiangapp.domain.CRecord;
 import com.chrisyoung.huajiangapp.uitils.DateFormatUtil;
 import com.chrisyoung.huajiangapp.view.vinterface.IAddOrModifyRecordView;
 
-public class AddCostRecordPresenter {
-    private IAddOrModifyRecordView addCostRecordView;
+public class ModifyRecordPresenter {
+    private IAddOrModifyRecordView modifyRecordView;
     private IRecordManageBiz recordManageBiz;
-    private IBillManageBiz billManageBiz;
     private CRecord record;
 
-    public AddCostRecordPresenter(IAddOrModifyRecordView view){
-        this.addCostRecordView=view;
-        recordManageBiz=new RecordManageBizImpl();
-        billManageBiz=new BillManageBiz();
 
+    public ModifyRecordPresenter(IAddOrModifyRecordView modifyRecordView) {
+        this.modifyRecordView = modifyRecordView;
+        recordManageBiz=new RecordManageBizImpl();
     }
 
-    public void AddRecord(String bId,String rMoney,String rType,String rkind,String rDate,String rWay,String rDesc){
+    public void getRecord(String rId){
+        modifyRecordView.showRecord(recordManageBiz.getRecord(rId));
+    }
+
+    public void updateRecord(String rId,String bId,String rMoney,String rType,String rkind,String rDate,String rWay,String rDesc){
         record=new CRecord();
+        record.setrId(rId);
         record.setbId(bId);
         record.setrMoney(Double.valueOf(rMoney));
         record.setrKind(rkind);
@@ -31,17 +33,12 @@ public class AddCostRecordPresenter {
         record.setrWay(rWay);
         record.setrType(rType);
         record.setrDesc(rDesc);
-        CBill b=billManageBiz.queryBill(bId);
-        if(b!=null){
-            if(recordManageBiz.addRecord(b,record)){
-                addCostRecordView.showResult("成功");
-                addCostRecordView.cleareText();
-            }else{
-                addCostRecordView.showResult("添加失败");
-            }
+        if(recordManageBiz.updateNewRecord(record)){
+            modifyRecordView.showResult("成功");
+            modifyRecordView.jump2MainActivity();
         }else{
-            addCostRecordView.showResult("账本不存在,请添加");
+            modifyRecordView.showResult("修改失败，数据错误");
         }
-
     }
+
 }

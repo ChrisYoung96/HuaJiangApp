@@ -6,7 +6,7 @@ import com.chrisyoung.huajiangapp.network.DataManager;
 import com.chrisyoung.huajiangapp.network.HttpResult;
 import com.chrisyoung.huajiangapp.uitils.NetUtil;
 import com.chrisyoung.huajiangapp.uitils.SharedPreferenceUtil;
-import com.chrisyoung.huajiangapp.view.vinterface.ILoginView;
+import com.chrisyoung.huajiangapp.view.vinterface.ILoginInternetView;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
@@ -20,11 +20,11 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class LoginPresenter extends BasePresenter {
-    private ILoginView loginView;
+    private ILoginInternetView loginView;
     private DataManager dataManager;
     private Context context;
     private String token;
-    public LoginPresenter(LifecycleProvider<ActivityEvent> provider, ILoginView loginView, Context context) {
+    public LoginPresenter(LifecycleProvider<ActivityEvent> provider, ILoginInternetView loginView, Context context) {
         super(provider);
         this.loginView=loginView;
         this.context=context;

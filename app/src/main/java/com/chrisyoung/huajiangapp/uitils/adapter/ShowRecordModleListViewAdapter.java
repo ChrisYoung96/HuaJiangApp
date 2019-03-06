@@ -14,6 +14,7 @@ import com.chrisyoung.huajiangapp.domain.CRecord;
 import com.chrisyoung.huajiangapp.domain.RViewModel;
 import com.chrisyoung.huajiangapp.uitils.DateFormatUtil;
 import com.chrisyoung.huajiangapp.view.AddRecordActivity;
+import com.chrisyoung.huajiangapp.view.ModifyRecordActivity;
 import com.chrisyoung.huajiangapp.view.MyListView;
 import com.chrisyoung.huajiangapp.view.vinterface.OnViewGenerateListener;
 
@@ -56,32 +57,35 @@ public class ShowRecordModleListViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        ArrayList<CRecord> records=models.get(position).getRecords();
-        if(convertView==null){
-            convertView=LayoutInflater.from(context).inflate(R.layout.list_record_model_item_layout,null);
-            holder=new ViewHolder();
-            holder.txtRDate=convertView.findViewById(R.id.txtRecordDate);
-            holder.recordItemListView=convertView.findViewById(R.id.recordItemListView);
-            holder.txtTotalCost=convertView.findViewById(R.id.txtTotalCostInADay);
-            holder.txtTotalIncome=convertView.findViewById(R.id.txtTotalIncomeInADay);
-            convertView.setTag(holder);
-        }else{
-            holder=(ViewHolder)convertView.getTag();
-        }
-        holder.txtRDate.setText(DateFormatUtil.dateToString(DateFormatUtil.longDateToshortDate(models.get(position).getDay())));
-        holder.txtTotalIncome.setText(String.valueOf(models.get(position).getTotalIncome()));
-        holder.txtTotalCost.setText(String.valueOf(models.get(position).getTotalCost()));
-        ShowRecordListViewAdapter listViewAdapter=new ShowRecordListViewAdapter(models.get(position).getRecords(),context,listener);
-        holder.recordItemListView.setAdapter(listViewAdapter);
-        holder.recordItemListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String rId=records.get(position).getrId();
-                Intent intent=new Intent(context,AddRecordActivity.class);
-                intent.putExtra("rId",rId);
-                context.startActivity(intent);
+        if(models!=null && !models.isEmpty()){
+            ArrayList<CRecord> records=models.get(position).getRecords();
+            if(convertView==null){
+                convertView=LayoutInflater.from(context).inflate(R.layout.list_record_model_item_layout,null);
+                holder=new ViewHolder();
+                holder.txtRDate=convertView.findViewById(R.id.txtRecordDate);
+                holder.recordItemListView=convertView.findViewById(R.id.recordItemListView);
+                holder.txtTotalCost=convertView.findViewById(R.id.txtTotalCostInADay);
+                holder.txtTotalIncome=convertView.findViewById(R.id.txtTotalIncomeInADay);
+                convertView.setTag(holder);
+            }else{
+                holder=(ViewHolder)convertView.getTag();
             }
-        });
+            holder.txtRDate.setText(DateFormatUtil.dateToString(DateFormatUtil.longDateToshortDate(models.get(position).getDay())));
+            holder.txtTotalIncome.setText(String.valueOf(models.get(position).getTotalIncome()));
+            holder.txtTotalCost.setText(String.valueOf(models.get(position).getTotalCost()));
+            ShowRecordListViewAdapter listViewAdapter=new ShowRecordListViewAdapter(models.get(position).getRecords(),context,listener);
+            holder.recordItemListView.setAdapter(listViewAdapter);
+            holder.recordItemListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String rId=records.get(position).getrId();
+                    Intent intent=new Intent(context,ModifyRecordActivity.class);
+                    intent.putExtra("rId",rId);
+                    context.startActivity(intent);
+                }
+            });
+        }
+
         return convertView;
     }
 
