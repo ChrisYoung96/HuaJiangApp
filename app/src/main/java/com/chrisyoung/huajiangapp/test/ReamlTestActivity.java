@@ -295,7 +295,7 @@ public class ReamlTestActivity extends AppCompatActivity implements View.OnClick
         String bId="385ca5a9ee1340148ce3977b99e6660b";
         Date startOfMonth=DateFormatUtil.getStartOfMonth("2018","2");
         Date endOfMonth=DateFormatUtil.getEndOfMonth("2018","2");
-        ArrayList<RViewModel> rViewModels=new RecordManageBizImpl().showRecordsInAMonth(bId,startOfMonth,endOfMonth);
+        ArrayList<RViewModel> rViewModels=new RecordManageBizImpl().showRecordsInAMonth(bId,startOfMonth,endOfMonth,"");
         txtView.setText("");
         for (RViewModel r :
                 rViewModels) {

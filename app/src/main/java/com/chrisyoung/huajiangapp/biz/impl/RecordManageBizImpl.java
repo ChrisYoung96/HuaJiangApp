@@ -27,7 +27,8 @@ public class RecordManageBizImpl implements IRecordManageBiz {
     }
 
     @Override
-    public ArrayList<RViewModel> showRecordsInAMonth(String bId, Date start, Date end) {
+    public ArrayList<RViewModel> showRecordsInAMonth(String bId, Date start, Date end,String type) {
+        rViewModels.clear();
         ArrayList<CRecord> records = recordDao.showRecordsByMonth(bId,start,end);
         if (records != null && !records.isEmpty()) {
             Date temp = DateFormatUtil.stringToDate("1900-01-01");
@@ -37,8 +38,14 @@ public class RecordManageBizImpl implements IRecordManageBiz {
                 Date rTime = DateFormatUtil.longDateToshortDate(r.getrTime());
                 if (!temp.equals(rTime)) {
                     if (!rViewModel.getRecords().isEmpty()) {
-                        rViewModel.setTotalCost(getTotalCost(bId, DateFormatUtil.getStartOfDay(temp), DateFormatUtil.getEndOfDay(temp)));
-                        rViewModel.setTotalIncome(getTotalIncome(bId, DateFormatUtil.getStartOfDay(temp), DateFormatUtil.getEndOfDay(temp)));
+                        if(type.equals("")){
+                            rViewModel.setTotalCost(getTotalCost(bId, DateFormatUtil.getStartOfDay(temp), DateFormatUtil.getEndOfDay(temp)));
+                            rViewModel.setTotalIncome(getTotalIncome(bId, DateFormatUtil.getStartOfDay(temp), DateFormatUtil.getEndOfDay(temp)));
+                        }else if(type.equals("收入")) {
+                            rViewModel.setTotalIncome(getTotalIncome(bId, DateFormatUtil.getStartOfDay(temp), DateFormatUtil.getEndOfDay(temp)));
+                        }else if(type.equals("支出")){
+                            rViewModel.setTotalCost(getTotalCost(bId, DateFormatUtil.getStartOfDay(temp), DateFormatUtil.getEndOfDay(temp)));
+                        }
                         rViewModels.add(rViewModel);
                     }
                     temp=rTime;
@@ -56,7 +63,9 @@ public class RecordManageBizImpl implements IRecordManageBiz {
             rViewModels.add(rViewModel);
         }
         return rViewModels;
+
     }
+
 
     @Override
     public Double getTotalCostInAMonth(String bId, Date monthStart, Date monthEnd) {
@@ -148,6 +157,36 @@ public class RecordManageBizImpl implements IRecordManageBiz {
     @Override
     public ArrayList<CRecord> showMinRecordsInAMonth(String bId, Date monthStart, Date monthEnd, String type) {
         return recordDao.findMinRecords(bId, monthStart, monthEnd, type);
+    }
+
+    @Override
+    public ArrayList<CRecord> showAllMoneyOfAKind(String bId, Date monthStart, Date monthEnd, String type) {
+        ArrayList<CRecord> records=recordDao.findAllKind(bId, monthStart, monthEnd, type);
+        for (CRecord r:records
+             ) {
+            r.setrMoney(sumAllMoneyInAMonthByKind(bId,monthStart,monthEnd,type,r.getrKind()));
+        }
+        return records;
+    }
+
+    @Override
+    public ArrayList<CRecord> showAllMoneyOfAWay(String bId, Date monthStart, Date monthEnd, String type) {
+        ArrayList<CRecord> records=recordDao.findAllWay(bId, monthStart, monthEnd, type);
+        for (CRecord r:records
+                ) {
+            r.setrMoney(sumAllMoneyInAMonthByWay(bId,monthStart,monthEnd,type,r.getrWay()));
+        }
+        return records;
+    }
+
+    @Override
+    public ArrayList<CRecord> getAllKind(String bId, Date monthStart, Date monthEnd, String type){
+        return recordDao.findAllKind(bId, monthStart, monthEnd, type);
+    }
+
+    @Override
+    public ArrayList<CRecord> getAllWay(String bId, Date monthStart, Date monthEnd, String type){
+        return recordDao.findAllWay(bId, monthStart, monthEnd, type);
     }
 
 

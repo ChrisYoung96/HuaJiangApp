@@ -52,6 +52,30 @@ public class DateFormatUtil {
         return dateString;
     }
 
+    public static String getMothAndDay(Date date){
+        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd",Locale.CHINA);
+        String dateString = formatter.format(date);
+        return dateString;
+    }
+
+    public static String getDay(Date date){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd",Locale.CHINA);
+        String dateString = formatter.format(date);
+        return dateString;
+    }
+
+    public static String getMonth(Date date){
+        SimpleDateFormat formatter = new SimpleDateFormat("MM",Locale.CHINA);
+        String dateString = formatter.format(date);
+        return dateString;
+    }
+
+    public static String getYear(Date date){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy",Locale.CHINA);
+        String dateString = formatter.format(date);
+        return dateString;
+    }
+
     public static Timestamp dateToTimestamp(Date date){
         return new Timestamp(date.getTime());
     }

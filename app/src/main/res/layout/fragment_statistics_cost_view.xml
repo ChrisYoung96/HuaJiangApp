@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.StatisticsCostView">
+    tools:context=".view.StatisticsCostFragment">
 
     <RelativeLayout
         android:id="@+id/rl_sc_subtitle"
@@ -86,14 +86,23 @@
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/costLineChart"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="250dp" />
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/costPieChart"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/costLineChart"/>
+                android:layout_height="250dp"
+                android:layout_below="@+id/costLineChart"
+                android:layout_marginTop="20dp"/>
 
+            <com.github.mikephil.charting.charts.HorizontalBarChart
+                android:id="@+id/costBarChart"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/costPieChart">
+
+            </com.github.mikephil.charting.charts.HorizontalBarChart>
 
         </RelativeLayout>
     </ScrollView>

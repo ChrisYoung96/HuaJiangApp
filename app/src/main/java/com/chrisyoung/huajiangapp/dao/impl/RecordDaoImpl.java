@@ -196,5 +196,33 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
 
     }
 
+    @Override
+    public ArrayList<CRecord> findAllKind(String bId, Date monthStart, Date monthEnd, String type) {
+        RealmResults<CRecord> records = realm.where(CRecord.class)
+                .between("rTime", monthStart, monthEnd)
+                .equalTo("bId", bId)
+                .equalTo("rType", type)
+                .distinct("rKind")
+                .findAll()
+                .sort("rTime");
+        List<CRecord> r = realm.copyFromRealm(records);
+        return new ArrayList<>(r);
+
+    }
+
+    @Override
+    public ArrayList<CRecord> findAllWay(String bId, Date monthStart, Date monthEnd, String type) {
+        RealmResults<CRecord> records = realm.where(CRecord.class)
+                .between("rTime", monthStart, monthEnd)
+                .equalTo("bId", bId)
+                .equalTo("rType", type)
+                .distinct("rWay")
+                .findAll()
+                .sort("rTime");
+        List<CRecord> r = realm.copyFromRealm(records);
+        return new ArrayList<>(r);
+
+    }
+
 
 }

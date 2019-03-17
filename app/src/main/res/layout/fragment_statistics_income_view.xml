@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.StatisticsIncomeView">
+    tools:context=".view.StatisticsIncomeFragment">
 
     <RelativeLayout
         android:id="@+id/rl_si_subtitle"
@@ -85,13 +85,21 @@
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/inComeLineChart"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="250dp" />
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/incomePieChart"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="250dp"
+                android:layout_marginTop="20dp"
                 android:layout_below="@+id/inComeLineChart"/>
+
+            <com.github.mikephil.charting.charts.HorizontalBarChart
+                android:id="@+id/incomeBarChart"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/incomePieChart"
+                android:layout_height="250dp"/>
 
 
         </RelativeLayout>

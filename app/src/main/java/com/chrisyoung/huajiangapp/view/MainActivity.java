@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.Window;
@@ -12,10 +11,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.chrisyoung.huajiangapp.R;
-import com.chrisyoung.huajiangapp.uitils.SharedPreferenceUtil;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
 
-public class MainActivity extends BaseActivity implements ShowRecordFragment.OnFragmentInteractionListener,ChartFragment.OnFragmentInteractionListener,BillFragment.OnFragmentInteractionListener,MineFragment.OnFragmentInteractionListener,StatisticsCostView.OnFragmentInteractionListener,StatisticsIncomeView.OnFragmentInteractionListener{
+import butterknife.BindView;
+
+public class MainActivity extends BaseActivity implements ShowRecordFragment.OnFragmentInteractionListener,ChartFragment.OnFragmentInteractionListener,BillFragment.OnFragmentInteractionListener,MineFragment.OnFragmentInteractionListener,StatisticsCostFragment.OnFragmentInteractionListener,StatisticsIncomeFragment.OnFragmentInteractionListener{
 
     private RadioGroup mTabRadioGroup;
     private SparseArray<Fragment> mFragmentSparseArray;
@@ -54,6 +54,22 @@ public class MainActivity extends BaseActivity implements ShowRecordFragment.OnF
                 // 具体的fragment切换逻辑可以根据应用调整，例如使用show()/hide()
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         mFragmentSparseArray.get(checkedId)).commit();
+//                Fragment fragment = null;
+//                switch (checkedId){
+//                    case R.id.today_tab:
+//                        fragment=ShowRecordFragment.newInstance(curBId,uId);
+//                        break;
+//                    case R.id.record_tab:
+//                        fragment=ChartFragment.newInstance(uId,curBId);
+//                        break;
+//                    case R.id.contact_tab:
+//                        fragment=BillFragment.newInstance(uId,"");
+//                        break;
+//                    case R.id.settings_tab:
+//                        fragment=MineFragment.newInstance("","");
+//                }
+//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+//                        fragment).commit();
             }
         });
 

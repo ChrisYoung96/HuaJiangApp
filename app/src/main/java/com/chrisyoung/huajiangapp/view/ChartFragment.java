@@ -14,9 +14,11 @@ import android.widget.TextView;
 import com.chrisyoung.huajiangapp.R;
 import com.chrisyoung.huajiangapp.domain.CBill;
 import com.chrisyoung.huajiangapp.presenter.ChartPresenter;
-import com.chrisyoung.huajiangapp.presenter.RecordPresenter;
 import com.chrisyoung.huajiangapp.uitils.adapter.BaseFragmentPagerAdapter;
 import com.chrisyoung.huajiangapp.view.vinterface.IChartView;
+import com.jzxiang.pickerview.TimePickerDialog;
+import com.jzxiang.pickerview.data.Type;
+import com.jzxiang.pickerview.listener.OnDateSetListener;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
@@ -37,7 +39,7 @@ import butterknife.Unbinder;
  * Use the {@link ChartFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ChartFragment extends BaseFragment implements IChartView {
+public class ChartFragment extends BaseFragment implements IChartView ,OnDateSetListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -52,12 +54,14 @@ public class ChartFragment extends BaseFragment implements IChartView {
     ViewPager contentStatisticsViewPager;
     Unbinder unbinder;
 
-    StatisticsCostView statisticsCostView;
-    StatisticsIncomeView statisticsIncomeView;
+    StatisticsCostFragment statisticsCostFragment;
+    StatisticsIncomeFragment statisticsIncomeView;
     ArrayList<android.support.v4.app.Fragment> fragments=new ArrayList<>();
     BaseFragmentPagerAdapter baseFragmentPagerAdapter;
 
     ChartPresenter chartPresenter;
+
+
 
     // TODO: Rename and change types of parameters
     private String uId;
@@ -71,12 +75,15 @@ public class ChartFragment extends BaseFragment implements IChartView {
 
 
     private void init(){
-        statisticsCostView=StatisticsCostView.newInstance(curBId,"支出");
-        statisticsIncomeView=StatisticsIncomeView.newInstance(curBId,"收入");
-        fragments.add(statisticsCostView);
+        fragments.clear();
+        tabStatisticsSegment.reset();
+        statisticsCostFragment =StatisticsCostFragment.newInstance(curBId,"支出");
+        statisticsIncomeView=StatisticsIncomeFragment.newInstance(curBId,"收入");
+        fragments.add(statisticsCostFragment);
         fragments.add(statisticsIncomeView);
-        baseFragmentPagerAdapter=new BaseFragmentPagerAdapter(getFragmentManager(),fragments);
+        baseFragmentPagerAdapter=new BaseFragmentPagerAdapter(getChildFragmentManager(),fragments);
         contentStatisticsViewPager.setAdapter(baseFragmentPagerAdapter);
+        tabStatisticsSegment.reset();
         tabStatisticsSegment.addTab(new QMUITabSegment.Tab("支出"));
         tabStatisticsSegment.addTab(new QMUITabSegment.Tab("收入"));
         int space = QMUIDisplayHelper.dp2px(Objects.requireNonNull(getContext()), 16);
@@ -86,7 +93,9 @@ public class ChartFragment extends BaseFragment implements IChartView {
         tabStatisticsSegment.setItemSpaceInScrollMode(space);
         tabStatisticsSegment.setupWithViewPager(contentStatisticsViewPager, false);
         tabStatisticsSegment.setPadding(space, 0, space, 0);
+        tabStatisticsSegment.notifyDataChanged();
         chartPresenter=new ChartPresenter(this);
+
 
     }
 
@@ -116,6 +125,7 @@ public class ChartFragment extends BaseFragment implements IChartView {
             curBId = getArguments().getString(ARG_PARAM2);
 
         }
+
     }
 
     @Override
@@ -165,6 +175,7 @@ public class ChartFragment extends BaseFragment implements IChartView {
 
 
 
+
     @Override
     public void showBillList(ArrayList<CBill> bills) {
         QMUIBottomSheet.BottomListSheetBuilder bottomSheetBuilder=new QMUIBottomSheet.BottomListSheetBuilder(getActivity());
@@ -179,7 +190,7 @@ public class ChartFragment extends BaseFragment implements IChartView {
                     dialog.dismiss();
                     curBId=bills.get(position).getbId();
                     textSvTitle.setText(bills.get(position).getbName());
-                    statisticsCostView.refresh(curBId);
+                    statisticsCostFragment.refresh(curBId);
                     statisticsIncomeView.refresh(curBId);
                 }
             });
@@ -189,6 +200,11 @@ public class ChartFragment extends BaseFragment implements IChartView {
 
     @Override
     public void showResult(String result) {
+
+    }
+
+    @Override
+    public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
 
     }
 

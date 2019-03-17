@@ -10,7 +10,7 @@ import java.util.Date;
 public interface IRecordManageBiz {
     CRecord getRecord(String rId);
 
-    ArrayList<RViewModel> showRecordsInAMonth(String bId, Date start, Date end);
+    ArrayList<RViewModel> showRecordsInAMonth(String bId, Date start, Date end,String type);
 
     Double getTotalCostInAMonth(String bId,Date monthStart,Date monthEnd);
 
@@ -42,5 +42,12 @@ public interface IRecordManageBiz {
 
     ArrayList<CRecord> showMinRecordsInAMonth(String bId,Date monthStart,Date monthEnd,String type);
 
+    ArrayList<CRecord> showAllMoneyOfAKind(String bId,Date monthStart,Date monthEnd,String type);
+
+    ArrayList<CRecord> showAllMoneyOfAWay(String bId,Date monthStart,Date monthEnd,String type);
+
+    public ArrayList<CRecord> getAllKind(String bId, Date monthStart, Date monthEnd, String type);
+
+    public ArrayList<CRecord> getAllWay(String bId, Date monthStart, Date monthEnd, String type);
 
 }

@@ -10,6 +10,7 @@ import com.chrisyoung.huajiangapp.uitils.DateFormatUtil;
 import com.chrisyoung.huajiangapp.view.vinterface.IRecordsView;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class RecordPresenter {
@@ -30,7 +31,7 @@ public class RecordPresenter {
         income.setScale(2,BigDecimal.ROUND_UP);
         recordsView.showTotalIncome(income);
         recordsView.showTotalCost(cost);
-        return recordManageBiz.showRecordsInAMonth(bId,DateFormatUtil.getStartOfMonth(curMonth),DateFormatUtil.getEndOfMonth(curMonth));
+        return recordManageBiz.showRecordsInAMonth(bId,DateFormatUtil.getStartOfMonth(curMonth),DateFormatUtil.getEndOfMonth(curMonth),"");
     }
 
     public void  deleteRecord(String rId){

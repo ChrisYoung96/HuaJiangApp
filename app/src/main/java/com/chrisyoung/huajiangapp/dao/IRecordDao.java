@@ -41,4 +41,8 @@ public interface IRecordDao {
 
     Double avrgAllMoneyInAMonth(String bId,Date monthStart,Date monthEnd,String type);
 
+    ArrayList<CRecord> findAllKind(String bId,Date monthStart,Date monthEnd,String type);
+
+    ArrayList<CRecord> findAllWay(String bId,Date monthStart,Date monthEnd,String type);
+
 }
