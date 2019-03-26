@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.AddKindsActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_ak_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="0dp"
+        android:background="@color/titleBackground">
+
+        <TextView
+            android:id="@+id/text_ak_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ellipsize="marquee"
+            android:gravity="center_horizontal|center"
+            android:singleLine="true"
+            android:text="添加类别"
+            android:textColor="#ffffffff"
+            android:textSize="20dp" />
+
+
+        <ImageButton
+            android:id="@+id/btnAKBack"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:drawablePadding="6dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:background="@color/qmui_config_color_transparent"
+            android:singleLine="true"
+            android:src="@mipmap/back"
+            android:textSize="18sp"
+            tools:src="@mipmap/back" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_ak_layer1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/rl_ak_titlebar">
+        <com.qmuiteam.qmui.alpha.QMUIAlphaTextView
+            android:id="@+id/ui_kindname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="名称："
+            android:textSize="20sp"/>
+        <EditText
+            android:id="@+id/txtKindName"
+            android:layout_toEndOf="@+id/ui_kindname"
+            android:layout_marginStart="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="(不超过4个字)"
+            android:textSize="20sp"/>
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_adc_layer2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_ak_layer1"
+        android:layout_marginTop="10dp">
+        <Button
+            android:id="@+id/btnAddKind"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="@string/保存"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>

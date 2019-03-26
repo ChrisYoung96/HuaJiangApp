@@ -30,7 +30,11 @@
             android:screenOrientation="portrait" />
         <activity android:name=".test.ReamlTestActivity" />
         <activity android:name=".view.ModifyBillActivity" />
-        <activity android:name=".view.ModifyRecordActivity"></activity>
+        <activity android:name=".view.ModifyRecordActivity" />
+        <activity android:name=".view.KindsActivity" />
+        <activity android:name=".view.UserInfoActivity" />
+        <activity android:name=".view.AddKindsActivity" />
+        <activity android:name=".view.AboutActivity"></activity>
     </application>
 
 </manifest>

@@ -47,7 +47,7 @@ public class MainActivity extends BaseActivity implements ShowRecordFragment.OnF
         mFragmentSparseArray.append(R.id.today_tab, ShowRecordFragment.newInstance(curBId,uId));
         mFragmentSparseArray.append(R.id.record_tab, ChartFragment.newInstance(uId,curBId));
         mFragmentSparseArray.append(R.id.contact_tab, BillFragment.newInstance(uId,"sdf"));
-        mFragmentSparseArray.append(R.id.settings_tab, MineFragment.newInstance("设置","jkjl"));
+        mFragmentSparseArray.append(R.id.settings_tab, MineFragment.newInstance(uId,"jkjl"));
         mTabRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

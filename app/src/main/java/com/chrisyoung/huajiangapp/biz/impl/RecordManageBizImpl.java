@@ -10,6 +10,7 @@ import com.chrisyoung.huajiangapp.domain.RViewModel;
 import com.chrisyoung.huajiangapp.uitils.DateFormatUtil;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 
 public class RecordManageBizImpl implements IRecordManageBiz {
@@ -166,6 +167,16 @@ public class RecordManageBizImpl implements IRecordManageBiz {
              ) {
             r.setrMoney(sumAllMoneyInAMonthByKind(bId,monthStart,monthEnd,type,r.getrKind()));
         }
+        records.sort(new Comparator<CRecord>() {
+            @Override
+            public int compare(CRecord o1, CRecord o2) {
+                if(o1.getrMoney()>o2.getrMoney()){
+                    return 1;
+                }else{
+                    return -1;
+                }
+            }
+        });
         return records;
     }
 

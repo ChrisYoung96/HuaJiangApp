@@ -294,7 +294,7 @@ public class StatisticsIncomeFragment extends BaseFragment implements OnDateSetL
 
     @Override
     public void refresh(String bId) {
-
+        presenter.init(bId,System.currentTimeMillis(),"收入");
     }
 
     @Override

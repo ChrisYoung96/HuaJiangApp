@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.style.LeadingMarginSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -212,6 +214,8 @@ public class StatisticsCostFragment extends BaseFragment implements OnDateSetLis
         YAxis leftYAxis=costLineChart.getAxisLeft();
         leftYAxis.setDrawGridLines(false);
         leftYAxis.setAxisLineWidth(2f);
+        Legend legend=costLineChart.getLegend();
+        legend.setEnabled(false);
         Description description=new Description();
         description.setText("");
         costLineChart.setDescription(description);
@@ -251,6 +255,9 @@ public class StatisticsCostFragment extends BaseFragment implements OnDateSetLis
         YAxis yAxis=costBarChart.getAxisLeft();
         yAxis.setDrawAxisLine(true);
         yAxis.setDrawGridLines(false);
+
+        Legend legend=costBarChart.getLegend();
+        legend.setEnabled(false);
         costBarChart.clear();
         costBarChart.setData(data);
         costBarChart.invalidate();
@@ -294,7 +301,7 @@ public class StatisticsCostFragment extends BaseFragment implements OnDateSetLis
 
     @Override
     public void refresh(String bId) {
-
+        presenter.init(bId,System.currentTimeMillis(),"支出");
     }
 
     @Override

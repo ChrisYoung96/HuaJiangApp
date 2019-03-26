@@ -132,12 +132,12 @@ public class StatisticsPresenter {
             for(int i=0;i<kinds.size();i++){
                 float total=totals.get(i).getrMoney().floatValue();
                 BarEntry entry=new BarEntry(i,total);
-                x.add(kinds.get(i).getrKind());
+                x.add(totals.get(i).getrKind());
                 barEntries.add(entry);
             }
         }
         BarDataSet barDataSet=new BarDataSet(barEntries,"");
-        barDataSet.setValueTextSize(1f);
+        barDataSet.setValueTextSize(10f);
         BarData barData=new BarData(barDataSet);
         barData.setBarWidth(0.5f);
         barData.getGroupWidth(0.05f,0.05f);

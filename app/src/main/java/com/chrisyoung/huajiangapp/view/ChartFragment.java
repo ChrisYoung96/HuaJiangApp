@@ -191,7 +191,6 @@ public class ChartFragment extends BaseFragment implements IChartView ,OnDateSet
                     curBId=bills.get(position).getbId();
                     textSvTitle.setText(bills.get(position).getbName());
                     statisticsCostFragment.refresh(curBId);
-                    statisticsIncomeView.refresh(curBId);
                 }
             });
             bottomSheetBuilder.build().show();

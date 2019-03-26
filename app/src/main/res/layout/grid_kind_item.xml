@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout
+    android:id="@+id/gridKindItemLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:tag="Bottom2"
+        android:background="#ff3e3e"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="match_parent"
+
+        >
+        <ImageButton
+            android:id="@+id/btnDeleteKind"
+            android:src="@mipmap/tab_graph_default"
+            android:layout_width="32dp"
+            android:background="@color/qmui_config_color_transparent"
+            android:layout_height="32dp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/icon_kind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:id="@+id/txtShowKindName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/icon_kind"
+            android:layout_marginTop="5dp"
+            android:layout_centerHorizontal="true"
+            android:background="#FFFFFF"
+            android:text="@string/income"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+</com.daimajia.swipe.SwipeLayout>

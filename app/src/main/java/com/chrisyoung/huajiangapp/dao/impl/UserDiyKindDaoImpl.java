@@ -26,7 +26,7 @@ public class UserDiyKindDaoImpl extends BaseDao implements IUserDiyKindDao {
 
     @Override
     public boolean deleteKind(String kId) {
-        return deleteRealmObjectWithCondition("kId",kId,CUserDiyKind.class);
+        return deleteRealmObjectWithCondition("dId",kId,CUserDiyKind.class);
     }
 
     @Override
@@ -39,8 +39,13 @@ public class UserDiyKindDaoImpl extends BaseDao implements IUserDiyKindDao {
 
 
     @Override
-    public ArrayList<CUserDiyKind> showAllKinds(String uId) {
-        return convert(queryRealmObjectsWithCondition("uId",uId,CUserDiyKind.class));
+    public ArrayList<CUserDiyKind> showAllKinds(String uId,String type) {
+        RealmResults<CUserDiyKind> kinds=realm.where(CUserDiyKind.class)
+                .equalTo("uId",uId)
+                .equalTo("dType",type)
+                .findAll();
+        List<CUserDiyKind> kinds1=realm.copyFromRealm(kinds);
+        return convert(kinds1);
     }
 
     @Override

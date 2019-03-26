@@ -160,7 +160,7 @@ public class ReamlTestActivity extends AppCompatActivity implements View.OnClick
 
     private void testShowKind(){
         String uid="94d5f9cbd27b4526a9b90176f44037d7";
-        ArrayList<CUserDiyKind> kinds=userDiyKindDao.showAllKinds(uid);
+        ArrayList<CUserDiyKind> kinds=userDiyKindDao.showAllKinds(uid,"");
         for(CUserDiyKind k:kinds){
             ToastUtil.showShort(this,k.getdId());
         }

@@ -10,7 +10,7 @@ public interface IDiyKindManageBiz {
 
     boolean updateKind(CUserDiyKind kind);
 
-    ArrayList<CUserDiyKind> showKind(String uId);
+    ArrayList<CUserDiyKind> showKind(String uId,String type);
 
     boolean deleteKind(String dId);
 

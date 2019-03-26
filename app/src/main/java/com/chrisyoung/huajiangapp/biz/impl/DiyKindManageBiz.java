@@ -32,8 +32,8 @@ public class DiyKindManageBiz implements IDiyKindManageBiz {
     }
 
     @Override
-    public ArrayList<CUserDiyKind> showKind(String uId) {
-        return kindDao.showAllKinds(uId);
+    public ArrayList<CUserDiyKind> showKind(String uId,String type) {
+        return kindDao.showAllKinds(uId,type);
     }
 
     @Override

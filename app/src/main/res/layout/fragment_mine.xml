@@ -9,26 +9,42 @@
     <RelativeLayout
         android:id="@+id/rl_m_titlebar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="115dp"
         android:layout_marginTop="50dp"
         android:background="@color/titleBackground">
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/mine_icon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/tab_account_default" />
+
         <TextView
-            android:id="@+id/text_m_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:ellipsize="marquee"
-            android:gravity="center_horizontal|center"
-            android:singleLine="true"
-            android:text="我的"
-            android:textColor="@color/titleText"
-            android:textSize="20dp" />
+            android:id="@+id/mine_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="128dp"
+            android:layout_marginTop="48dp"
+            android:text="UserName"
+            android:textColor="#000"
+            android:textSize="25sp"
+            android:typeface="monospace" />
+
+
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/rl_m_titlebar">
         <com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
+            android:id="@+id/mineGroupListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

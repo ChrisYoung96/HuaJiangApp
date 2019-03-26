@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -186,6 +187,7 @@ public class AddCostFragment extends BaseFragment implements IAddOrModifyRecordV
             }
         });
         menuSheetView.inflateMenu(R.menu.menu_choose_cost_kind);
+
 
         btsChooseCostKind.showWithSheetView(menuSheetView);
     }
