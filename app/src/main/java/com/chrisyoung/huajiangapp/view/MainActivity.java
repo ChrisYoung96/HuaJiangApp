@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.chrisyoung.huajiangapp.R;
+import com.chrisyoung.huajiangapp.uitils.SharedPreferenceUtil;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
 
 import butterknife.BindView;
@@ -29,15 +30,12 @@ public class MainActivity extends BaseActivity implements ShowRecordFragment.OnF
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
-        uId=getIntent().getStringExtra("uId");
         //curBId=(String) SharedPreferenceUtil.get(this,"curBId",curBId);
+       // uId=(String) SharedPreferenceUtil.get(this,"uId",uId);
         curBId="385ca5a9ee1340148ce3977b99e6660b";
         uId="94d5f9cbd27b4526a9b90176f44037d7";
-        //initView();
+        initView();
 
-
-
-       // ToastUtil.showShort(this,getIntent().getStringExtra("uId"));
     }
 
     private void initView() {
@@ -54,30 +52,14 @@ public class MainActivity extends BaseActivity implements ShowRecordFragment.OnF
                 // 具体的fragment切换逻辑可以根据应用调整，例如使用show()/hide()
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         mFragmentSparseArray.get(checkedId)).commit();
-//                Fragment fragment = null;
-//                switch (checkedId){
-//                    case R.id.today_tab:
-//                        fragment=ShowRecordFragment.newInstance(curBId,uId);
-//                        break;
-//                    case R.id.record_tab:
-//                        fragment=ChartFragment.newInstance(uId,curBId);
-//                        break;
-//                    case R.id.contact_tab:
-//                        fragment=BillFragment.newInstance(uId,"");
-//                        break;
-//                    case R.id.settings_tab:
-//                        fragment=MineFragment.newInstance("","");
-//                }
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                        fragment).commit();
             }
         });
 
 
         // 默认显示第一个
         if(curBId==null){
-            ToastUtil.showShort(this,"请创建账本");
-            btnAddBill.setChecked(true);
+            ToastUtil.showShort(this,"请选择/创建一个账本");
+            //btnAddBill.setChecked(true);
 
         }else{
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,

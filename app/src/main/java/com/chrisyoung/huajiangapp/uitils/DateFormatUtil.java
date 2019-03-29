@@ -34,7 +34,7 @@ public class DateFormatUtil {
     }
 
     public static String dateAndTimeToString(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.CHINA);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss",Locale.CHINA);
         String dateString = formatter.format(date);
         return dateString;
     }
@@ -47,13 +47,13 @@ public class DateFormatUtil {
     }
 
     public static String dateToString(Date date){
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINA);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日",Locale.CHINA);
         String dateString = formatter.format(date);
         return dateString;
     }
 
     public static String getMothAndDay(Date date){
-        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd",Locale.CHINA);
+        SimpleDateFormat formatter = new SimpleDateFormat("MM月dd日",Locale.CHINA);
         String dateString = formatter.format(date);
         return dateString;
     }
@@ -88,10 +88,17 @@ public class DateFormatUtil {
         String sd=year+"-"+month+"-01 00:00:00";
         return stringtoDateAndTime(sd);
     }
+
+
     public static Date getStartOfMonth(long millseconds){
-        String sd=dateToString(new Date(millseconds));
-        sd +=" 00:00:00";
+       // String sd=dateToString(new Date(millseconds));
+        //sd +=" 00:00:00";
+        Date date=new Date(millseconds);
+        String year=getYear(date);
+        String month=getMonth(date);
+        String sd = year + "-" + month + "-01" + " 00:00:00";
         return stringtoDateAndTime(sd);
+
     }
 
 
@@ -101,35 +108,42 @@ public class DateFormatUtil {
     }
 
     public static Date getEndOfMonth(long millseconds){
-        String sd=dateToString(new Date(millseconds));
-        String year=sd.substring(0,4);
-        String month=sd.substring(5,7);
-        sd = year + "-" + month + "-" + getDay(year, month) + " 23:59:59";
+       // String sd=dateToString(new Date(millseconds));
+      //  String year=sd.substring(0,4);
+       // String month=sd.substring(5,7);
+        Date date=new Date(millseconds);
+        String year=getYear(date);
+        String month=getMonth(date);
+        String sd = year + "-" + month + "-" + getDay(year, month) + " 23:59:59";
         return stringtoDateAndTime(sd);
     }
 
     public static String getYearAndMonth(long millseconds){
-        String sd=dateToString(new Date(millseconds));
-        String year=sd.substring(0,4);
-        String month=sd.substring(5,7);
-        sd = year + "年" + month + "月" + getDay(year, month);
-        return sd;
+        Date date=new Date(millseconds);
+        String year=getYear(date);
+        String month=getMonth(date);
+        return year + "年" + month + "月" ;
 
     }
 
 
     public static Date getStartOfDay(Date day){
-        String sd=dateToString(day)+" 00:00:00";
-        return stringtoDateAndTime(sd);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINA);
+        String temp = formatter.format(day);
+        temp+=" 00:00:00";
+        return stringtoDateAndTime(temp);
     }
 
     public static  Date getEndOfDay(Date day){
-        String sd=dateToString(day)+" 23:59:59";
-        return stringtoDateAndTime(sd);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINA);
+        String temp = formatter.format(day);
+        temp+=" 23:59:59";
+        return stringtoDateAndTime(temp);
     }
 
     public static Date longDateToshortDate(Date ldate){
-        String temp=dateAndTimeToString(ldate);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.CHINA);
+        String temp = formatter.format(ldate);
         return stringToDate(temp);
     }
 

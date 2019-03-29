@@ -9,7 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.widget.ImageButton;
 
 import com.chrisyoung.huajiangapp.R;
-import com.chrisyoung.huajiangapp.uitils.adapter.BaseFragmentPagerAdapter;
+import com.chrisyoung.huajiangapp.view.adapter.BaseFragmentPagerAdapter;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 
@@ -47,7 +47,7 @@ public class AddRecordActivity extends FragmentActivity implements AddCostFragme
         uId = getIntent().getStringExtra("uId");
         bId = getIntent().getStringExtra("curBId");
         addIncomeFragment = AddIncomeFragment.newInstance("收入", bId);
-        addCostFragment = AddCostFragment.newInstance("支出", bId);
+        addCostFragment = AddCostFragment.newInstance("支出", bId,uId);
         fragments.add(addCostFragment);
         fragments.add(addIncomeFragment);
         baseFragmentPagerAdapter = new BaseFragmentPagerAdapter(getSupportFragmentManager(), fragments);
@@ -71,6 +71,7 @@ public class AddRecordActivity extends FragmentActivity implements AddCostFragme
     @OnClick(R.id.btnAdBack)
     public void onViewClicked() {
         startActivity(new Intent(this,MainActivity.class));
+        this.finish();
     }
 }
 

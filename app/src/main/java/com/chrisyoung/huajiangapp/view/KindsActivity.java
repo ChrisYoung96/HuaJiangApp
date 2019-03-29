@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageButton;
 
 import com.chrisyoung.huajiangapp.R;
-import com.chrisyoung.huajiangapp.uitils.adapter.BaseFragmentPagerAdapter;
+import com.chrisyoung.huajiangapp.view.adapter.BaseFragmentPagerAdapter;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 

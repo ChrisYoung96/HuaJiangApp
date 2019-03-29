@@ -15,7 +15,7 @@ import com.chrisyoung.huajiangapp.R;
 import com.chrisyoung.huajiangapp.domain.CUserDiyKind;
 import com.chrisyoung.huajiangapp.presenter.KindPresenter;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
-import com.chrisyoung.huajiangapp.uitils.adapter.ShowKindGridViewAdapter;
+import com.chrisyoung.huajiangapp.view.adapter.ShowKindGridViewAdapter;
 import com.chrisyoung.huajiangapp.view.vinterface.IKindView;
 import com.chrisyoung.huajiangapp.view.vinterface.OnViewGenerateListener;
 import com.daimajia.androidanimations.library.Techniques;

@@ -1,4 +1,4 @@
-package com.chrisyoung.huajiangapp.uitils.adapter;
+package com.chrisyoung.huajiangapp.view.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

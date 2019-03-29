@@ -17,7 +17,7 @@ import com.chrisyoung.huajiangapp.constant.StatusCode;
 import com.chrisyoung.huajiangapp.domain.CBill;
 import com.chrisyoung.huajiangapp.presenter.BillPresenter;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
-import com.chrisyoung.huajiangapp.uitils.adapter.ShowBillGridViewAdapter;
+import com.chrisyoung.huajiangapp.view.adapter.ShowBillGridViewAdapter;
 import com.chrisyoung.huajiangapp.view.vinterface.IAddBillView;
 import com.chrisyoung.huajiangapp.view.vinterface.OnViewGenerateListener;
 import com.daimajia.androidanimations.library.Techniques;

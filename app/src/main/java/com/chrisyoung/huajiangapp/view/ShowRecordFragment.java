@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +17,9 @@ import com.chrisyoung.huajiangapp.domain.CBill;
 import com.chrisyoung.huajiangapp.domain.RViewModel;
 import com.chrisyoung.huajiangapp.presenter.RecordPresenter;
 import com.chrisyoung.huajiangapp.uitils.DateFormatUtil;
+import com.chrisyoung.huajiangapp.uitils.SharedPreferenceUtil;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
-import com.chrisyoung.huajiangapp.uitils.adapter.ShowRecordModleListViewAdapter;
+import com.chrisyoung.huajiangapp.view.adapter.ShowRecordModleListViewAdapter;
 import com.chrisyoung.huajiangapp.view.vinterface.IRecordsView;
 import com.chrisyoung.huajiangapp.view.vinterface.OnViewGenerateListener;
 import com.daimajia.androidanimations.library.Techniques;
@@ -73,9 +73,10 @@ public class ShowRecordFragment extends BaseFragment implements OnDateSetListene
     private RecordPresenter recordPresenter;
 
     // TODO: Rename and change types of parameters
-    private String bId;
+    private String bId="";
     private String uId;
-    private String curMonth;
+    private String curBName="";
+    private String curMonth="";
     private SwipeLayout swipeLayout;
     @BindView(R.id.recordModelListView)
     ListView listView;
@@ -110,15 +111,16 @@ public class ShowRecordFragment extends BaseFragment implements OnDateSetListene
 
     private void init() {
         month = System.currentTimeMillis();
-        curMonth = DateFormatUtil.getYearAndMonth(month);
+        bId=(String)SharedPreferenceUtil.get(getContext(),"curBId",bId);
+        curBName=(String)SharedPreferenceUtil.get(getContext(),"curBName",curBName);
+        curMonth = DateFormatUtil.getYearAndMonth(month)+"▼";
         btnChooseDate.setText(curMonth);
-        records = recordPresenter.showRecords(bId, System.currentTimeMillis());
-        if (records != null) {
-            adapter = new ShowRecordModleListViewAdapter(records, getContext(), this);
-            listView.setAdapter(adapter);
+        if(curBName.equals("")){
+            textRTitle.setText("无账本");
+        }else{
+            textRTitle.setText(curBName);
         }
-
-
+        refresh(month);
     }
 
     @Override
@@ -138,7 +140,7 @@ public class ShowRecordFragment extends BaseFragment implements OnDateSetListene
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_show_record, container, false);
         unbinder = ButterKnife.bind(this, rootView);
-        //init();
+        init();
         return rootView;
     }
 
@@ -191,7 +193,7 @@ public class ShowRecordFragment extends BaseFragment implements OnDateSetListene
         txtTotalIncome.setText("");
         btnChooseDate.setText("");
         month = millseconds;
-        btnChooseDate.setText(DateFormatUtil.dateToString(new Date(millseconds)).substring(0, 4) + "年" + DateFormatUtil.dateToString(new Date(millseconds)).substring(5, 7) + "月▼");
+       btnChooseDate.setText(DateFormatUtil.getYearAndMonth(millseconds)+"▼");
         refresh(month);
 
     }
@@ -200,7 +202,7 @@ public class ShowRecordFragment extends BaseFragment implements OnDateSetListene
         if(records!=null){
             records.clear();
         }
-
+        Date date=new Date(millseconds);
         records = recordPresenter.showRecords(bId, millseconds);
         if(records!=null && !records.isEmpty()){
             adapter = new ShowRecordModleListViewAdapter(records, getContext(), this);
@@ -306,6 +308,8 @@ public class ShowRecordFragment extends BaseFragment implements OnDateSetListene
                     dialog.dismiss();
                     bId=tag;
                     textRTitle.setText(bills.get(position).getbName());
+                    SharedPreferenceUtil.put(getContext(),"curBId",bId);
+                    SharedPreferenceUtil.put(getContext(),"curBName",bills.get(position).getbName());
                     refresh(System.currentTimeMillis());
                 }
             });

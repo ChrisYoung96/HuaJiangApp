@@ -21,4 +21,21 @@ public class DateFormatUtilTest {
         System.out.println("转换为Date后："+da.toString());
         System.out.println("转换为String后："+DateFormatUtil.dateAndTimeToString(da));
     }
+
+
+    @Test
+    public void test1(){
+        long time=System.currentTimeMillis();
+        Date date=new Date(time);
+        String st="2019年03月29日 10:03:24";
+        System.out.println(DateFormatUtil.getYear(date));
+        System.out.println(DateFormatUtil.getMonth(date));
+        System.out.println(DateFormatUtil.getDay(date));
+        System.out.println(DateFormatUtil.dateAndTimeToString(date));
+        System.out.println(DateFormatUtil.getStartOfMonth(time));
+        System.out.println(DateFormatUtil.getEndOfMonth(time));
+        System.out.println(DateFormatUtil.getMothAndDay(date));
+        System.out.println(DateFormatUtil.getYearAndMonth(time));
+
+    }
 }

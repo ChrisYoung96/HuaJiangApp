@@ -16,11 +16,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".view.RegisterActivity" />
         <activity android:name=".view.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".view.LoginActivity"
@@ -28,13 +24,23 @@
         <activity
             android:name=".view.AddRecordActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".test.ReamlTestActivity" />
         <activity android:name=".view.ModifyBillActivity" />
         <activity android:name=".view.ModifyRecordActivity" />
         <activity android:name=".view.KindsActivity" />
         <activity android:name=".view.UserInfoActivity" />
         <activity android:name=".view.AddKindsActivity" />
-        <activity android:name=".view.AboutActivity"></activity>
+        <activity android:name=".view.AboutActivity" />
+        <activity
+            android:name=".view.WelcomeActivity"
+            android:theme="@style/AppWelcome" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.WelcomeGuideActivity">
+        </activity>
     </application>
 
 </manifest>

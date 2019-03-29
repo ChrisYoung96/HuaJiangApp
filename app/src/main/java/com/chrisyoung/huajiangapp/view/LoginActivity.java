@@ -70,11 +70,6 @@ public class LoginActivity extends BaseActivity implements ILoginInternetView {
                 .setTipWord("loading")
                 .create();
        loginPresenter=new LoginPresenter(this,this,this);
-        String token=null;
-        token= (String) SharedPreferenceUtil.get(this,"token",token);
-        if(token!=null){
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-       }
 
     }
 
@@ -87,6 +82,7 @@ public class LoginActivity extends BaseActivity implements ILoginInternetView {
                 break;
             case R.id.btn_regist:
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                this.finish();
         }
 
     }
@@ -97,6 +93,7 @@ public class LoginActivity extends BaseActivity implements ILoginInternetView {
         Intent intent=new Intent(LoginActivity.this, MainActivity.class);
         intent.putExtra("uId",parm);
         startActivity(intent);
+        this.finish();
     }
 
 

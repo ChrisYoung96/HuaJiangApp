@@ -1,4 +1,4 @@
-package com.chrisyoung.huajiangapp.uitils.adapter;
+package com.chrisyoung.huajiangapp.view.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,6 @@ import com.chrisyoung.huajiangapp.R;
 import com.chrisyoung.huajiangapp.domain.CRecord;
 import com.chrisyoung.huajiangapp.domain.RViewModel;
 import com.chrisyoung.huajiangapp.uitils.DateFormatUtil;
-import com.chrisyoung.huajiangapp.view.AddRecordActivity;
 import com.chrisyoung.huajiangapp.view.ModifyRecordActivity;
 import com.chrisyoung.huajiangapp.view.MyListView;
 import com.chrisyoung.huajiangapp.view.vinterface.OnViewGenerateListener;

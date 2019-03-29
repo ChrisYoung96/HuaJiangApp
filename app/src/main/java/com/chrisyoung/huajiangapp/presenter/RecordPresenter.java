@@ -12,6 +12,7 @@ import com.chrisyoung.huajiangapp.view.vinterface.IRecordsView;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class RecordPresenter {
     private IRecordManageBiz recordManageBiz;
@@ -25,13 +26,15 @@ public class RecordPresenter {
     }
 
     public ArrayList<RViewModel> showRecords(String bId, long curMonth){
-        BigDecimal cost=BigDecimal.valueOf(recordManageBiz.sumAllMoneyInAMonth(bId,DateFormatUtil.getStartOfMonth(curMonth),DateFormatUtil.getEndOfMonth(curMonth),"支出"));
-        BigDecimal income=BigDecimal.valueOf(recordManageBiz.sumAllMoneyInAMonth(bId,DateFormatUtil.getStartOfMonth(curMonth),DateFormatUtil.getEndOfMonth(curMonth),"收入"));
+        Date start=DateFormatUtil.getStartOfMonth(curMonth);
+        Date end=DateFormatUtil.getEndOfMonth(curMonth);
+        BigDecimal cost=BigDecimal.valueOf(recordManageBiz.sumAllMoneyInAMonth(bId,start,end,"支出"));
+        BigDecimal income=BigDecimal.valueOf(recordManageBiz.sumAllMoneyInAMonth(bId,start,end,"收入"));
         cost.setScale(2,BigDecimal.ROUND_UP);
         income.setScale(2,BigDecimal.ROUND_UP);
         recordsView.showTotalIncome(income);
         recordsView.showTotalCost(cost);
-        return recordManageBiz.showRecordsInAMonth(bId,DateFormatUtil.getStartOfMonth(curMonth),DateFormatUtil.getEndOfMonth(curMonth),"");
+        return recordManageBiz.showRecordsInAMonth(bId,start,end,"");
     }
 
     public void  deleteRecord(String rId){

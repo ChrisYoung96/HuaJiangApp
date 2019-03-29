@@ -3,8 +3,11 @@ package com.chrisyoung.huajiangapp.view;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.view.menu.MenuBuilder;
+import android.support.v7.view.menu.MenuItemImpl;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +20,7 @@ import android.widget.TextView;
 
 import com.chrisyoung.huajiangapp.R;
 import com.chrisyoung.huajiangapp.domain.CRecord;
+import com.chrisyoung.huajiangapp.domain.CUserDiyKind;
 import com.chrisyoung.huajiangapp.presenter.AddCostRecordPresenter;
 import com.chrisyoung.huajiangapp.uitils.DateFormatUtil;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
@@ -28,6 +32,7 @@ import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -48,6 +53,7 @@ public class AddCostFragment extends BaseFragment implements IAddOrModifyRecordV
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM3 = "param3";
     @BindView(R.id.txtCostMoney)
     EditText txtCostMoney;
     @BindView(R.id.imgCostKindImg)
@@ -74,6 +80,7 @@ public class AddCostFragment extends BaseFragment implements IAddOrModifyRecordV
     // TODO: Rename and change types of parameters
     private String bId;
     private String rType;
+    private String uId;
 
     private OnFragmentInteractionListener mListener;
 
@@ -92,11 +99,12 @@ public class AddCostFragment extends BaseFragment implements IAddOrModifyRecordV
      * @return A new instance of fragment AddCostFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AddCostFragment newInstance(String param1, String param2) {
+    public static AddCostFragment newInstance(String param1, String param2,String param3) {
         AddCostFragment fragment = new AddCostFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM3,param3);
         fragment.setArguments(args);
         return fragment;
     }
@@ -107,6 +115,7 @@ public class AddCostFragment extends BaseFragment implements IAddOrModifyRecordV
         if (getArguments() != null) {
             rType = getArguments().getString(ARG_PARAM1);
             bId = getArguments().getString(ARG_PARAM2);
+            uId=getArguments().getString(ARG_PARAM3);
         }
     }
 
@@ -187,7 +196,13 @@ public class AddCostFragment extends BaseFragment implements IAddOrModifyRecordV
             }
         });
         menuSheetView.inflateMenu(R.menu.menu_choose_cost_kind);
-
+        ArrayList<CUserDiyKind> kinds=presenter.loadDiyKind(uId);
+        for (CUserDiyKind k :
+                kinds) {
+            Menu menu = menuSheetView.getMenu();
+            menu.add(k.getdKind()).setIcon(R.mipmap.tab_bill_default);
+        }
+        menuSheetView.updateMenu();
 
         btsChooseCostKind.showWithSheetView(menuSheetView);
     }
@@ -205,6 +220,8 @@ public class AddCostFragment extends BaseFragment implements IAddOrModifyRecordV
             }
         });
         menuSheetView.inflateMenu(R.menu.menu_choose_cost_way);
+
+
 
         btsChooseCostKind.showWithSheetView(menuSheetView);
     }

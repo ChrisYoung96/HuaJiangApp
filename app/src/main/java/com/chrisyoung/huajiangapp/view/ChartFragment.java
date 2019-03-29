@@ -14,10 +14,10 @@ import android.widget.TextView;
 import com.chrisyoung.huajiangapp.R;
 import com.chrisyoung.huajiangapp.domain.CBill;
 import com.chrisyoung.huajiangapp.presenter.ChartPresenter;
-import com.chrisyoung.huajiangapp.uitils.adapter.BaseFragmentPagerAdapter;
+import com.chrisyoung.huajiangapp.uitils.SharedPreferenceUtil;
+import com.chrisyoung.huajiangapp.view.adapter.BaseFragmentPagerAdapter;
 import com.chrisyoung.huajiangapp.view.vinterface.IChartView;
 import com.jzxiang.pickerview.TimePickerDialog;
-import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
@@ -75,6 +75,9 @@ public class ChartFragment extends BaseFragment implements IChartView ,OnDateSet
 
 
     private void init(){
+        String bName="";
+        bName=(String)SharedPreferenceUtil.get(getContext(),"curBName",bName);
+        textSvTitle.setText(bName);
         fragments.clear();
         tabStatisticsSegment.reset();
         statisticsCostFragment =StatisticsCostFragment.newInstance(curBId,"支出");

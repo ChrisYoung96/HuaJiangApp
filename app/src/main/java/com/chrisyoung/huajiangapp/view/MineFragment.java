@@ -100,8 +100,7 @@ public class MineFragment extends BaseFragment {
 
         QMUICommonListItemView itemMine = mineGroupListView.createItemView("我的信息");
         itemMine.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
-
-        QMUICommonListItemView itemAutoSyncWithWIFI = mineGroupListView.createItemView("Item 5");
+        QMUICommonListItemView itemAutoSyncWithWIFI = mineGroupListView.createItemView("WIFI自动同步");
         itemAutoSyncWithWIFI.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_SWITCH);
         itemAutoSyncWithWIFI.getSwitch().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -122,11 +121,14 @@ public class MineFragment extends BaseFragment {
                     CharSequence text = ((QMUICommonListItemView) v).getText();
                     if (text.equals("我的信息")) {
                         Intent intent = new Intent(getActivity(), UserInfoActivity.class);
+                        intent.putExtra("uId",uId);
                         getContext().startActivity(intent);
+                        getActivity().finish();
                     } else if (text.equals("类别设置")) {
                         Intent intent = new Intent(getActivity(), KindsActivity.class);
                         intent.putExtra("uId",uId);
                         getContext().startActivity(intent);
+                        getActivity().finish();
                     } else if (((QMUICommonListItemView) v).getAccessoryType() == QMUICommonListItemView.ACCESSORY_TYPE_SWITCH) {
                         ((QMUICommonListItemView) v).getSwitch().toggle();
                     } else{

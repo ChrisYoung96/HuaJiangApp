@@ -33,6 +33,8 @@ public class RecordManageBizImpl implements IRecordManageBiz {
         ArrayList<CRecord> records = recordDao.showRecordsByMonth(bId,start,end);
         if (records != null && !records.isEmpty()) {
             Date temp = DateFormatUtil.stringToDate("1900-01-01");
+            Date startOfDay = DateFormatUtil.getStartOfDay(temp);
+            Date endOfDay =DateFormatUtil.getEndOfDay(temp);
             RViewModel rViewModel = new RViewModel();
             for (CRecord r : records
                     ) {
@@ -40,12 +42,12 @@ public class RecordManageBizImpl implements IRecordManageBiz {
                 if (!temp.equals(rTime)) {
                     if (!rViewModel.getRecords().isEmpty()) {
                         if(type.equals("")){
-                            rViewModel.setTotalCost(getTotalCost(bId, DateFormatUtil.getStartOfDay(temp), DateFormatUtil.getEndOfDay(temp)));
-                            rViewModel.setTotalIncome(getTotalIncome(bId, DateFormatUtil.getStartOfDay(temp), DateFormatUtil.getEndOfDay(temp)));
+                            rViewModel.setTotalCost(getTotalCost(bId, startOfDay, endOfDay));
+                            rViewModel.setTotalIncome(getTotalIncome(bId, startOfDay, endOfDay));
                         }else if(type.equals("收入")) {
-                            rViewModel.setTotalIncome(getTotalIncome(bId, DateFormatUtil.getStartOfDay(temp), DateFormatUtil.getEndOfDay(temp)));
+                            rViewModel.setTotalIncome(getTotalIncome(bId, startOfDay, endOfDay));
                         }else if(type.equals("支出")){
-                            rViewModel.setTotalCost(getTotalCost(bId, DateFormatUtil.getStartOfDay(temp), DateFormatUtil.getEndOfDay(temp)));
+                            rViewModel.setTotalCost(getTotalCost(bId, startOfDay, endOfDay));
                         }
                         rViewModels.add(rViewModel);
                     }
@@ -59,8 +61,8 @@ public class RecordManageBizImpl implements IRecordManageBiz {
                 }
 
             }
-            rViewModel.setTotalCost(getTotalCost(bId, DateFormatUtil.getStartOfDay(temp), DateFormatUtil.getEndOfDay(temp)));
-            rViewModel.setTotalIncome(getTotalIncome(bId, DateFormatUtil.getStartOfDay(temp), DateFormatUtil.getEndOfDay(temp)));
+            rViewModel.setTotalCost(getTotalCost(bId, startOfDay, endOfDay));
+            rViewModel.setTotalIncome(getTotalIncome(bId, startOfDay, endOfDay));
             rViewModels.add(rViewModel);
         }
         return rViewModels;
