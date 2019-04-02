@@ -2,6 +2,7 @@ package com.chrisyoung.huajiangapp.presenter;
 
 import android.content.Context;
 
+import com.chrisyoung.huajiangapp.constant.UserConfig;
 import com.chrisyoung.huajiangapp.network.DataManager;
 import com.chrisyoung.huajiangapp.network.HttpResult;
 import com.chrisyoung.huajiangapp.uitils.NetUtil;
@@ -44,7 +45,7 @@ public class LoginPresenter extends BasePresenter {
                         @Override
                         public void accept(HttpResult<String> result) throws Exception {
                             token=result.getData();
-                            SharedPreferenceUtil.put(context,"token",token);
+                            SharedPreferenceUtil.put(context,UserConfig.TOKEN,token);
 
                         }
                     })
@@ -65,7 +66,7 @@ public class LoginPresenter extends BasePresenter {
                         @Override
                         public void onNext(HttpResult<String> result) {
                             String uId=result.getData();
-                            SharedPreferenceUtil.put(context,"uId",uId);
+                            SharedPreferenceUtil.put(context,UserConfig.USER_ID,uId);
                             loginView.hideProgressDialog();
                             loginView.jump2MainActivity(uId);
                         }

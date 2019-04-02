@@ -109,6 +109,7 @@ public class StatisticsCostFragment extends BaseFragment implements OnDateSetLis
 
     private void init(){
         presenter=new StatisticsPresenter(this);
+        btnSCChooseDate.setText(DateFormatUtil.getYearAndMonth(System.currentTimeMillis())+"▼");
         presenter.init(bId,System.currentTimeMillis(),type);
     }
 
@@ -293,9 +294,7 @@ public class StatisticsCostFragment extends BaseFragment implements OnDateSetLis
 
     @Override
     public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
-        Date date=new Date(millseconds);
-        StringBuffer stringBuffer=new StringBuffer(DateFormatUtil.getYear(date)+"年"+DateFormatUtil.getMonth(date)+"月");
-        btnSCChooseDate.setText(stringBuffer);
+        btnSCChooseDate.setText(DateFormatUtil.getYearAndMonth(millseconds)+"▼");
         presenter.init(bId,millseconds,type);
     }
 

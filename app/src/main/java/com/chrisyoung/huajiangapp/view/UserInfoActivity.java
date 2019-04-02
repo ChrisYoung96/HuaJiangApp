@@ -37,7 +37,7 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView {
         setContentView(R.layout.activity_user_info);
         ButterKnife.bind(this);
         uId = getIntent().getStringExtra("uId");
-        presenter=new UserInfoPresenter(this);
+        presenter=new UserInfoPresenter(this,this);
         presenter.initView(uId);
     }
 
@@ -109,6 +109,13 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView {
         if(uId.equals("")||uId==null){
             btnLogout.setText("登录");
         }
+    }
+
+    @Override
+    public void jum2LoginActivity() {
+        Intent intent=new Intent(this,LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override

@@ -51,6 +51,7 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.flipboard:bottomsheet-core:1.5.3'
     implementation 'com.flipboard:bottomsheet-commons:1.5.3' // optional
+    implementation 'com.zxy.android:tiny:0.1.0'
 
 
     testImplementation 'junit:junit:4.12'

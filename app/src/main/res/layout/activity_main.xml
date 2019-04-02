@@ -19,11 +19,11 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
-        android:background="#FFFDFD"
+        android:background="@color/bottomBarBackground"
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/today_tab"
+            android:id="@+id/records"
             style="@style/Custom.TabRadioButton"
             android:checked="true"
             android:drawableTop="@drawable/tab_records_selector"
@@ -31,7 +31,7 @@
             android:textSize="12sp"/>
 
         <RadioButton
-            android:id="@+id/record_tab"
+            android:id="@+id/chart"
             style="@style/Custom.TabRadioButton"
             android:drawableTop="@drawable/tab_graph_selector"
             android:text="@string/tubiao"
@@ -40,14 +40,14 @@
         <View style="@style/Custom.TabRadioButton" />
 
         <RadioButton
-            android:id="@+id/contact_tab"
+            android:id="@+id/bill"
             style="@style/Custom.TabRadioButton"
             android:drawableTop="@drawable/tab_bill_selector"
             android:text="@string/zhangben"
             android:textSize="12sp"/>
 
         <RadioButton
-            android:id="@+id/settings_tab"
+            android:id="@+id/mine"
             style="@style/Custom.TabRadioButton"
             android:drawableTop="@drawable/tab_my_selector"
             android:text="@string/mine"

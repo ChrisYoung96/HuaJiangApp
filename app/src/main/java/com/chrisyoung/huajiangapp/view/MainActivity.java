@@ -11,10 +11,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.chrisyoung.huajiangapp.R;
-import com.chrisyoung.huajiangapp.uitils.SharedPreferenceUtil;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
-
-import butterknife.BindView;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 public class MainActivity extends BaseActivity implements ShowRecordFragment.OnFragmentInteractionListener,ChartFragment.OnFragmentInteractionListener,BillFragment.OnFragmentInteractionListener,MineFragment.OnFragmentInteractionListener,StatisticsCostFragment.OnFragmentInteractionListener,StatisticsIncomeFragment.OnFragmentInteractionListener{
 
@@ -34,18 +32,19 @@ public class MainActivity extends BaseActivity implements ShowRecordFragment.OnF
        // uId=(String) SharedPreferenceUtil.get(this,"uId",uId);
         curBId="385ca5a9ee1340148ce3977b99e6660b";
         uId="94d5f9cbd27b4526a9b90176f44037d7";
+        QMUIStatusBarHelper.translucent(this);
         initView();
 
     }
 
     private void initView() {
-        btnAddBill=findViewById(R.id.contact_tab);
+        btnAddBill=findViewById(R.id.bill);
         mTabRadioGroup = findViewById(R.id.tabs_rg);
         mFragmentSparseArray = new SparseArray<>();
-        mFragmentSparseArray.append(R.id.today_tab, ShowRecordFragment.newInstance(curBId,uId));
-        mFragmentSparseArray.append(R.id.record_tab, ChartFragment.newInstance(uId,curBId));
-        mFragmentSparseArray.append(R.id.contact_tab, BillFragment.newInstance(uId,"sdf"));
-        mFragmentSparseArray.append(R.id.settings_tab, MineFragment.newInstance(uId,"jkjl"));
+        mFragmentSparseArray.append(R.id.records, ShowRecordFragment.newInstance(curBId,uId));
+        mFragmentSparseArray.append(R.id.chart, ChartFragment.newInstance(uId,curBId));
+        mFragmentSparseArray.append(R.id.bill, BillFragment.newInstance(uId,"sdf"));
+        mFragmentSparseArray.append(R.id.mine, MineFragment.newInstance(uId,"jkjl"));
         mTabRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -63,7 +62,7 @@ public class MainActivity extends BaseActivity implements ShowRecordFragment.OnF
 
         }else{
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,
-                    mFragmentSparseArray.get(R.id.today_tab)).commit();
+                    mFragmentSparseArray.get(R.id.records)).commit();
         }
 
         findViewById(R.id.sign_iv).setOnClickListener(new View.OnClickListener() {

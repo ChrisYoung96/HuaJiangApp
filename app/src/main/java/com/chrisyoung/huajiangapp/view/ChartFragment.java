@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.chrisyoung.huajiangapp.R;
+import com.chrisyoung.huajiangapp.constant.UserConfig;
 import com.chrisyoung.huajiangapp.domain.CBill;
 import com.chrisyoung.huajiangapp.presenter.ChartPresenter;
 import com.chrisyoung.huajiangapp.uitils.SharedPreferenceUtil;
@@ -76,7 +77,7 @@ public class ChartFragment extends BaseFragment implements IChartView ,OnDateSet
 
     private void init(){
         String bName="";
-        bName=(String)SharedPreferenceUtil.get(getContext(),"curBName",bName);
+        bName=(String)SharedPreferenceUtil.get(getContext(),UserConfig.CUR_BNAME,bName);
         textSvTitle.setText(bName);
         fragments.clear();
         tabStatisticsSegment.reset();

@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/rl_r_titlebar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:layout_marginTop="50dp"
         android:background="@color/titleBackground">
 
@@ -17,6 +17,9 @@
             android:id="@+id/text_r_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="20dp"
             android:ellipsize="marquee"
             android:gravity="center_horizontal|center"
             android:singleLine="true"
@@ -37,11 +40,12 @@
             android:src="@mipmap/switcher"
             android:drawablePadding="6dp"
             android:ellipsize="end"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:paddingLeft="5dp"
             android:background="@color/qmui_config_color_transparent"
             android:singleLine="true"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            android:layout_marginTop="20dp"/>
 
     </RelativeLayout>
 
@@ -50,6 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl_r_titlebar"
+        android:background="@color/firstLayerBackground"
         android:layout_alignParentStart="true"
         android:layout_marginTop="0dp">
 
@@ -57,8 +62,9 @@
             android:id="@+id/ui_income"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="116dp"
-            android:layout_toStartOf="@+id/ui_cost"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="134dp"
             android:text="收入"
             android:textSize="16sp" />
 
@@ -66,8 +72,8 @@
             android:id="@+id/ui_cost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="88dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="264dp"
             android:text="支出"
             android:textSize="16sp" />
 
@@ -77,9 +83,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ui_income"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="118dp"
+            android:layout_marginStart="135dp"
             android:layout_marginTop="0dp"
             android:text="0.00"
+            android:textColor="@color/incomeColor"
             android:textSize="20sp" />
 
         <TextView
@@ -91,6 +98,7 @@
             android:layout_marginStart="263dp"
             android:layout_marginTop="0dp"
             android:text="0.00"
+            android:textColor="@color/costColor"
             android:textSize="20sp" />
 
         <ImageView

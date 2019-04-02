@@ -107,6 +107,7 @@ public class StatisticsIncomeFragment extends BaseFragment implements OnDateSetL
 
     private void init(){
         presenter=new StatisticsPresenter(this);
+        btnSIChooseIncomeDate.setText(DateFormatUtil.getYearAndMonth(System.currentTimeMillis())+"▼");
         presenter.init(bId,System.currentTimeMillis(),type);
     }
 
@@ -287,8 +288,7 @@ public class StatisticsIncomeFragment extends BaseFragment implements OnDateSetL
     @Override
     public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
         Date date=new Date(millseconds);
-        StringBuffer stringBuffer=new StringBuffer(DateFormatUtil.getYear(date)+"年"+DateFormatUtil.getMonth(date)+"月");
-        btnSIChooseIncomeDate.setText(stringBuffer);
+        btnSIChooseIncomeDate.setText(DateFormatUtil.getYearAndMonth(millseconds)+"▼");
         presenter.init(bId,millseconds,type);
     }
 

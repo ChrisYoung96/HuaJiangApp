@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.chrisyoung.huajiangapp.R;
+import com.chrisyoung.huajiangapp.constant.UserConfig;
 import com.chrisyoung.huajiangapp.domain.CBill;
 import com.chrisyoung.huajiangapp.domain.RViewModel;
 import com.chrisyoung.huajiangapp.presenter.RecordPresenter;
@@ -28,6 +29,7 @@ import com.daimajia.swipe.SwipeLayout;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 
 import java.math.BigDecimal;
@@ -111,8 +113,8 @@ public class ShowRecordFragment extends BaseFragment implements OnDateSetListene
 
     private void init() {
         month = System.currentTimeMillis();
-        bId=(String)SharedPreferenceUtil.get(getContext(),"curBId",bId);
-        curBName=(String)SharedPreferenceUtil.get(getContext(),"curBName",curBName);
+        bId=(String)SharedPreferenceUtil.get(getContext(),UserConfig.CUR_BID,bId);
+        curBName=(String)SharedPreferenceUtil.get(getContext(),UserConfig.CUR_BNAME,curBName);
         curMonth = DateFormatUtil.getYearAndMonth(month)+"▼";
         btnChooseDate.setText(curMonth);
         if(curBName.equals("")){
@@ -140,6 +142,7 @@ public class ShowRecordFragment extends BaseFragment implements OnDateSetListene
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_show_record, container, false);
         unbinder = ButterKnife.bind(this, rootView);
+
         init();
         return rootView;
     }
@@ -308,8 +311,8 @@ public class ShowRecordFragment extends BaseFragment implements OnDateSetListene
                     dialog.dismiss();
                     bId=tag;
                     textRTitle.setText(bills.get(position).getbName());
-                    SharedPreferenceUtil.put(getContext(),"curBId",bId);
-                    SharedPreferenceUtil.put(getContext(),"curBName",bills.get(position).getbName());
+                    SharedPreferenceUtil.put(getContext(),UserConfig.CUR_BID,bId);
+                    SharedPreferenceUtil.put(getContext(),UserConfig.CUR_BNAME,bills.get(position).getbName());
                     refresh(System.currentTimeMillis());
                 }
             });

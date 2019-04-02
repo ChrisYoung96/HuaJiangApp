@@ -4,4 +4,6 @@ import com.chrisyoung.huajiangapp.domain.CUser;
 
 public interface IMineInfoView extends BaseView {
     void initView(CUser user);
+
+    void jum2LoginActivity();
 }

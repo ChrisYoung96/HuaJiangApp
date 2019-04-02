@@ -4,6 +4,7 @@ import com.chrisyoung.huajiangapp.biz.IUserBiz;
 import com.chrisyoung.huajiangapp.dao.IUserDao;
 import com.chrisyoung.huajiangapp.dao.impl.UserDaoImpl;
 import com.chrisyoung.huajiangapp.domain.CUser;
+import com.chrisyoung.huajiangapp.uitils.SharedPreferenceUtil;
 
 public class UserInfoBiz implements IUserBiz {
     private IUserDao userDao=new UserDaoImpl();
@@ -14,6 +15,5 @@ public class UserInfoBiz implements IUserBiz {
 
     @Override
     public void logOut(String uId) {
-
     }
 }
