@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -22,6 +23,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -40,6 +42,11 @@ import com.chrisyoung.huajiangapp.uitils.DateFormatUtil;
 import com.chrisyoung.huajiangapp.uitils.ImageUtil;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
 import com.chrisyoung.huajiangapp.view.vinterface.IMineInfoView;
+import com.jzxiang.pickerview.TimePickerDialog;
+import com.jzxiang.pickerview.data.Type;
+import com.jzxiang.pickerview.listener.OnDateSetListener;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 import com.zxy.tiny.Tiny;
@@ -49,15 +56,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class UserInfoActivity extends BaseActivity implements IMineInfoView {
+public class UserInfoActivity extends BaseActivity implements IMineInfoView, OnDateSetListener {
     private String uId;
     private UserInfoPresenter presenter;
-
 
 
     private String photoPath = "";
@@ -66,12 +73,25 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView {
 
     File imgFile;
 
+    private int mCurrentDialogStyle = com.qmuiteam.qmui.R.style.QMUI_Dialog;
+    TimePickerDialog mDialogYearMonth;
+
     @BindView(R.id.btnMineBack)
     ImageButton btnMineBack;
     @BindView(R.id.btnLogout)
     Button btnLogout;
     @BindView(R.id.infoGroupListView)
     QMUIGroupListView infoGroupListView;
+
+    QMUICommonListItemView headPhoto;
+
+    QMUICommonListItemView myName;
+
+    QMUICommonListItemView mySex;
+
+    QMUICommonListItemView myBirthday;
+
+    QMUICommonListItemView myPhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,16 +114,16 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView {
             user.setuSex("男");
             user.setuPhone(" ");
         }
-        photoPath=ImageUtil.readpic(ImageUtil.IMAGE_FILE_FOLDER+ImageUtil.HEAD_PHOTP_PREFIX+uId+ImageUtil.IMAGE_SUFFIX);
-        imgFile=new File(photoPath);
-        QMUICommonListItemView headPhoto = infoGroupListView.createItemView(
+        photoPath = ImageUtil.readpic(ImageUtil.IMAGE_FILE_FOLDER + ImageUtil.HEAD_PHOTP_PREFIX + uId + ImageUtil.IMAGE_SUFFIX);
+        imgFile = new File(photoPath);
+        headPhoto = infoGroupListView.createItemView(
                 "头像");
         headPhoto.setOrientation(QMUICommonListItemView.VERTICAL);
         headPhoto.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CUSTOM);
         imageView = new ImageView(this);
-        if(photoPath.equals("")){
+        if (photoPath.equals("")) {
             imageView.setImageResource(R.mipmap.account);
-        }else{
+        } else {
             Uri uri = FileProvider.getUriForFile(UserInfoActivity.this, ImageUtil.FILE_PROVIDER, imgFile);
             try {
                 Bitmap bitmap = BitmapFactory.decodeStream(this.getContentResolver().openInputStream(uri));
@@ -116,22 +136,22 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView {
         headPhoto.addAccessoryCustomView(imageView);
 
 
-        QMUICommonListItemView myName = infoGroupListView.createItemView("用户名");
+        myName = infoGroupListView.createItemView(getResources().getText(R.string.nicheng));
         myName.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_NONE);
         myName.setDetailText(user.getuName());
         myName.setOrientation(QMUICommonListItemView.HORIZONTAL);
 
-        QMUICommonListItemView mySex = infoGroupListView.createItemView("性别");
+        mySex = infoGroupListView.createItemView(getResources().getText(R.string.xingbie));
         mySex.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_NONE);
         mySex.setDetailText(user.getuSex());
 
 
-        QMUICommonListItemView myBirthday = infoGroupListView.createItemView("生日");
+        myBirthday = infoGroupListView.createItemView(getResources().getText(R.string.shengri));
         myBirthday.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_NONE);
         myBirthday.setDetailText(DateFormatUtil.dateToString(user.getuBirthday()));
         myBirthday.setOrientation(QMUICommonListItemView.HORIZONTAL);
 
-        QMUICommonListItemView myPhone = infoGroupListView.createItemView("电话");
+        myPhone = infoGroupListView.createItemView(getResources().getText(R.string.dianhua));
         myPhone.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_NONE);
         myPhone.setDetailText(user.getuPhone());
         myPhone.setOrientation(QMUICommonListItemView.HORIZONTAL);
@@ -142,16 +162,74 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView {
             public void onClick(View v) {
                 if (v instanceof QMUICommonListItemView) {
                     CharSequence text = ((QMUICommonListItemView) v).getText();
-                    if (text.equals("头像")) {
+                    if (text.equals(getResources().getText(R.string.touxiang))) {
                         UpdatePhoto(v);
+                    } else if (text.equals(getResources().getText(R.string.nicheng))) {
+                        QMUIDialog.EditTextDialogBuilder builder = new QMUIDialog.EditTextDialogBuilder(UserInfoActivity.this);
+                        builder.setTitle("修改昵称")
+                                .setPlaceholder("在此输入您的昵称")
+                                .setInputType(InputType.TYPE_CLASS_TEXT)
+                                .addAction("取消", new QMUIDialogAction.ActionListener() {
+                                    @Override
+                                    public void onClick(QMUIDialog dialog, int index) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .addAction("确定", new QMUIDialogAction.ActionListener() {
+                                    @Override
+                                    public void onClick(QMUIDialog dialog, int index) {
+                                        CharSequence text = builder.getEditText().getText();
+                                        if (text != null && text.length() > 0) {
+                                            CUser cUser=new CUser();
+                                            cUser.setuId(uId);
+                                            cUser.setuName(text.toString());
+                                            cUser.setuBirthday(DateFormatUtil.stringToDate(myBirthday.getDetailText().toString()));
+                                            cUser.setuSex(mySex.getDetailText().toString());
+                                            cUser.setuPhone(myPhone.getDetailText().toString());
+                                            cUser.setuPhoto(photoPath);
+                                            presenter.updateUserInfo(cUser);
+                                            dialog.dismiss();
+                                            presenter.initView(uId);
+                                        } else {
+                                            ToastUtil.showShort(UserInfoActivity.this, "请输入昵称");
+                                        }
+                                    }
+                                })
+                                .create(mCurrentDialogStyle).show();
+                    } else if (text.equals(getResources().getText(R.string.shengri))) {
+                        initDatePicker();
+                    }else if(text.equals(getResources().getText(R.string.xingbie))){
+                        final String[] items = new String[]{"男", "女"};
+                        final int checkedIndex = 1;
+                        new QMUIDialog.CheckableDialogBuilder(UserInfoActivity.this)
+                                .setCheckedIndex(checkedIndex)
+                                .addItems(items, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        CUser cUser=new CUser();
+                                        cUser.setuId(uId);
+                                        cUser.setuName(myName.getDetailText().toString());
+                                        cUser.setuBirthday(DateFormatUtil.stringToDate(myBirthday.getDetailText().toString()));
+                                        cUser.setuSex(items[which]);
+                                        cUser.setuPhone(myPhone.getDetailText().toString());
+                                        cUser.setuPhoto(photoPath);
+                                        presenter.updateUserInfo(cUser);
+                                        dialog.dismiss();
+                                        presenter.initView(uId);
+                                    }
+                                })
+                                .create(mCurrentDialogStyle).show();
                     }
                 }
             }
         };
 
 
-        QMUIGroupListView.newSection(this)
-                .addItemView(headPhoto, onClickListener)
+        infoGroupListView.removeAllViews();
+
+
+       QMUIGroupListView.Section section= QMUIGroupListView.newSection(this);
+       section.addItemView(headPhoto, onClickListener)
                 .addItemView(myName, onClickListener)
                 .addItemView(mySex, onClickListener)
                 .addItemView(myBirthday, onClickListener)
@@ -234,7 +312,7 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView {
                 } else {
                     try {
                         //有权限,去打开摄像头
-                        ImageUtil.takePhoto(UserInfoActivity.this,imgFile,ImageUtil.HEAD_PHOTP_PREFIX+uId+ImageUtil.IMAGE_SUFFIX);
+                        ImageUtil.takePhoto(UserInfoActivity.this, imgFile, ImageUtil.HEAD_PHOTP_PREFIX + uId + ImageUtil.IMAGE_SUFFIX);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -271,7 +349,6 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView {
     }
 
 
-
     /**
      * 申请权限回调
      *
@@ -285,7 +362,7 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView {
         if (requestCode == ImageUtil.MY_ADD_CASE_CALL_PHONE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 try {
-                    ImageUtil.takePhoto(UserInfoActivity.this,imgFile,ImageUtil.HEAD_PHOTP_PREFIX+uId+ImageUtil.IMAGE_SUFFIX);
+                    ImageUtil.takePhoto(UserInfoActivity.this, imgFile, ImageUtil.HEAD_PHOTP_PREFIX + uId + ImageUtil.IMAGE_SUFFIX);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -313,24 +390,24 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ImageUtil.REQUEST_CAMERA && resultCode != Activity.RESULT_CANCELED) {
             Uri uri = FileProvider.getUriForFile(UserInfoActivity.this, ImageUtil.FILE_PROVIDER, imgFile);
-            ImageUtil.startPhotoZoom(uri, 192, 192, imgFile,UserInfoActivity.this);
+            ImageUtil.startPhotoZoom(uri, 192, 192, imgFile, UserInfoActivity.this);
 
         } else if (requestCode == ImageUtil.REQUEST_GALLARY && resultCode == Activity.RESULT_OK
                 && null != data) {
-            imgFile=new File(photoPath);
+            imgFile = new File(photoPath);
             Uri selectedImage = data.getData();
-            ImageUtil.startPhotoZoom(selectedImage, 192, 192, imgFile,UserInfoActivity.this);
+            ImageUtil.startPhotoZoom(selectedImage, 192, 192, imgFile, UserInfoActivity.this);
 
-        } else if (requestCode ==ImageUtil. REQUEST_CROP_PHOTO && data != null && resultCode == Activity.RESULT_OK) {
+        } else if (requestCode == ImageUtil.REQUEST_CROP_PHOTO && data != null && resultCode == Activity.RESULT_OK) {
 
             Uri uri = FileProvider.getUriForFile(UserInfoActivity.this, ImageUtil.FILE_PROVIDER, imgFile);
 
             try {
                 Bitmap bitmap = BitmapFactory.decodeStream(this.getContentResolver().openInputStream(uri));
-                ImageUtil.savePhotoToSdCard(bitmap,photoPath);
+                ImageUtil.savePhotoToSdCard(bitmap, photoPath);
                 saveImageToServer(bitmap, photoPath);
                 //把图片加入图库
-                ImageUtil.galleryAddPic(photoPath,this);
+                ImageUtil.galleryAddPic(photoPath, this);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -340,7 +417,6 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView {
     }
 
 
-
     private void saveImageToServer(final Bitmap bitmap, String outfile) {
 
 
@@ -348,10 +424,34 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView {
         // TODO: 2018/12/4  这里就可以将图片文件 file 上传到服务器,上传成功后可以将bitmap设置给你对应的图片展示
         imageView.setImageBitmap(bitmap);
 
-        ImageUtil.galleryAddPic(outfile,this);
+        ImageUtil.galleryAddPic(outfile, this);
     }
 
 
+    private void initDatePicker() {
+        mDialogYearMonth = new TimePickerDialog.Builder()
+                .setType(Type.YEAR_MONTH_DAY)
+                .setThemeColor(this.getColor(R.color.titleBackground))
+                .setTitleStringId("选择日期")
+                .setCallBack(this)
+                .setWheelItemTextNormalColorId(this.getColor(R.color.timepickerbackground))
+                .build();
+        assert this.getFragmentManager() != null;
+        mDialogYearMonth.show(getSupportFragmentManager(), "year_month_day");
+    }
 
 
+    @Override
+    public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
+        CUser cUser=new CUser();
+        cUser.setuId(uId);
+        cUser.setuName(myName.getDetailText().toString());
+        cUser.setuBirthday(new Date(millseconds));
+        cUser.setuSex(mySex.getDetailText().toString());
+        cUser.setuPhone(myPhone.getDetailText().toString());
+        cUser.setuPhoto(photoPath);
+        presenter.updateUserInfo(cUser);
+        presenter.initView(uId);
+
+    }
 }

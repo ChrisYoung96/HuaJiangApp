@@ -27,4 +27,9 @@
     <string name="保存">保存</string>
     <string name="添加账本">添加账本</string>
     <string name="entry">进入</string>
+    <string name="touxiang">头像</string>
+    <string name="nicheng">昵称</string>
+    <string name="xingbie">性别</string>
+    <string name="shengri">生日</string>
+    <string name="dianhua">电话</string>
 </resources>

@@ -16,4 +16,9 @@ public class UserInfoBiz implements IUserBiz {
     @Override
     public void logOut(String uId) {
     }
+
+    @Override
+    public boolean updateUserInfo(CUser user) {
+       return userDao.addOrUpdateUser(user);
+    }
 }

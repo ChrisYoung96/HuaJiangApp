@@ -7,4 +7,6 @@ public interface IUserBiz {
 
     void logOut(String uId);
 
+    boolean updateUserInfo(CUser user);
+
 }

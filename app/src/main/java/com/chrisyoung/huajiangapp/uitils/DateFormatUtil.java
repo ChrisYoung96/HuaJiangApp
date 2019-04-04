@@ -40,7 +40,7 @@ public class DateFormatUtil {
     }
 
     public static Date stringToDate(String sdate){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINA);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日",Locale.CHINA);
         ParsePosition pos = new ParsePosition(0);
         Date date = format.parse(sdate, pos);
         return date;

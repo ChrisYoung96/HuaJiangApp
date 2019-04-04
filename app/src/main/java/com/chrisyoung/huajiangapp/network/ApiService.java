@@ -64,7 +64,7 @@ public interface ApiService {
     Observable<HttpResult<String>> sychronizeDiyKindsC2S(@Header("Authorization") String token,@Body LinkedList<SychronizeDataItem<SUserDiy>> kinds);
 
     @GET("usr/getuid")
-    Observable<HttpResult<String>> getUid(@Header("Authorization") String token);
+    Observable<HttpResult<SUser>> getUid(@Header("Authorization") String token);
 
 
 

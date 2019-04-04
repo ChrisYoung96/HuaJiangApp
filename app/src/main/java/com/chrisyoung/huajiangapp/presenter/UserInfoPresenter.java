@@ -13,6 +13,8 @@ import com.chrisyoung.huajiangapp.view.vinterface.IMineInfoView;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
+import java.util.Date;
+
 public class UserInfoPresenter  {
     private IMineInfoView mineInfoView;
     private IUserBiz userBiz;
@@ -40,4 +42,33 @@ public class UserInfoPresenter  {
         SharedPreferenceUtil.put(context,UserConfig.AUTO_SYNC,false);
         mineInfoView.jum2LoginActivity();
     }
+
+
+    public void updateUserInfo(CUser cUser){
+        userBiz.updateUserInfo(cUser);
+    }
+
+    public void updateUserName(String uId,String uName){
+        CUser user=userBiz.getUserInfo(uId);
+        user.setuName(uName);
+        userBiz.updateUserInfo(user);
+    }
+
+    public void updateUserBirthday(String uId,long millseconds){
+        Date date=new Date(millseconds);
+        CUser user=userBiz.getUserInfo(uId);
+        user.setuBirthday(date);
+        userBiz.updateUserInfo(user);
+    }
+
+    public void updateUserSex(String uId,String sex){
+        CUser user=userBiz.getUserInfo(uId);
+        user.setuSex(sex);
+        userBiz.updateUserInfo(user);
+    }
+
+
+
+
+
 }
