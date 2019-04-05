@@ -257,11 +257,15 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView, OnD
 
     }
 
+
+
+
     @OnClick({R.id.btnMineBack, R.id.btnLogout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnMineBack:
                 Intent intent = new Intent(this, MainActivity.class);
+                intent.putExtra("tabNo",MainActivity.MINE);
                 startActivity(intent);
                 finish();
                 break;

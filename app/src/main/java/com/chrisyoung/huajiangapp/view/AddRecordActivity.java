@@ -35,6 +35,7 @@ public class AddRecordActivity extends FragmentActivity implements AddCostFragme
     @BindView(R.id.btnAdBack)
     ImageButton btnAdBack;
 
+    private int tabNo=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class AddRecordActivity extends FragmentActivity implements AddCostFragme
     private void init() {
         uId = getIntent().getStringExtra("uId");
         bId = getIntent().getStringExtra("curBId");
+        tabNo=getIntent().getIntExtra("tabNo",tabNo);
         addIncomeFragment = AddIncomeFragment.newInstance("收入", bId,uId);
         addCostFragment = AddCostFragment.newInstance("支出", bId,uId);
         fragments.add(addCostFragment);
@@ -73,7 +75,9 @@ public class AddRecordActivity extends FragmentActivity implements AddCostFragme
 
     @OnClick(R.id.btnAdBack)
     public void onViewClicked() {
-        startActivity(new Intent(this,MainActivity.class));
+        Intent intent=new Intent(this, MainActivity.class);
+        intent.putExtra("tabNo",tabNo);
+        startActivity(intent);
         this.finish();
     }
 }
