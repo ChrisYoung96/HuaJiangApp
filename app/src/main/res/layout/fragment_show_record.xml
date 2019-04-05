@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_marginStart="0dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:ellipsize="marquee"
             android:gravity="center_horizontal|center"
             android:singleLine="true"
@@ -33,19 +33,16 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignEnd="@+id/text_r_title"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="14dp"
-            android:layout_marginRight="5dp"
-            android:src="@mipmap/switcher"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="11dp"
+            android:background="@color/qmui_config_color_transparent"
             android:drawablePadding="6dp"
             android:ellipsize="end"
-            android:gravity="center_horizontal"
-            android:paddingLeft="5dp"
-            android:background="@color/qmui_config_color_transparent"
+            android:paddingStart="5dp"
             android:singleLine="true"
-            android:textSize="18dp"
-            android:layout_marginTop="20dp"/>
+            android:src="@mipmap/switcher"
+             />
 
     </RelativeLayout>
 
@@ -64,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="134dp"
+            android:layout_marginStart="240dp"
             android:text="收入"
             android:textSize="16sp" />
 
@@ -73,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="264dp"
+            android:layout_marginStart="320dp"
             android:text="支出"
             android:textSize="16sp" />
 
@@ -83,11 +80,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ui_income"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="135dp"
+            android:layout_marginStart="240dp"
             android:layout_marginTop="0dp"
+            android:textSize="15sp"
             android:text="0.00"
-            android:textColor="@color/incomeColor"
-            android:textSize="20sp" />
+            android:textColor="@color/incomeColor" />
 
         <TextView
             android:id="@+id/txtTotalCost"
@@ -95,11 +92,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ui_cost"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="263dp"
+            android:layout_marginStart="320dp"
             android:layout_marginTop="0dp"
             android:text="0.00"
             android:textColor="@color/costColor"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <ImageView
             android:id="@+id/imageView3"

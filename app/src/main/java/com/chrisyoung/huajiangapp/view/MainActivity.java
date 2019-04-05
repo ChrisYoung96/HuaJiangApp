@@ -33,6 +33,7 @@ public class MainActivity extends BaseActivity implements ShowRecordFragment.OnF
         curBId="385ca5a9ee1340148ce3977b99e6660b";
         uId="94d5f9cbd27b4526a9b90176f44037d7";
         QMUIStatusBarHelper.translucent(this);
+        QMUIStatusBarHelper.setStatusBarLightMode(this);
         initView();
 
     }

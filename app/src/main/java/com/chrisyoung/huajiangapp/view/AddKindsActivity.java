@@ -13,6 +13,7 @@ import com.chrisyoung.huajiangapp.domain.CUserDiyKind;
 import com.chrisyoung.huajiangapp.presenter.KindPresenter;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
 import com.chrisyoung.huajiangapp.view.vinterface.IKindView;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 import java.util.ArrayList;
 
@@ -39,6 +40,8 @@ public class AddKindsActivity extends AppCompatActivity  implements IKindView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_kinds);
         ButterKnife.bind(this);
+        QMUIStatusBarHelper.translucent(this);
+        QMUIStatusBarHelper.setStatusBarLightMode(this);
         type=getIntent().getStringExtra("type");
         uId=getIntent().getStringExtra("uId");
         presenter=new KindPresenter(this);

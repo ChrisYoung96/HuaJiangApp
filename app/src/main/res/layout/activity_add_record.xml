@@ -8,7 +8,7 @@
     <RelativeLayout
         android:id="@+id/rl_ad_titlebar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:layout_marginTop="0dp"
         android:background="@color/titleBackground">
 
@@ -19,8 +19,9 @@
             android:ellipsize="marquee"
             android:gravity="center_horizontal|center"
             android:singleLine="true"
+            android:layout_marginTop="30dp"
             android:text="添加记录"
-            android:textColor="#ffffffff"
+            android:textColor="#000000"
             android:textSize="20dp" />
 
 
@@ -32,6 +33,7 @@
             android:drawablePadding="6dp"
             android:ellipsize="end"
             android:gravity="center"
+            android:layout_marginTop="30dp"
             android:background="@color/qmui_config_color_transparent"
             android:singleLine="true"
             android:src="@mipmap/back"

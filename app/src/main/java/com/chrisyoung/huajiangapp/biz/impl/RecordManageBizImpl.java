@@ -32,7 +32,7 @@ public class RecordManageBizImpl implements IRecordManageBiz {
         rViewModels.clear();
         ArrayList<CRecord> records = recordDao.showRecordsByMonth(bId,start,end);
         if (records != null && !records.isEmpty()) {
-            Date temp = DateFormatUtil.stringToDate("1900-01-01");
+            Date temp = DateFormatUtil.stringToDate("1900年01月01日");
             RViewModel rViewModel = new RViewModel();
             for (CRecord r : records
                     ) {

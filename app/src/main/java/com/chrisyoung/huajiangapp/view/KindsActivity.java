@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import com.chrisyoung.huajiangapp.R;
 import com.chrisyoung.huajiangapp.view.adapter.BaseFragmentPagerAdapter;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 
 import java.util.ArrayList;
@@ -39,6 +40,8 @@ public class KindsActivity extends AppCompatActivity implements ShowCostKindFrag
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kinds);
         ButterKnife.bind(this);
+        QMUIStatusBarHelper.translucent(this);
+        QMUIStatusBarHelper.setStatusBarLightMode(this);
         init();
     }
 

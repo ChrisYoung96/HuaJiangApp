@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import com.chrisyoung.huajiangapp.R;
 import com.chrisyoung.huajiangapp.view.adapter.BaseFragmentPagerAdapter;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 
 import java.util.ArrayList;
@@ -40,13 +41,15 @@ public class AddRecordActivity extends FragmentActivity implements AddCostFragme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_record);
         ButterKnife.bind(this);
+        QMUIStatusBarHelper.translucent(this);
+        QMUIStatusBarHelper.setStatusBarLightMode(this);
         init();
     }
 
     private void init() {
         uId = getIntent().getStringExtra("uId");
         bId = getIntent().getStringExtra("curBId");
-        addIncomeFragment = AddIncomeFragment.newInstance("收入", bId);
+        addIncomeFragment = AddIncomeFragment.newInstance("收入", bId,uId);
         addCostFragment = AddCostFragment.newInstance("支出", bId,uId);
         fragments.add(addCostFragment);
         fragments.add(addIncomeFragment);

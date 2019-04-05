@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.chrisyoung.huajiangapp.R;
 import com.chrisyoung.huajiangapp.domain.CRecord;
+import com.chrisyoung.huajiangapp.domain.CUserDiyKind;
 import com.chrisyoung.huajiangapp.presenter.AddIncomeRecordPresenter;
 import com.chrisyoung.huajiangapp.uitils.DateFormatUtil;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
@@ -26,6 +28,7 @@ import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -46,6 +49,8 @@ public class AddIncomeFragment extends BaseFragment implements IAddOrModifyRecor
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM3 = "param3";
+
     @BindView(R.id.txtIncomeMoney)
     EditText txtIncomeMoney;
     @BindView(R.id.imgIncomeKindImg)
@@ -69,6 +74,7 @@ public class AddIncomeFragment extends BaseFragment implements IAddOrModifyRecor
     // TODO: Rename and change types of parameters
     private String bId;
     private String rType;
+    private String uId;
 
 
     TimePickerDialog mDialogYearMonth;
@@ -89,11 +95,12 @@ public class AddIncomeFragment extends BaseFragment implements IAddOrModifyRecor
      * @return A new instance of fragment AddIncomeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AddIncomeFragment newInstance(String param1, String param2) {
+    public static AddIncomeFragment newInstance(String param1, String param2,String param3) {
         AddIncomeFragment fragment = new AddIncomeFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM3, param3);
         fragment.setArguments(args);
         return fragment;
     }
@@ -104,6 +111,7 @@ public class AddIncomeFragment extends BaseFragment implements IAddOrModifyRecor
         if (getArguments() != null) {
             rType = getArguments().getString(ARG_PARAM1);
             bId = getArguments().getString(ARG_PARAM2);
+            uId=getArguments().getString(ARG_PARAM3);
         }
     }
 
@@ -185,6 +193,12 @@ public class AddIncomeFragment extends BaseFragment implements IAddOrModifyRecor
             }
         });
         menuSheetView.inflateMenu(R.menu.menu_choose_income_kind);
+        ArrayList<CUserDiyKind> kinds=presenter.loadDiyKind(uId);
+        for (CUserDiyKind k :
+                kinds) {
+            Menu menu = menuSheetView.getMenu();
+            menu.add(k.getdKind()).setIcon(R.mipmap.tab_bill_default);
+        }
 
         btsChooseIncomeKind.showWithSheetView(menuSheetView);
     }

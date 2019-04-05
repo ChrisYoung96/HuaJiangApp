@@ -18,6 +18,7 @@ import com.chrisyoung.huajiangapp.uitils.SharedPreferenceUtil;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
 import com.chrisyoung.huajiangapp.view.vinterface.ILoginInternetView;
 import com.qmuiteam.qmui.layout.QMUIButton;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import butterknife.BindView;
@@ -63,6 +64,8 @@ public class LoginActivity extends BaseActivity implements ILoginInternetView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        QMUIStatusBarHelper.translucent(this);
+        QMUIStatusBarHelper.setStatusBarLightMode(this);
         EditTextClearTools.addClearListener(etUserName, ivUnameClear);
         EditTextClearTools.addClearListener(etPassword, ivPwdClear);
        dialog=new QMUITipDialog.Builder(this)

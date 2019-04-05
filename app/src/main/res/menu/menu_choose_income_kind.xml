@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:icon="@mipmap/calendar"
+        android:title="@string/jianzhi"/>
+    <item
+        android:icon="@mipmap/calendar"
+        android:title="@string/gongzi"/>
+    <item
+        android:icon="@mipmap/calendar"
+        android:title="@string/shenghuofei"/>
+    <item
+        android:icon="@mipmap/calendar"
+        android:title="@string/licai"/>
+
 
 </menu>

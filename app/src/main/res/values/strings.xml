@@ -32,4 +32,11 @@
     <string name="xingbie">性别</string>
     <string name="shengri">生日</string>
     <string name="dianhua">电话</string>
+    <string name="xihangka">银行卡</string>
+    <string name="hongbao">红包</string>
+    <string name="weixin">微信</string>
+    <string name="xiaomiqianbao">小米钱包</string>
+    <string name="jingdongzhifu">京东支付</string>
+    <string name="applepay">ApplePay</string>
+    <string name="xinyongka">信用卡</string>
 </resources>

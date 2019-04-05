@@ -45,6 +45,7 @@ import com.chrisyoung.huajiangapp.view.vinterface.IMineInfoView;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
@@ -98,6 +99,8 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView, OnD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
         ButterKnife.bind(this);
+        QMUIStatusBarHelper.translucent(this);
+        QMUIStatusBarHelper.setStatusBarLightMode(this);
         uId = getIntent().getStringExtra("uId");
         presenter = new UserInfoPresenter(this, this);
         presenter.initView(uId);

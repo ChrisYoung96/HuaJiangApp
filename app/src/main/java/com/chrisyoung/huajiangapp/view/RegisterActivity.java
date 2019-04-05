@@ -12,6 +12,7 @@ import com.chrisyoung.huajiangapp.R;
 import com.chrisyoung.huajiangapp.presenter.RegistPresenter;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
 import com.chrisyoung.huajiangapp.view.vinterface.IRegisterInternetView;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import butterknife.BindView;
@@ -43,6 +44,8 @@ public class RegisterActivity extends BaseActivity implements IRegisterInternetV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
+        QMUIStatusBarHelper.translucent(this);
+        QMUIStatusBarHelper.setStatusBarLightMode(this);
         registPresenter=new RegistPresenter(this,this,this);
     }
 

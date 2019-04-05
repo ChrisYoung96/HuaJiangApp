@@ -18,6 +18,7 @@ import com.chrisyoung.huajiangapp.view.vinterface.IAddBillView;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 import java.util.Date;
 
@@ -53,6 +54,8 @@ public class ModifyBillActivity extends BaseActivity implements IAddBillView,OnD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_bill);
         ButterKnife.bind(this);
+        QMUIStatusBarHelper.translucent(this);
+        QMUIStatusBarHelper.setStatusBarLightMode(this);
         presenter = new BillPresenter(this);
         action = getIntent().getIntExtra("action", 1);
         if (action == StatusCode.INSERT) {

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:title="支付宝"/>
+        android:title="@string/zhifubao"/>
     <item
-        android:title="银行卡"/>
+        android:title="@string/xihangka"/>
     <item
-        android:title="支付宝"/>
+        android:title="@string/weixin"/>
     <item
-        android:title="支付宝"/>
+        android:title="@string/xiaomiqianbao"/>
     <item
-        android:title="支付宝"/>
+        android:title="@string/jingdongzhifu"/>
     <item
-        android:title="支付宝"/>
+        android:title="@string/applepay"/>
+    <item
+        android:title="@string/xinyongka"/>
 
 </menu>

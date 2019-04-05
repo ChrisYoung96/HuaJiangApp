@@ -27,53 +27,86 @@ public class DateFormatUtil {
 
 
     public static Date stringtoDateAndTime(String sdate) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.CHINA);
-        ParsePosition pos = new ParsePosition(0);
-        Date date = format.parse(sdate, pos);
-        return date;
+        if(sdate!=null&&!sdate.equals("")){
+            SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss",Locale.CHINA);
+            ParsePosition pos = new ParsePosition(0);
+            return format.parse(sdate, pos);
+        }else{
+            return stringToDate("1800年01月01日");
+        }
+
     }
 
     public static String dateAndTimeToString(Date date) {
+    if(date!=null){
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss",Locale.CHINA);
-        String dateString = formatter.format(date);
-        return dateString;
+        return formatter.format(date);
+    }else{
+        return "";
+    }
+
     }
 
     public static Date stringToDate(String sdate){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日",Locale.CHINA);
-        ParsePosition pos = new ParsePosition(0);
-        Date date = format.parse(sdate, pos);
-        return date;
+        if(sdate!=null&&!sdate.equals("")){
+            SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日",Locale.CHINA);
+            ParsePosition pos = new ParsePosition(0);
+            return format.parse(sdate, pos);
+        }else {
+            return stringToDate("1800年01月01日");
+        }
+
     }
 
     public static String dateToString(Date date){
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日",Locale.CHINA);
-        String dateString = formatter.format(date);
-        return dateString;
+        if(date!=null){
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日",Locale.CHINA);
+            return formatter.format(date);
+        }else{
+            return "";
+        }
+
     }
 
     public static String getMothAndDay(Date date){
-        SimpleDateFormat formatter = new SimpleDateFormat("MM月dd日",Locale.CHINA);
-        String dateString = formatter.format(date);
-        return dateString;
+        if(date!=null){
+            SimpleDateFormat formatter = new SimpleDateFormat("MM月dd日",Locale.CHINA);
+            return formatter.format(date);
+        }else{
+            return "";
+        }
+
     }
 
     public static String getDay(Date date){
-        SimpleDateFormat formatter = new SimpleDateFormat("dd",Locale.CHINA);
-        String dateString = formatter.format(date);
-        return dateString;
+        if(date!=null){
+            SimpleDateFormat formatter = new SimpleDateFormat("dd",Locale.CHINA);
+            return formatter.format(date);
+        }else{
+            return "";
+        }
+
     }
 
     public static String getMonth(Date date){
-        SimpleDateFormat formatter = new SimpleDateFormat("MM",Locale.CHINA);
-        String dateString = formatter.format(date);
-        return dateString;
+        if(date!=null){
+            SimpleDateFormat formatter = new SimpleDateFormat("MM",Locale.CHINA);
+            return formatter.format(date);
+        }else{
+            return "";
+        }
+
     }
 
     public static String getYear(Date date){
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy",Locale.CHINA);
-        String dateString = formatter.format(date);
-        return dateString;
+        if(date!=null){
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy",Locale.CHINA);
+            return formatter.format(date);
+        }else{
+            return "";
+        }
+
+
     }
 
     public static Timestamp dateToTimestamp(Date date){
@@ -96,7 +129,7 @@ public class DateFormatUtil {
         Date date=new Date(millseconds);
         String year=getYear(date);
         String month=getMonth(date);
-        String sd = year + "-" + month + "-01" + " 00:00:00";
+        String sd = year + "年" + month + "月01日" + " 00:00:00";
         return stringtoDateAndTime(sd);
 
     }
@@ -114,7 +147,7 @@ public class DateFormatUtil {
         Date date=new Date(millseconds);
         String year=getYear(date);
         String month=getMonth(date);
-        String sd = year + "-" + month + "-" + getDay(year, month) + " 23:59:59";
+        String sd = year + "年" + month + "月" + getDay(year, month) + "日 23:59:59";
         return stringtoDateAndTime(sd);
     }
 
@@ -128,21 +161,26 @@ public class DateFormatUtil {
 
 
     public static Date getStartOfDay(Date day){
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINA);
-        String temp = formatter.format(day);
-        temp+=" 00:00:00";
-        return stringtoDateAndTime(temp);
+        if(day!=null){
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日",Locale.CHINA);
+            String temp = formatter.format(day);
+            temp+=" 00:00:00";
+            return stringtoDateAndTime(temp);
+        }else{
+            return stringToDate("1800年01月01日");
+        }
+
     }
 
     public static  Date getEndOfDay(Date day){
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINA);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日",Locale.CHINA);
         String temp = formatter.format(day);
         temp+=" 23:59:59";
         return stringtoDateAndTime(temp);
     }
 
     public static Date longDateToshortDate(Date ldate){
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.CHINA);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss",Locale.CHINA);
         String temp = formatter.format(ldate);
         return stringToDate(temp);
     }

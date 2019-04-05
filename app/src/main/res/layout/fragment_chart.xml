@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/rl_sv_titlebar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:layout_marginTop="50dp"
         android:background="@color/titleBackground">
 
@@ -22,7 +22,8 @@
             android:singleLine="true"
             android:text="@string/cost"
             android:textColor="@color/titleText"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:layout_marginTop="30dp"/>
 
 
         <ImageButton
@@ -31,7 +32,6 @@
             android:layout_height="48dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
             android:layout_marginEnd="19dp"
             android:layout_marginRight="19dp"
             android:background="@color/qmui_config_color_transparent"
@@ -41,7 +41,8 @@
             android:gravity="center"
             android:paddingStart="5dp"
             android:singleLine="true"
-            android:textSize="18sp" />
+            android:layout_marginTop="30dp"
+             />
 
     </RelativeLayout>
 
