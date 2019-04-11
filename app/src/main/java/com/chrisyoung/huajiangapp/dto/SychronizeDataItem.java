@@ -1,5 +1,7 @@
 package com.chrisyoung.huajiangapp.dto;
 
+import java.io.Serializable;
+
 /**
  * @program: appserver
  * @author: Chris Young
@@ -8,7 +10,7 @@ package com.chrisyoung.huajiangapp.dto;
  **/
 
 
-public class SychronizeDataItem<T> {
+public class SychronizeDataItem<T> implements Serializable {
     private T data;
     private int optCode;
 

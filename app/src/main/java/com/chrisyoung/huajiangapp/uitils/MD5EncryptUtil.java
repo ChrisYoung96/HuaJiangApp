@@ -7,7 +7,7 @@ public class MD5EncryptUtil {
      * MD5加密工具类
      * <功能详细描述>
      *
-     * @author SBill
+     * @author Bill
      */
     public static String getEncrypt(String pwd) {
         //用于加密的字符

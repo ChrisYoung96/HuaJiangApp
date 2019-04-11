@@ -13,9 +13,9 @@ import com.chrisyoung.huajiangapp.domain.CBill;
 import com.chrisyoung.huajiangapp.domain.CRecord;
 import com.chrisyoung.huajiangapp.domain.CUser;
 import com.chrisyoung.huajiangapp.domain.CUserDiyKind;
-import com.chrisyoung.huajiangapp.dto.SBill;
-import com.chrisyoung.huajiangapp.dto.SRecord;
-import com.chrisyoung.huajiangapp.dto.SUserDiy;
+import com.chrisyoung.huajiangapp.dto.Bill;
+import com.chrisyoung.huajiangapp.dto.Record;
+import com.chrisyoung.huajiangapp.dto.UserDiy;
 import com.chrisyoung.huajiangapp.dto.SychronizeDataItem;
 
 import java.math.BigDecimal;
@@ -37,20 +37,20 @@ public class ScynDataBiz implements IScynDataBiz {
         userDao=new UserDaoImpl();
     }
     @Override
-    public LinkedList<SychronizeDataItem<SBill>> synchronizeBillC2S(String uId) {
+    public LinkedList<SychronizeDataItem<Bill>> synchronizeBillC2S(String uId) {
         ArrayList<CBill> cbs=billDao.showBillNeedSynchronize(uId);
-        LinkedList<SychronizeDataItem<SBill>> sbs=new LinkedList<>();
+        LinkedList<SychronizeDataItem<Bill>> sbs=new LinkedList<>();
         for (CBill b: cbs
              ) {
-            SBill sb=new SBill();
-            sb.setBId(b.getbId());
-            sb.setUId(b.getuId());
+            Bill sb=new Bill();
+            sb.setbId(b.getbId());
+            sb.setuId(b.getuId());
             sb.setbDate((Date) b.getbDate());
-            sb.setBName(b.getbName());
-            sb.setBDesc(b.getbDesc());
+            sb.setbName(b.getbName());
+            sb.setbDesc(b.getbDesc());
             sb.setbVersion(b.getbVersion());
 
-            SychronizeDataItem<SBill> ssb=new SychronizeDataItem<>();
+            SychronizeDataItem<Bill> ssb=new SychronizeDataItem<>();
             ssb.setData(sb);
             ssb.setOptCode(b.getbStatus());
 
@@ -60,22 +60,22 @@ public class ScynDataBiz implements IScynDataBiz {
     }
 
     @Override
-    public LinkedList<SychronizeDataItem<SRecord>> synchronizeRecordC2S(String bId) {
+    public LinkedList<SychronizeDataItem<Record>> synchronizeRecordC2S(String bId) {
         ArrayList<CRecord> crs=recordDao.showRecordsNeedSynchronize(bId);
-        LinkedList<SychronizeDataItem<SRecord>> srs=new LinkedList<>();
+        LinkedList<SychronizeDataItem<Record>> srs=new LinkedList<>();
         for(CRecord r : crs){
-            SRecord sr=new SRecord();
-            sr.setRId(r.getrId());
-            sr.setBId(r.getbId());
-            sr.setRMoney(BigDecimal.valueOf(r.getrMoney()));
-            sr.setRKind(r.getrKind());
-            sr.setRType(r.getrType());
+            Record sr=new Record();
+            sr.setrId(r.getrId());
+            sr.setbId(r.getbId());
+            sr.setrMoney(BigDecimal.valueOf(r.getrMoney()));
+            sr.setrKind(r.getrKind());
+            sr.setrType(r.getrType());
             sr.setrWay(r.getrWay());
             sr.setrVersioin(r.getrVersion());
-            sr.setRDesc(r.getrDesc());
-            sr.setRTime((Timestamp) r.getrTime());
+            sr.setrDesc(r.getrDesc());
+            sr.setrTime((Timestamp) r.getrTime());
 
-            SychronizeDataItem<SRecord> ssr=new SychronizeDataItem<>();
+            SychronizeDataItem<Record> ssr=new SychronizeDataItem<>();
             ssr.setData(sr);
             ssr.setOptCode(r.getrStatus());
             srs.add(ssr);
@@ -84,19 +84,19 @@ public class ScynDataBiz implements IScynDataBiz {
     }
 
     @Override
-    public LinkedList<SychronizeDataItem<SUserDiy>> synchronizeKindC2S(String uId) {
+    public LinkedList<SychronizeDataItem<UserDiy>> synchronizeKindC2S(String uId) {
         ArrayList<CUserDiyKind> kinds=kindDao.showKindsNeedSynchronize(uId);
-        LinkedList<SychronizeDataItem<SUserDiy>> sds=new LinkedList<>();
+        LinkedList<SychronizeDataItem<UserDiy>> sds=new LinkedList<>();
         for (CUserDiyKind k :
                 kinds) {
-            SUserDiy sk=new SUserDiy();
+            UserDiy sk=new UserDiy();
             sk.setDId(k.getdId());
             sk.setUId(k.getuId());
             sk.setDKind(k.getdKind());
             sk.setDType(k.getdType());
             sk.setdVersion(k.getdVersion());
 
-            SychronizeDataItem<SUserDiy> sd=new SychronizeDataItem<>();
+            SychronizeDataItem<UserDiy> sd=new SychronizeDataItem<>();
             sd.setData(sk);
             sd.setOptCode(k.getdStatus());
 
@@ -106,28 +106,28 @@ public class ScynDataBiz implements IScynDataBiz {
     }
 
     @Override
-    public boolean synchronizeBillS2C(LinkedList<SBill> bills) {
+    public boolean synchronizeBillS2C(LinkedList<Bill> bills) {
         boolean result=false;
         if(bills==null){
             return false;
         }else{
             while(!bills.isEmpty()){
-                SBill b=bills.poll();
-                CBill t=billDao.findBill(b.getBId());
+                Bill b=bills.poll();
+                CBill t=billDao.findBill(b.getbId());
                 if(t!=null){
                     if(t.getbVersion()>=b.getbVersion()){
                         continue;
                     }
                 }
                 CBill cb=new CBill();
-                cb.setbId(b.getBId());
-                cb.setbName(b.getBName());
-                cb.setuId(b.getUId());
+                cb.setbId(b.getbId());
+                cb.setbName(b.getbName());
+                cb.setuId(b.getuId());
                 cb.setbVersion(b.getbVersion());
                 cb.setbDate(b.getbDate());
-                cb.setbDesc(b.getBDesc());
+                cb.setbDesc(b.getbDesc());
 
-                CUser cUser=userDao.showUserInfo(b.getUId());
+                CUser cUser=userDao.showUserInfo(b.getuId());
                 if(cUser!=null){
                    result=billDao.addBillForUser(cUser,cb);
                 }
@@ -137,29 +137,29 @@ public class ScynDataBiz implements IScynDataBiz {
     }
 
     @Override
-    public boolean synchronizeRecordS2C(LinkedList<SRecord> records) {
+    public boolean synchronizeRecordS2C(LinkedList<Record> records) {
         boolean result=false;
         if(records!=null){
             while(!records.isEmpty()){
-                SRecord r=records.poll();
-                CRecord t=recordDao.showARecord(r.getRId());
+                Record r=records.poll();
+                CRecord t=recordDao.showARecord(r.getrId());
                 if(t!=null){
                     if(t.getrVersion()>=r.getrVersioin()){
                         continue;
                     }
                 }
                 CRecord cr=new CRecord();
-                cr.setrId(r.getRId());
-                cr.setbId(r.getBId());
-                cr.setrMoney(r.getRMoney().doubleValue());
-                cr.setrTime(r.getRTime());
-                cr.setrKind(r.getRKind());
+                cr.setrId(r.getrId());
+                cr.setbId(r.getbId());
+                cr.setrMoney(r.getrMoney().doubleValue());
+                cr.setrTime(r.getrTime());
+                cr.setrKind(r.getrKind());
                 cr.setrWay(r.getrWay());
-                cr.setrDesc(r.getRDesc());
-                cr.setrType(r.getRType());
+                cr.setrDesc(r.getrDesc());
+                cr.setrType(r.getrType());
                 cr.setrVersion(r.getrVersioin());
 
-                CBill b=billDao.findBill(r.getBId());
+                CBill b=billDao.findBill(r.getbId());
                 if(b!=null){
                     result=recordDao.addRecordForBill(b,cr);
                 }
@@ -169,11 +169,11 @@ public class ScynDataBiz implements IScynDataBiz {
     }
 
     @Override
-    public boolean synchronizeKindS2C(LinkedList<SUserDiy> kinds) {
+    public boolean synchronizeKindS2C(LinkedList<UserDiy> kinds) {
         boolean result=false;
         if(kinds!=null){
             while(!kinds.isEmpty()){
-                SUserDiy d=kinds.poll();
+                UserDiy d=kinds.poll();
                 CUserDiyKind t=kindDao.findAKind(d.getDId());
                 if(t.getdVersion()>=d.getdVersion()){
                     continue;

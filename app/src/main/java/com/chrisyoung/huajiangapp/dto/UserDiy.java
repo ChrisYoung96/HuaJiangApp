@@ -1,7 +1,9 @@
 package com.chrisyoung.huajiangapp.dto;
 
 
-public class SUserDiy {
+import java.io.Serializable;
+
+public class UserDiy implements Serializable {
 
   private String dId; //自定义收支类型编号
   private String uId; //用户ID

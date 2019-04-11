@@ -183,7 +183,7 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView, OnD
                                     public void onClick(QMUIDialog dialog, int index) {
                                         CharSequence text = builder.getEditText().getText();
                                         if (text != null && text.length() > 0) {
-                                            CUser cUser=new CUser();
+                                            CUser cUser = new CUser();
                                             cUser.setuId(uId);
                                             cUser.setuName(text.toString());
                                             cUser.setuBirthday(DateFormatUtil.stringToDate(myBirthday.getDetailText().toString()));
@@ -201,7 +201,7 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView, OnD
                                 .create(mCurrentDialogStyle).show();
                     } else if (text.equals(getResources().getText(R.string.shengri))) {
                         initDatePicker();
-                    }else if(text.equals(getResources().getText(R.string.xingbie))){
+                    } else if (text.equals(getResources().getText(R.string.xingbie))) {
                         final String[] items = new String[]{"男", "女"};
                         final int checkedIndex = 1;
                         new QMUIDialog.CheckableDialogBuilder(UserInfoActivity.this)
@@ -209,7 +209,7 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView, OnD
                                 .addItems(items, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        CUser cUser=new CUser();
+                                        CUser cUser = new CUser();
                                         cUser.setuId(uId);
                                         cUser.setuName(myName.getDetailText().toString());
                                         cUser.setuBirthday(DateFormatUtil.stringToDate(myBirthday.getDetailText().toString()));
@@ -231,8 +231,8 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView, OnD
         infoGroupListView.removeAllViews();
 
 
-       QMUIGroupListView.Section section= QMUIGroupListView.newSection(this);
-       section.addItemView(headPhoto, onClickListener)
+        QMUIGroupListView.Section section = QMUIGroupListView.newSection(this);
+        section.addItemView(headPhoto, onClickListener)
                 .addItemView(myName, onClickListener)
                 .addItemView(mySex, onClickListener)
                 .addItemView(myBirthday, onClickListener)
@@ -240,7 +240,7 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView, OnD
                 .addTo(infoGroupListView);
 
 
-        if (uId.equals("") || uId == null) {
+        if (uId == null || uId.equals("")) {
             btnLogout.setText("登录");
         }
     }
@@ -258,19 +258,17 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView, OnD
     }
 
 
-
-
     @OnClick({R.id.btnMineBack, R.id.btnLogout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnMineBack:
                 Intent intent = new Intent(this, MainActivity.class);
-                intent.putExtra("tabNo",MainActivity.MINE);
+                intent.putExtra("tabNo", MainActivity.MINE);
                 startActivity(intent);
                 finish();
                 break;
             case R.id.btnLogout:
-                if (uId.equals("") || uId == null) {
+                if (uId == null || uId.equals("")) {
                     Intent intent1 = new Intent(this, LoginActivity.class);
                     startActivity(intent1);
                     fileList();
@@ -450,7 +448,7 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView, OnD
 
     @Override
     public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
-        CUser cUser=new CUser();
+        CUser cUser = new CUser();
         cUser.setuId(uId);
         cUser.setuName(myName.getDetailText().toString());
         cUser.setuBirthday(new Date(millseconds));

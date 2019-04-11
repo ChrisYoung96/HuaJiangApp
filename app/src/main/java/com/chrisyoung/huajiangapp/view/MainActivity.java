@@ -11,6 +11,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.chrisyoung.huajiangapp.R;
+import com.chrisyoung.huajiangapp.constant.UserConfig;
+import com.chrisyoung.huajiangapp.uitils.SharedPreferenceUtil;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
@@ -22,8 +24,8 @@ public class MainActivity extends BaseActivity implements ShowRecordFragment.OnF
 
     private RadioGroup mTabRadioGroup;
     private SparseArray<Fragment> mFragmentSparseArray;
-    private String uId;
-    private String curBId;
+    private String uId="";
+    private String curBId="";
     private RadioButton btnAddBill;
     private RadioButton btnRecord;
     private RadioButton btnChart;
@@ -36,13 +38,13 @@ public class MainActivity extends BaseActivity implements ShowRecordFragment.OnF
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
-        //curBId=(String) SharedPreferenceUtil.get(this,"curBId",curBId);
-        // uId=(String) SharedPreferenceUtil.get(this,"uId",uId);
-        curBId = "385ca5a9ee1340148ce3977b99e6660b";
-        uId = "94d5f9cbd27b4526a9b90176f44037d7";
+        curBId=(String) SharedPreferenceUtil.get(this,UserConfig.CUR_BID,curBId);
+        uId=(String) SharedPreferenceUtil.get(this,UserConfig.USER_ID,uId);
+//        curBId = "385ca5a9ee1340148ce3977b99e6660b";
+//        uId = "94d5f9cbd27b4526a9b90176f44037d7";
         QMUIStatusBarHelper.translucent(this);
         QMUIStatusBarHelper.setStatusBarLightMode(this);
-        tabNo = getIntent().getIntExtra("tabNo", R.id.records);
+        tabNo = getIntent().getIntExtra("tabNo",0);
         initView();
 
     }
@@ -65,9 +67,10 @@ public class MainActivity extends BaseActivity implements ShowRecordFragment.OnF
                 tabNo=checkedId;
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         mFragmentSparseArray.get(checkedId)).commit();
-                tabNo=checkedId;
             }
         });
+
+
         if(tabNo==0){
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,
                     mFragmentSparseArray.get(R.id.records)).commit();

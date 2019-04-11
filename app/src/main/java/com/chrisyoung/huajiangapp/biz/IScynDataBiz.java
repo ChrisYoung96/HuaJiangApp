@@ -1,23 +1,23 @@
 package com.chrisyoung.huajiangapp.biz;
 
-import com.chrisyoung.huajiangapp.dto.SBill;
-import com.chrisyoung.huajiangapp.dto.SRecord;
-import com.chrisyoung.huajiangapp.dto.SUserDiy;
+import com.chrisyoung.huajiangapp.dto.Bill;
+import com.chrisyoung.huajiangapp.dto.Record;
+import com.chrisyoung.huajiangapp.dto.UserDiy;
 import com.chrisyoung.huajiangapp.dto.SychronizeDataItem;
 
 import java.util.LinkedList;
 
  public interface IScynDataBiz {
-    LinkedList<SychronizeDataItem<SBill>> synchronizeBillC2S(String uId) ;
+    LinkedList<SychronizeDataItem<Bill>> synchronizeBillC2S(String uId) ;
 
-    LinkedList<SychronizeDataItem<SRecord>> synchronizeRecordC2S(String bId) ;
+    LinkedList<SychronizeDataItem<Record>> synchronizeRecordC2S(String bId) ;
 
-    LinkedList<SychronizeDataItem<SUserDiy>> synchronizeKindC2S(String uId);
+    LinkedList<SychronizeDataItem<UserDiy>> synchronizeKindC2S(String uId);
 
-    boolean synchronizeBillS2C(LinkedList<SBill> bills);
+    boolean synchronizeBillS2C(LinkedList<Bill> bills);
 
-    boolean synchronizeRecordS2C(LinkedList<SRecord> records);
+    boolean synchronizeRecordS2C(LinkedList<Record> records);
 
-    boolean synchronizeKindS2C(LinkedList<SUserDiy> kinds);
+    boolean synchronizeKindS2C(LinkedList<UserDiy> kinds);
 
 }

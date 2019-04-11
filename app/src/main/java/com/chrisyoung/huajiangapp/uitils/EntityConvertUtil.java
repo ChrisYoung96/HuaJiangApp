@@ -4,38 +4,38 @@ import com.chrisyoung.huajiangapp.domain.CBill;
 import com.chrisyoung.huajiangapp.domain.CRecord;
 import com.chrisyoung.huajiangapp.domain.CUser;
 import com.chrisyoung.huajiangapp.domain.CUserDiyKind;
-import com.chrisyoung.huajiangapp.dto.SBill;
-import com.chrisyoung.huajiangapp.dto.SRecord;
-import com.chrisyoung.huajiangapp.dto.SUser;
-import com.chrisyoung.huajiangapp.dto.SUserDiy;
+import com.chrisyoung.huajiangapp.dto.Bill;
+import com.chrisyoung.huajiangapp.dto.Record;
+import com.chrisyoung.huajiangapp.dto.AppUser;
+import com.chrisyoung.huajiangapp.dto.UserDiy;
 
 import java.math.BigDecimal;
 import java.sql.Date;
 
 public class EntityConvertUtil {
-    public static SUser CUser2SUser(CUser user){
-        SUser sUser=new SUser();
-        sUser.setUId(user.getuId());
-        sUser.setUBirthday((Date) user.getuBirthday());
-        sUser.setUMail(user.getuMail());
-        sUser.setUName(user.getuName());
-        sUser.setUPhone(user.getuPhone());
-        sUser.setUSex(user.getuSex());
-        sUser.setUPhoto(user.getuPhoto());
+    public static AppUser CUser2SUser(CUser user){
+        AppUser sUser=new AppUser();
+        sUser.setuId(user.getuId());
+        sUser.setuBirthday((Date) user.getuBirthday());
+        sUser.setuMail(user.getuMail());
+        sUser.setuName(user.getuName());
+        sUser.setuPhone(user.getuPhone());
+        sUser.setuSex(user.getuSex());
+        sUser.setuPhoto(user.getuPhoto());
         return sUser;
     }
 
-    public static SBill CBill2SBill(CBill bill){
-        SBill sBill=new SBill();
-        sBill.setBId(bill.getbId());
-        sBill.setUId(bill.getuId());
+    public static Bill CBill2SBill(CBill bill){
+        Bill sBill=new Bill();
+        sBill.setbId(bill.getbId());
+        sBill.setuId(bill.getuId());
         sBill.setbDate((Date) bill.getbDate());
-        sBill.setBDesc(bill.getbDesc());
+        sBill.setbDesc(bill.getbDesc());
         return sBill;
     }
 
-    public static SUserDiy CUserDiyKind2SUserDiy(CUserDiyKind kind){
-        SUserDiy sUserDiy=new SUserDiy();
+    public static UserDiy CUserDiyKind2SUserDiy(CUserDiyKind kind){
+        UserDiy sUserDiy=new UserDiy();
         sUserDiy.setDId(kind.getdId());
         sUserDiy.setUId(kind.getuId());
         sUserDiy.setDKind(kind.getdKind());
@@ -43,15 +43,15 @@ public class EntityConvertUtil {
         return sUserDiy;
     }
 
-    public static SRecord CRecord2SRecord(CRecord record){
-        SRecord sRecord=new SRecord();
-        sRecord.setRId(record.getrId());
-        sRecord.setBId(record.getbId());
-        sRecord.setRKind(record.getrKind());
-        sRecord.setRTime(DateFormatUtil.dateToTimestamp(record.getrTime()));
-        sRecord.setRMoney(BigDecimal.valueOf(record.getrMoney()));
-        sRecord.setRDesc(record.getrDesc());
-        sRecord.setRType(record.getrType());
+    public static Record CRecord2SRecord(CRecord record){
+        Record sRecord=new Record();
+        sRecord.setrId(record.getrId());
+        sRecord.setbId(record.getbId());
+        sRecord.setrKind(record.getrKind());
+        sRecord.setrTime(DateFormatUtil.dateToTimestamp(record.getrTime()));
+        sRecord.setrMoney(BigDecimal.valueOf(record.getrMoney()));
+        sRecord.setrDesc(record.getrDesc());
+        sRecord.setrType(record.getrType());
         sRecord.setrWay(record.getrWay());
         return sRecord;
     }

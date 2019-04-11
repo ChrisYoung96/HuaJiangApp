@@ -1,14 +1,14 @@
 package com.chrisyoung.huajiangapp.dto;
 
 
+import java.io.Serializable;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.UUID;
 
 /**
  * 用户信息实体
  */
-public class SUser {
+public class AppUser implements Serializable {
 
   private String uId; //用户ID UUID
   private String uName; //用户昵称
@@ -18,7 +18,7 @@ public class SUser {
   private String uMail; //邮箱
   private String uPhoto; //头像路径
 
-  public SUser(){
+  public AppUser(){
     this.uId=UUID.randomUUID().toString().replace("-","");
     this.uName="";
     this.uBirthday=Date.valueOf("1971-1-1");
@@ -28,65 +28,65 @@ public class SUser {
     this.uPhoto="";
   }
 
-  public String getUId() {
+  public String getuId() {
     return uId;
   }
 
-  public void setUId(String uId) {
+  public void setuId(String uId) {
     this.uId = uId;
   }
 
 
-  public String getUName() {
+  public String getuName() {
     return uName;
   }
 
-  public void setUName(String uName) {
+  public void setuName(String uName) {
     this.uName = uName;
   }
 
 
-  public String getUSex() {
+  public String getuSex() {
     return uSex;
   }
 
-  public void setUSex(String uSex) {
+  public void setuSex(String uSex) {
     this.uSex = uSex;
   }
 
 
-  public Date getUBirthday() {
+  public Date getuBirthday() {
     return uBirthday;
   }
 
-  public void setUBirthday(Date uBirthday) {
+  public void setuBirthday(Date uBirthday) {
     this.uBirthday = uBirthday;
   }
 
 
-  public String getUPhone() {
+  public String getuPhone() {
     return uPhone;
   }
 
-  public void setUPhone(String uPhone) {
+  public void setuPhone(String uPhone) {
     this.uPhone = uPhone;
   }
 
 
-  public String getUMail() {
+  public String getuMail() {
     return uMail;
   }
 
-  public void setUMail(String uMail) {
+  public void setuMail(String uMail) {
     this.uMail = uMail;
   }
 
 
-  public String getUPhoto() {
+  public String getuPhoto() {
     return uPhoto;
   }
 
-  public void setUPhoto(String uPhoto) {
+  public void setuPhoto(String uPhoto) {
     this.uPhoto = uPhoto;
   }
 

@@ -2,6 +2,9 @@ package com.chrisyoung.huajiangapp.network;
 
 import android.support.annotation.NonNull;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -42,10 +45,12 @@ public class RetrofitHelper {
 
             service=new Retrofit.Builder()
                     .client(httpClientBuilder.build())
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(new GsonBuilder()
+                            .setDateFormat("yyyy-MM-dd")
+                            .create()))
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .baseUrl("https://huajiangzhangben.xin:8443/appserver/")
-                    //.baseUrl("http://10.0.2.2:8080/")
+                    //.baseUrl("https://huajiangzhangben.xin:8443/appserver/")
+                    .baseUrl("http://10.0.2.2:8080/")
                     .build().create(ApiService.class);
         }
         return service;

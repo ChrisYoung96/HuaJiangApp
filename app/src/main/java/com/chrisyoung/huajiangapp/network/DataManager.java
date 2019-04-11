@@ -1,13 +1,9 @@
 package com.chrisyoung.huajiangapp.network;
 
-import com.chrisyoung.huajiangapp.domain.CBill;
-import com.chrisyoung.huajiangapp.domain.CRecord;
-import com.chrisyoung.huajiangapp.domain.CUser;
-import com.chrisyoung.huajiangapp.domain.CUserDiyKind;
-import com.chrisyoung.huajiangapp.dto.SBill;
-import com.chrisyoung.huajiangapp.dto.SRecord;
-import com.chrisyoung.huajiangapp.dto.SUser;
-import com.chrisyoung.huajiangapp.dto.SUserDiy;
+import com.chrisyoung.huajiangapp.dto.Bill;
+import com.chrisyoung.huajiangapp.dto.Record;
+import com.chrisyoung.huajiangapp.dto.AppUser;
+import com.chrisyoung.huajiangapp.dto.UserDiy;
 import com.chrisyoung.huajiangapp.dto.SychronizeDataItem;
 import com.chrisyoung.huajiangapp.dto.UserAuths;
 import com.chrisyoung.huajiangapp.dto.VerificationCode;
@@ -40,7 +36,7 @@ public class DataManager {
         return service.getCode(phone);
     }
 
-    public Observable<HttpResult<String>> modifyInfo(String token, SUser user) {
+    public Observable<HttpResult<String>> modifyInfo(String token, AppUser user) {
         return service.modifyInfo(token, user);
     }
 
@@ -48,35 +44,35 @@ public class DataManager {
         return service.modifPwd(token, identify, newPwd);
     }
 
-    public Observable<HttpResult<LinkedList<SychronizeDataItem<SBill>>>> synchronizeBillsS2C(String token, String uId) {
+    public Observable<HttpResult<LinkedList<SychronizeDataItem<Bill>>>> synchronizeBillsS2C(String token, String uId) {
         return service.sychronizeBillS2C(token, uId);
     }
 
-    public Observable<HttpResult<LinkedList<SychronizeDataItem<SRecord>>>> synchronizedRecordsS2C(String token, String bId) {
+    public Observable<HttpResult<LinkedList<SychronizeDataItem<Record>>>> synchronizedRecordsS2C(String token, String bId) {
         return service.sychronizeRecordsS2C(token, bId);
     }
 
-    public Observable<HttpResult<LinkedList<SychronizeDataItem<SUserDiy>>>> sycnchronizedKindsS2C(String token, String uId) {
+    public Observable<HttpResult<LinkedList<SychronizeDataItem<UserDiy>>>> sycnchronizedKindsS2C(String token, String uId) {
         return service.sychronizeDiyKindsS2C(token, uId);
     }
 
-    public Observable<HttpResult<SUser>> synchronizeUserInfoS2C(String token, String uId) {
+    public Observable<HttpResult<AppUser>> synchronizeUserInfoS2C(String token, String uId) {
         return service.sychronizeUserInfoS2C(token, uId);
     }
 
-    public Observable<HttpResult<String>> synchronizeBillsC2S(String token, LinkedList<SychronizeDataItem<SBill>> bills) {
+    public Observable<HttpResult<String>> synchronizeBillsC2S(String token, LinkedList<SychronizeDataItem<Bill>> bills) {
         return service.sychronizeBillsC2s(token, bills);
     }
 
-    public Observable<HttpResult<String>> synchronizeRecordsC2S(String token, LinkedList<SychronizeDataItem<SRecord>> records) {
+    public Observable<HttpResult<String>> synchronizeRecordsC2S(String token, LinkedList<SychronizeDataItem<Record>> records) {
         return service.sychronizeRecordsC2S(token, records);
     }
 
-    public Observable<HttpResult<String>> synchronizeKindsC2S(String token, LinkedList<SychronizeDataItem<SUserDiy>> kinds) {
+    public Observable<HttpResult<String>> synchronizeKindsC2S(String token, LinkedList<SychronizeDataItem<UserDiy>> kinds) {
         return service.sychronizeDiyKindsC2S(token, kinds);
     }
 
-    public Observable<HttpResult<SUser>> getUid(String token){
+    public Observable<HttpResult<AppUser>> getUid(String token){
         return service.getUid(token);
     }
 

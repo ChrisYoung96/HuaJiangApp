@@ -56,6 +56,7 @@ public class AddKindsActivity extends AppCompatActivity  implements IKindView {
                 intent.putExtra("uId",uId);
                 intent.putExtra("tabNo",MainActivity.MINE);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.btnAddKind:
                 addKind();

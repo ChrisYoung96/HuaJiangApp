@@ -1,11 +1,12 @@
 package com.chrisyoung.huajiangapp.dto;
 
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.UUID;
 
-public class SRecord {
+public class Record implements Serializable {
 
   private String rId; //订单编号
   private String bId; //账本编号
@@ -22,7 +23,7 @@ public class SRecord {
   private int rVersioin;
 
 
-  public SRecord(){
+  public Record(){
     this.rId=UUID.randomUUID().toString().replace("-","");
     this.bId="";
     this.rType="";
@@ -33,47 +34,47 @@ public class SRecord {
     this.rDesc="";
   }
 
-  public String getRId() {
+  public String getrId() {
     return rId;
   }
 
-  public void setRId(String rId) {
+  public void setrId(String rId) {
     this.rId = rId;
   }
 
 
-  public String getBId() {
+  public String getbId() {
     return bId;
   }
 
-  public void setBId(String bId) {
+  public void setbId(String bId) {
     this.bId = bId;
   }
 
 
-  public String getRType() {
+  public String getrType() {
     return rType;
   }
 
-  public void setRType(String rType) {
+  public void setrType(String rType) {
     this.rType = rType;
   }
 
 
-  public String getRKind() {
+  public String getrKind() {
     return rKind;
   }
 
-  public void setRKind(String rKind) {
+  public void setrKind(String rKind) {
     this.rKind = rKind;
   }
 
 
-  public BigDecimal getRMoney() {
+  public BigDecimal getrMoney() {
     return rMoney;
   }
 
-  public void setRMoney(BigDecimal rMoney) {
+  public void setrMoney(BigDecimal rMoney) {
     this.rMoney = rMoney;
   }
 
@@ -86,21 +87,21 @@ public class SRecord {
   }
 
 
-  public Timestamp getRTime() {
+  public Timestamp getrTime() {
     return rTime;
   }
 
 
-  public void setRTime(Timestamp rTime) {
+  public void setrTime(Timestamp rTime) {
     this.rTime = rTime;
   }
 
 
-  public String getRDesc() {
+  public String getrDesc() {
     return rDesc;
   }
 
-  public void setRDesc(String rDesc) {
+  public void setrDesc(String rDesc) {
     this.rDesc = rDesc;
   }
 

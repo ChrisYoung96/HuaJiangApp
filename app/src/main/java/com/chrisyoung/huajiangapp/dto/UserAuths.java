@@ -3,9 +3,10 @@ package com.chrisyoung.huajiangapp.dto;
 
 import com.chrisyoung.huajiangapp.uitils.UUIDUtils;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class UserAuths {
+public class UserAuths implements Serializable {
 
   private String uaId;
   private String uId;  //用户ID
@@ -34,11 +35,11 @@ public class UserAuths {
     this.uaId = uaId;
   }
 
-  public String getUId() {
+  public String getuId() {
     return uId;
   }
 
-  public void setUId(String uId) {
+  public void setuId(String uId) {
     this.uId = uId;
   }
 
@@ -85,5 +86,7 @@ public class UserAuths {
   public void setRole(String role) {
     this.role = role;
   }
+
+
 
 }

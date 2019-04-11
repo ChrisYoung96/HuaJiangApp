@@ -6,7 +6,7 @@ import com.chrisyoung.huajiangapp.biz.IUserBiz;
 import com.chrisyoung.huajiangapp.biz.impl.UserInfoBiz;
 import com.chrisyoung.huajiangapp.constant.UserConfig;
 import com.chrisyoung.huajiangapp.domain.CUser;
-import com.chrisyoung.huajiangapp.dto.SUser;
+import com.chrisyoung.huajiangapp.dto.AppUser;
 import com.chrisyoung.huajiangapp.network.DataManager;
 import com.chrisyoung.huajiangapp.network.HttpResult;
 import com.chrisyoung.huajiangapp.uitils.NetUtil;
@@ -17,9 +17,7 @@ import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -38,12 +36,15 @@ public class LoginPresenter extends BasePresenter {
         userBiz=new UserInfoBiz();
     }
 
-    public void getLoginResult(String indentify,String credential){
+
+
+    public void getLoginResult(String indentify, String credential){
         if(NetUtil.isConnected(context)){
             Observable<HttpResult<String>> getToken=dataManager.login(indentify, credential);
 
 
             loginView.showProgressDialog();
+
 
             getToken.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -56,46 +57,33 @@ public class LoginPresenter extends BasePresenter {
                         }
                     })
                     .observeOn(Schedulers.io())
-                    .flatMap(new Function<HttpResult<String>, ObservableSource<HttpResult<SUser>>>() {
+                    .flatMap(new Function<HttpResult<String>, ObservableSource<HttpResult<AppUser>>>() {
                         @Override
-                        public ObservableSource<HttpResult<SUser>> apply(HttpResult<String> result) throws Exception {
+                        public ObservableSource<HttpResult<AppUser>> apply(HttpResult<String> result) throws Exception {
                             return dataManager.getUid(token);
                         }
                     })
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<HttpResult<SUser>>() {
+                    .subscribe(new Consumer<HttpResult<AppUser>>() {
                         @Override
-                        public void onSubscribe(Disposable d) {
-
-                        }
-
-                        @Override
-                        public void onNext(HttpResult<SUser> result) {
-                            SUser uId=result.getData();
-                            SharedPreferenceUtil.put(context,UserConfig.USER_ID,uId.getUId());
+                        public void accept(HttpResult<AppUser> result) throws Exception {
+                            AppUser uId=result.getData();
+                            System.out.println(result.getCode());
+                            SharedPreferenceUtil.put(context,UserConfig.USER_ID,uId.getuId());
                             CUser user=new CUser();
-                            user.setuId(uId.getUId());
-                            user.setuName(uId.getUName());
-                            user.setuPhone(uId.getUPhone());
-                            user.setuSex(uId.getUSex());
-                            user.setuMail(uId.getUMail());
-                            user.setuBirthday(uId.getUBirthday());
-                            user.setuPhoto(uId.getUPhoto());
+                            user.setuId(uId.getuId());
+                            user.setuName(uId.getuName());
+                            user.setuPhone(uId.getuPhone());
+                            user.setuSex(uId.getuSex());
+                            user.setuMail(uId.getuMail());
+                            user.setuBirthday(uId.getuBirthday());
+                            user.setuPhoto(uId.getuPhoto());
                             userBiz.updateUserInfo(user);
                             loginView.hideProgressDialog();
-                            loginView.jump2MainActivity(uId.getUId());
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            loginView.showError(e.getMessage());
-                        }
-
-                        @Override
-                        public void onComplete() {
-
+                            loginView.jump2MainActivity(uId.getuId());
                         }
                     });
+
 
 
         }else {
