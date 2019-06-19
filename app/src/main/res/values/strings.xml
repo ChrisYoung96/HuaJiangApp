@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HuaJiangApp</string>
+    <string name="app_name">花匠账本</string>
     <string name="title_activity_home_page">HomePageActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -39,4 +39,14 @@
     <string name="jingdongzhifu">京东支付</string>
     <string name="applepay">ApplePay</string>
     <string name="xinyongka">信用卡</string>
+    <string name="jiaoyu">教育</string>
+    <string name="chongwu">宠物</string>
+    <string name="baobao">包包</string>
+    <string name="xiezi">鞋子</string>
+    <string name="huazhuangpin">化妆品</string>
+    <string name="dianqi">电器</string>
+    <string name="caipiao">彩票</string>
+    <string name="bangong">办公</string>
+    <string name="xianjin">现金</string>
+
 </resources>

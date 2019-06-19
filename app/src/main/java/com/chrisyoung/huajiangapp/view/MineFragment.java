@@ -3,8 +3,11 @@ package com.chrisyoung.huajiangapp.view;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +16,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chrisyoung.huajiangapp.R;
+import com.chrisyoung.huajiangapp.constant.UserConfig;
+import com.chrisyoung.huajiangapp.domain.CUser;
+import com.chrisyoung.huajiangapp.presenter.UserInfoPresenter;
+import com.chrisyoung.huajiangapp.uitils.ImageUtil;
+import com.chrisyoung.huajiangapp.uitils.SharedPreferenceUtil;
+import com.chrisyoung.huajiangapp.view.vinterface.IMineInfoView;
 import com.qmuiteam.qmui.widget.QMUILoadingView;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +43,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Use the {@link MineFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MineFragment extends BaseFragment {
+public class MineFragment extends BaseFragment implements IMineInfoView {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -45,7 +58,8 @@ public class MineFragment extends BaseFragment {
 
     // TODO: Rename and change types of parameters
     private String uId;
-    private String mParam2;
+    private String token;
+    private UserInfoPresenter userInfoPresenter;
 
     private OnFragmentInteractionListener mListener;
 
@@ -76,7 +90,7 @@ public class MineFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             uId = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            token = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -86,6 +100,10 @@ public class MineFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_mine, container, false);
         unbinder = ButterKnife.bind(this, view);
+        String name= (String) SharedPreferenceUtil.get(this.getContext(),UserConfig.USER_NAME,"");
+        userInfoPresenter=new UserInfoPresenter(this,getContext());
+        userInfoPresenter.initView(uId);
+        mineName.setText(name);
         initGroupListView();
         return view;
     }
@@ -100,19 +118,10 @@ public class MineFragment extends BaseFragment {
 
         QMUICommonListItemView itemMine = mineGroupListView.createItemView("我的信息");
         itemMine.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON);
-        QMUICommonListItemView itemAutoSyncWithWIFI = mineGroupListView.createItemView("WIFI自动同步");
-        itemAutoSyncWithWIFI.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_SWITCH);
-        itemAutoSyncWithWIFI.getSwitch().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Toast.makeText(getActivity(), "checked = " + isChecked, Toast.LENGTH_SHORT).show();
-            }
-        });
 
         QMUICommonListItemView itemSync = mineGroupListView.createItemView("同步数据");
         itemSync.setAccessoryType(QMUICommonListItemView.ACCESSORY_TYPE_CUSTOM);
-        QMUILoadingView loadingView = new QMUILoadingView(getActivity());
-        itemSync.addAccessoryCustomView(loadingView);
+
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
@@ -127,12 +136,11 @@ public class MineFragment extends BaseFragment {
                     } else if (text.equals("类别设置")) {
                         Intent intent = new Intent(getActivity(), KindsActivity.class);
                         intent.putExtra("uId",uId);
+                        intent.putExtra("token",token);
                         getContext().startActivity(intent);
                         getActivity().finish();
-                    } else if (((QMUICommonListItemView) v).getAccessoryType() == QMUICommonListItemView.ACCESSORY_TYPE_SWITCH) {
-                        ((QMUICommonListItemView) v).getSwitch().toggle();
                     } else{
-                        Toast.makeText(getActivity(), text + " is Clicked", Toast.LENGTH_SHORT).show();
+                        mListener.sycnData();
                     }
 
                 }
@@ -143,7 +151,6 @@ public class MineFragment extends BaseFragment {
         QMUIGroupListView.newSection(getContext())
                 .addItemView(itemMine, onClickListener)
                 .addItemView(itemSetKinds, onClickListener)
-                .addItemView(itemAutoSyncWithWIFI, null)
                 .addItemView(itemSync, onClickListener)
                 .addTo(mineGroupListView);
 
@@ -181,6 +188,34 @@ public class MineFragment extends BaseFragment {
         unbinder.unbind();
     }
 
+    @Override
+    public void initView(CUser user) {
+        if(user==null){
+            return;
+        }
+        if(user.getuPhoto().length()>2){
+            File imageFile=new File(user.getuPhoto());
+            Uri uri=FileProvider.getUriForFile(Objects.requireNonNull(getContext()),ImageUtil.FILE_PROVIDER,imageFile);
+            try {
+                Bitmap bitmap = BitmapFactory.decodeStream(getContext().getContentResolver().openInputStream(uri));
+                mineIcon.setImageBitmap(bitmap);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    @Override
+    public void jum2LoginActivity() {
+
+    }
+
+    @Override
+    public void showResult(String result) {
+
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -194,5 +229,7 @@ public class MineFragment extends BaseFragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+
+        void sycnData();
     }
 }

@@ -19,6 +19,7 @@ import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import java.util.Date;
 
@@ -56,7 +57,7 @@ public class ModifyBillActivity extends BaseActivity implements IAddBillView,OnD
         ButterKnife.bind(this);
         QMUIStatusBarHelper.translucent(this);
         QMUIStatusBarHelper.setStatusBarLightMode(this);
-        presenter = new BillPresenter(this);
+        presenter = new BillPresenter(this,this);
         action = getIntent().getIntExtra("action", 1);
         if (action == StatusCode.INSERT) {
             uId=getIntent().getStringExtra("uId");
@@ -160,4 +161,35 @@ public class ModifyBillActivity extends BaseActivity implements IAddBillView,OnD
         txtBillDesc.setText("");
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.closeRealm();
+    }
+
+    @Override
+    public void showProgressDialog() {
+
+    }
+
+    @Override
+    public void hideProgressDialog() {
+
+    }
+
+    @Override
+    public void showError(String msg) {
+
+    }
+
+    @Override
+    public void hideErrorDialog() {
+
+    }
+
+    @Override
+    public LifecycleTransformer bindLifecycle() {
+        return null;
+    }
 }

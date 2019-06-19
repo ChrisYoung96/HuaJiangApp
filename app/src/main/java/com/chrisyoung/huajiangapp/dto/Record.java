@@ -20,7 +20,9 @@ public class Record implements Serializable {
 
   private String rDesc; //备注
 
-  private int rVersioin;
+  private int rVersion;
+  private int delflag=0;
+
 
 
   public Record(){
@@ -105,11 +107,19 @@ public class Record implements Serializable {
     this.rDesc = rDesc;
   }
 
-  public int getrVersioin() {
-    return rVersioin;
+  public int getrVersion() {
+    return rVersion;
   }
 
-  public void setrVersioin(int rVersioin) {
-    this.rVersioin = rVersioin;
+  public void setrVersion(int rVersion) {
+    this.rVersion = rVersion;
+  }
+
+  public int getDelflag() {
+    return delflag;
+  }
+
+  public void setDelflag(int delflag) {
+    this.delflag = delflag;
   }
 }

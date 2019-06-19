@@ -22,6 +22,8 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.util.Attributes;
+import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import java.util.ArrayList;
 
@@ -48,10 +50,13 @@ public class ShowIncomeKindFragment extends BaseFragment implements IKindView, O
     Unbinder unbinder;
     @BindView(R.id.btnAddIncomeKind)
     Button btnAddIncomeKind;
+    @BindView(R.id.kindRefreshLayout2)
+    QMUIPullRefreshLayout kindRefreshLayout2;
 
     // TODO: Rename and change types of parameters
     private String uId;
-    private String type;
+    private static final String type = "收入";
+    private String token;
 
 
     private KindPresenter presenter;
@@ -89,7 +94,7 @@ public class ShowIncomeKindFragment extends BaseFragment implements IKindView, O
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            type = getArguments().getString(ARG_PARAM1);
+            token = getArguments().getString(ARG_PARAM1);
             uId = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -129,7 +134,31 @@ public class ShowIncomeKindFragment extends BaseFragment implements IKindView, O
     }
 
     private void init() {
-        presenter = new KindPresenter(this);
+        presenter = new KindPresenter(new MainActivity(), this);
+        kindRefreshLayout2.setOnPullListener(new QMUIPullRefreshLayout.OnPullListener() {
+            @Override
+            public void onMoveTarget(int offset) {
+
+            }
+
+            @Override
+            public void onMoveRefreshView(int offset) {
+
+            }
+
+            @Override
+            public void onRefresh() {
+                kindRefreshLayout2.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        presenter.synchKindDataFromServer(token,uId);
+                        kindRefreshLayout2.finishRefresh();
+                    }
+                },1000);
+
+
+            }
+        });
         presenter.showKinds(uId, type);
     }
 
@@ -150,6 +179,11 @@ public class ShowIncomeKindFragment extends BaseFragment implements IKindView, O
         incomeKindGridView.setSelected(false);
         incomeKindGridView.setNumColumns(4);
 
+    }
+
+    @Override
+    public void refreshUI() {
+        init();
     }
 
     @Override
@@ -196,8 +230,9 @@ public class ShowIncomeKindFragment extends BaseFragment implements IKindView, O
             @Override
             public void onClick(View v) {
                 String cId = v.getTag().toString();
-                presenter.deleteKind(cId);
-                init();
+                if (presenter.deleteKind(cId)) {
+                    init();
+                }
 
             }
         });
@@ -206,15 +241,41 @@ public class ShowIncomeKindFragment extends BaseFragment implements IKindView, O
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        presenter.closeRealm();
         unbinder.unbind();
     }
 
     @OnClick(R.id.btnAddIncomeKind)
     public void onViewClicked() {
-        Intent intent=new Intent(getContext(),AddKindsActivity.class);
-        intent.putExtra("type",type);
-        intent.putExtra("uId",uId);
+        Intent intent = new Intent(getContext(), AddKindsActivity.class);
+        intent.putExtra("type", type);
+        intent.putExtra("uId", uId);
         getContext().startActivity(intent);
+    }
+
+    @Override
+    public void showProgressDialog() {
+
+    }
+
+    @Override
+    public void hideProgressDialog() {
+
+    }
+
+    @Override
+    public void showError(String msg) {
+
+    }
+
+    @Override
+    public void hideErrorDialog() {
+
+    }
+
+    @Override
+    public LifecycleTransformer bindLifecycle() {
+        return bindToLifecycle();
     }
 
     /**

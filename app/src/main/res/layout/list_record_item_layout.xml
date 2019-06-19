@@ -10,14 +10,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="#FF5534"
+        android:background="#ff7459"
+        android:gravity="center"
         android:weightSum="10">
 
         <ImageView
             android:id="@+id/imgDeletRecord"
             android:layout_width="27dp"
             android:layout_height="30dp"
-            android:src="@mipmap/calendar"
+            android:src="@mipmap/shanchu2"
+            android:layout_centerHorizontal="true"
             android:layout_marginStart="10dp"/>
 
         <TextView
@@ -26,6 +28,7 @@
             android:layout_height="wrap_content"
             android:text="Delete Item?"
             android:layout_toEndOf="@+id/imgDeletRecord"
+            android:layout_centerHorizontal="true"
             android:layout_marginStart="5dp"
             android:textColor="#fff"
             android:textSize="17sp" />
@@ -33,10 +36,12 @@
         <Button
             android:id="@+id/btnDeleteRecord"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="20dp"
             android:layout_toEndOf="@id/txtConfirmDelete"
             android:layout_marginStart="5dp"
             android:background="#FFFFFF"
+            android:layout_centerHorizontal="true"
+            android:textSize="10sp"
             android:text="Yes,Delete"
             android:textColor="#FF5534" />
     </RelativeLayout>
@@ -53,6 +58,19 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="@string/xiaofei"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/txtRDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/beizhu"
+            android:layout_toEndOf="@+id/txtRKind"
+            android:layout_marginRight="5dp"
+            android:maxEms="5"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="15sp"/>
 
         <TextView

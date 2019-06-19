@@ -42,8 +42,24 @@ public class DiyKindManageBiz implements IDiyKindManageBiz {
     }
 
     @Override
-    public boolean fakeDeleteKind(CUserDiyKind kind) {
-        kind.setdStatus(StatusCode.DELETE);
-        return kindDao.addOrUpdateKind(kind);
+    public boolean fakeDeleteKind(String dId) {
+        CUserDiyKind kind=kindDao.findAKind(dId);
+        if(kind!=null){
+            CUserDiyKind d=new CUserDiyKind();
+            d.setdId(kind.getdId());
+            d.setuId(kind.getuId());
+            d.setdType(kind.getdType());
+            d.setdKind(kind.getdKind());
+            d.setdStatus(StatusCode.DELETE);
+            d.setDelflag(1);
+            return kindDao.addOrUpdateKind(d);
+        }
+        return false;
+
+    }
+
+    @Override
+    public void closeRealm() {
+        kindDao.closeRealm();
     }
 }

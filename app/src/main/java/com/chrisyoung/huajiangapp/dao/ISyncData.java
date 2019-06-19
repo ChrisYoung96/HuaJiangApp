@@ -8,9 +8,19 @@ import com.chrisyoung.huajiangapp.domain.CUserDiyKind;
 
 import java.util.ArrayList;
 
-public interface IScynData {
+public interface ISyncData {
     boolean asyncAddOrUpdateBills(ArrayList<CBill> bills);
+
     boolean asyncAddOrUpdateRecords(ArrayList<CRecord> records);
-    boolean asyncAddorUpdateKinds(ArrayList<CUserDiyKind> kinds);
+
+    boolean asyncAddOrUpdateKinds(ArrayList<CUserDiyKind> kinds);
+
+    ArrayList<CBill> asyncQueryBills(String uId);
+
+    ArrayList<CRecord> asyncQueryRecords(String bId);
+
+    ArrayList<CUserDiyKind> asyncQueryKinds(String uId);
+
+    void closeRealm();
 
 }

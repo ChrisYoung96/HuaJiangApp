@@ -6,7 +6,7 @@
     <RelativeLayout
         android:layout_marginTop="10dp"
         android:tag="Bottom2"
-        android:background="#ff3e3e"
+        android:background="#ff6565"
         android:layout_width="80dp"
         android:gravity="center"
         android:layout_height="140dp"
@@ -14,16 +14,16 @@
         >
         <ImageButton
             android:id="@+id/btnDeleteBill"
-            android:src="@mipmap/tab_graph_default"
-            android:layout_width="50dp"
+            android:src="@mipmap/shanchu2"
+            android:layout_width="64dp"
             android:background="@color/qmui_config_color_transparent"
-            android:layout_height="58dp" />
+            android:layout_height="64dp" />
     </RelativeLayout>
     <RelativeLayout
         android:padding="10dp"
-        android:background="#ffffff"
+        android:background="@mipmap/bill_background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="140dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp">
 
@@ -32,8 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:background="#FFFFFF"
+            android:layout_marginTop="10dp"
+            android:background="@color/qmui_config_color_transparent"
             android:text="账本名"
             android:textSize="15sp" />
     </RelativeLayout>

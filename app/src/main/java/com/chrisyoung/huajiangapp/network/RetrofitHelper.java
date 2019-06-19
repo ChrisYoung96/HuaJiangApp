@@ -20,22 +20,22 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitHelper {
     private static ApiService service;
     //请求超时时间
-    private static final int DEFAULT_TIMEOUT=10000;
+    private static final int DEFAULT_TIMEOUT = 20000;
 
-    public static ApiService getDefault(){
-        if(service==null){
-            OkHttpClient.Builder httpClientBuilder=new OkHttpClient.Builder();
-            httpClientBuilder.connectTimeout(DEFAULT_TIMEOUT,TimeUnit.SECONDS);
+    public static ApiService getDefault() {
+        if (service == null) {
+            OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
+            httpClientBuilder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
 
             httpClientBuilder.addInterceptor(new Interceptor() {
                 @Override
                 public Response intercept(@NonNull Chain chain) throws IOException {
-                    Request request=chain.request();
+                    Request request = chain.request();
 
-                    HttpUrl.Builder authorizedUrlBuilder=request.url()
+                    HttpUrl.Builder authorizedUrlBuilder = request.url()
                             .newBuilder();
-                    Request newRequest=request.newBuilder()
-                            .method(request.method(),request.body())
+                    Request newRequest = request.newBuilder()
+                            .method(request.method(), request.body())
                             .url(authorizedUrlBuilder.build())
                             .build();
                     return chain.proceed(newRequest);
@@ -43,14 +43,14 @@ public class RetrofitHelper {
                 }
             });
 
-            service=new Retrofit.Builder()
+            service = new Retrofit.Builder()
                     .client(httpClientBuilder.build())
                     .addConverterFactory(GsonConverterFactory.create(new GsonBuilder()
-                            .setDateFormat("yyyy-MM-dd")
+                            .setDateFormat("yyyy-MM-dd HH:mm:ss")
                             .create()))
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    //.baseUrl("https://huajiangzhangben.xin:8443/appserver/")
-                    .baseUrl("http://10.0.2.2:8080/")
+                    .baseUrl("https://huajiangzhangben.xin:8443/appserver/")
+                    //.baseUrl("http://10.0.2.2:8080/")
                     .build().create(ApiService.class);
         }
         return service;

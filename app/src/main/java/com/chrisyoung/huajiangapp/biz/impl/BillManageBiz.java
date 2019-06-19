@@ -38,9 +38,21 @@ public class BillManageBiz implements IBillManageBiz {
     }
 
     @Override
-    public boolean fakeDeleteBill(CBill bill) {
-        bill.setbStatus(StatusCode.DELETE);
-        return billDao.addOrUpdateBill(bill);
+    public boolean fakeDeleteBill(String bId) {
+        CBill bill=billDao.findBill(bId);
+        if(bill!=null){
+            CBill b=new CBill();
+            b.setbId(bill.getbId());
+            b.setuId(bill.getuId());
+            b.setbName(bill.getbName());
+            b.setbDate(bill.getbDate());
+            b.setbDesc(bill.getbDesc());
+            b.setbVersion(b.getbVersion());
+            b.setbStatus(StatusCode.DELETE);
+            b.setDelflag(1);
+            return billDao.addOrUpdateBill(b);
+        }
+        return false;
     }
 
     @Override
@@ -51,5 +63,10 @@ public class BillManageBiz implements IBillManageBiz {
     @Override
     public CBill queryBill(String bId) {
         return billDao.findBill(bId);
+    }
+
+    @Override
+    public void closeRealm() {
+        billDao.closeRealm();
     }
 }

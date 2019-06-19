@@ -36,10 +36,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chrisyoung.huajiangapp.R;
+import com.chrisyoung.huajiangapp.constant.UserConfig;
 import com.chrisyoung.huajiangapp.domain.CUser;
 import com.chrisyoung.huajiangapp.presenter.UserInfoPresenter;
 import com.chrisyoung.huajiangapp.uitils.DateFormatUtil;
 import com.chrisyoung.huajiangapp.uitils.ImageUtil;
+import com.chrisyoung.huajiangapp.uitils.SharedPreferenceUtil;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
 import com.chrisyoung.huajiangapp.view.vinterface.IMineInfoView;
 import com.jzxiang.pickerview.TimePickerDialog;
@@ -193,6 +195,7 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView, OnD
                                             presenter.updateUserInfo(cUser);
                                             dialog.dismiss();
                                             presenter.initView(uId);
+                                            SharedPreferenceUtil.put(UserInfoActivity.this,UserConfig.USER_NAME,text.toString());
                                         } else {
                                             ToastUtil.showShort(UserInfoActivity.this, "请输入昵称");
                                         }
@@ -428,7 +431,14 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView, OnD
         ToastUtil.showLong(this, outfile);
         // TODO: 2018/12/4  这里就可以将图片文件 file 上传到服务器,上传成功后可以将bitmap设置给你对应的图片展示
         imageView.setImageBitmap(bitmap);
-
+        CUser cUser = new CUser();
+        cUser.setuId(uId);
+        cUser.setuName(myName.getDetailText().toString());
+        cUser.setuBirthday(DateFormatUtil.stringToDate(myBirthday.getDetailText().toString()));
+        cUser.setuSex(mySex.getDetailText().toString());
+        cUser.setuPhone(myPhone.getDetailText().toString());
+        cUser.setuPhoto(outfile);
+        presenter.updateUserInfo(cUser);
         ImageUtil.galleryAddPic(outfile, this);
     }
 
@@ -458,5 +468,11 @@ public class UserInfoActivity extends BaseActivity implements IMineInfoView, OnD
         presenter.updateUserInfo(cUser);
         presenter.initView(uId);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.closeRealm();
     }
 }

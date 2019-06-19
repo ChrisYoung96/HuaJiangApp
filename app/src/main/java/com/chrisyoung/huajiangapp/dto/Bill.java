@@ -16,6 +16,8 @@ public class Bill implements Serializable {
   private Date bDate; //创建日期
   private String bDesc; //备注
   private int bVersion;//记录版本
+  private int delflag=0;
+
 
   public Bill(){
     this.bId=UUID.randomUUID().toString().replace("-","");
@@ -76,5 +78,11 @@ public class Bill implements Serializable {
     this.bVersion = bVersion;
   }
 
+  public int getDelflag() {
+    return delflag;
+  }
 
+  public void setDelflag(int delflag) {
+    this.delflag = delflag;
+  }
 }

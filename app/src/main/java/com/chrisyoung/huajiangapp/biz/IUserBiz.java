@@ -9,4 +9,6 @@ public interface IUserBiz {
 
     boolean updateUserInfo(CUser user);
 
+    void closeRealm();
+
 }

@@ -17,6 +17,7 @@ public class CBill extends RealmObject {
     private String bDesc; //备注
     private int bStatus; //记录状态
     private int bVersion;  //记录版本
+    private int delflag=0;
 
     private RealmList<CRecord> cRecords;
 
@@ -87,5 +88,13 @@ public class CBill extends RealmObject {
 
     public void setbVersion(int bVersion) {
         this.bVersion = bVersion;
+    }
+
+    public int getDelflag() {
+        return delflag;
+    }
+
+    public void setDelflag(int delflag) {
+        this.delflag = delflag;
     }
 }

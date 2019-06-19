@@ -6,6 +6,8 @@ import com.chrisyoung.huajiangapp.domain.CRecord;
 import java.util.ArrayList;
 import java.util.Date;
 
+import io.realm.Sort;
+
 public interface IRecordDao {
     boolean addOrUpdateRecord(CRecord newRecord);
 
@@ -19,7 +21,9 @@ public interface IRecordDao {
 
     ArrayList<CRecord> showRecordsNeedSynchronize(String bId);
 
-    ArrayList<CRecord> showRecordsByMonth(String bId,Date monthStart,Date monthEnd);
+    ArrayList<CRecord> showRecordsNeedSynchronize();
+
+    ArrayList<CRecord> showRecordsByMonth(String bId, Date monthStart, Date monthEnd, Sort sort);
 
     ArrayList<CRecord> showRecordsByDay(String bId,Date dayStart,Date dayEnd);
 
@@ -44,5 +48,7 @@ public interface IRecordDao {
     ArrayList<CRecord> findAllKind(String bId,Date monthStart,Date monthEnd,String type);
 
     ArrayList<CRecord> findAllWay(String bId,Date monthStart,Date monthEnd,String type);
+
+    void closeRealm();
 
 }

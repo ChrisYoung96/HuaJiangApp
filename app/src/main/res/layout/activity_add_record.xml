@@ -16,10 +16,10 @@
             android:id="@+id/text_ad_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
             android:ellipsize="marquee"
             android:gravity="center_horizontal|center"
             android:singleLine="true"
-            android:layout_marginTop="30dp"
             android:text="添加记录"
             android:textColor="@color/titleText"
             android:textSize="20dp" />

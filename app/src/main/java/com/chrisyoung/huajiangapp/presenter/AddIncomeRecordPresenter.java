@@ -40,7 +40,7 @@ public class AddIncomeRecordPresenter {
         if(b!=null){
             if(recordManageBiz.addRecord(b,record)){
                 addIncomeRecordView.showResult("成功");
-               addIncomeRecordView.cleareText();
+               addIncomeRecordView.jump2MainActivity();
             }else{
                 addIncomeRecordView.showResult("添加失败");
             }
@@ -53,5 +53,11 @@ public class AddIncomeRecordPresenter {
     public ArrayList<CUserDiyKind> loadDiyKind(String uId){
         return diyKindManageBiz.showKind(uId,"收入");
 
+    }
+
+    public void closeRealm(){
+        diyKindManageBiz.closeRealm();
+        billManageBiz.closeRealm();
+        recordManageBiz.closeRealm();
     }
 }

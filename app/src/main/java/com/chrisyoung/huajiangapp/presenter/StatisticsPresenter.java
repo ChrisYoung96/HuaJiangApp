@@ -2,15 +2,12 @@ package com.chrisyoung.huajiangapp.presenter;
 
 import android.graphics.Color;
 
-import com.chrisyoung.huajiangapp.R;
 import com.chrisyoung.huajiangapp.biz.IBillManageBiz;
 import com.chrisyoung.huajiangapp.biz.IRecordManageBiz;
-import com.chrisyoung.huajiangapp.biz.IScynDataBiz;
 import com.chrisyoung.huajiangapp.biz.impl.RecordManageBizImpl;
 import com.chrisyoung.huajiangapp.domain.CRecord;
 import com.chrisyoung.huajiangapp.domain.RViewModel;
 import com.chrisyoung.huajiangapp.uitils.DateFormatUtil;
-import com.chrisyoung.huajiangapp.view.vinterface.BaseView;
 import com.chrisyoung.huajiangapp.view.vinterface.IStasisticsView;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -22,13 +19,12 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.qmuiteam.qmui.util.QMUIColorHelper;
 
-import java.security.CryptoPrimitive;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
+import io.realm.Sort;
 
 public class StatisticsPresenter {
     private IBillManageBiz billManageBiz;
@@ -54,8 +50,19 @@ public class StatisticsPresenter {
         Date end=DateFormatUtil.getEndOfMonth(date);
         Double avrgMoney=recordManageBiz.avrgAllMoneyInAMonth(bId,start,end,type);
         Double sumMoney=recordManageBiz.sumAllMoneyInAMonth(bId,start,end,type);
-        DecimalFormat df = new DecimalFormat("#.00");
-        view.showFirstLayer(df.format(sumMoney),df.format(avrgMoney));
+        if(avrgMoney==0.00&& sumMoney!=0.00){
+            DecimalFormat df = new DecimalFormat("#.00");
+            view.showFirstLayer(df.format(sumMoney), String.valueOf(avrgMoney));
+        }else if(sumMoney==0.0 && avrgMoney!=0.0){
+            DecimalFormat df = new DecimalFormat("#.00");
+            view.showFirstLayer(String.valueOf(sumMoney),df.format(avrgMoney));
+        }else if(sumMoney ==0.0 && avrgMoney==0.0){
+            view.showFirstLayer(String.valueOf(sumMoney),String.valueOf(avrgMoney));
+        }else{
+            DecimalFormat df = new DecimalFormat("#.00");
+            view.showFirstLayer(df.format(sumMoney), df.format(avrgMoney));
+        }
+
 
     }
 
@@ -66,7 +73,7 @@ public class StatisticsPresenter {
         ArrayList<RViewModel> records=new ArrayList<>();
         ArrayList<Entry> datas=new ArrayList<>();
         ArrayList<String> xVals=new ArrayList<>();
-        records=recordManageBiz.showRecordsInAMonth(bId,start,end,type);
+        records=recordManageBiz.showRecordsInAMonth(bId,start,end,type,Sort.ASCENDING);
         if(records!=null&&!records.isEmpty()){
             for (int index=0;index<records.size();index++) {
                 RViewModel r=records.get(index);
@@ -112,7 +119,9 @@ public class StatisticsPresenter {
         ArrayList<Integer> colors = new ArrayList<>();
         colors.add(Color.CYAN);
         colors.add(Color.YELLOW);
-        colors.add(Color.red(1111));
+        colors.add(Color.GREEN);
+        colors.add(Color.RED);
+        colors.add(Color.MAGENTA);
         dataSet.setColors(colors);
 
         PieData peiData=new PieData(dataSet);
@@ -143,6 +152,10 @@ public class StatisticsPresenter {
         barData.getGroupWidth(0.05f,0.05f);
 
         view.showBarChart(barData,x);
+    }
+
+    public void closeRealm(){
+        recordManageBiz.closeRealm();
     }
 
 }

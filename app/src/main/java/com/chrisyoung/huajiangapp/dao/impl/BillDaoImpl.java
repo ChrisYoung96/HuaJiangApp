@@ -1,5 +1,8 @@
 package com.chrisyoung.huajiangapp.dao.impl;
 
+import android.os.AsyncTask;
+
+import com.chrisyoung.huajiangapp.constant.StatusCode;
 import com.chrisyoung.huajiangapp.dao.BaseDao;
 import com.chrisyoung.huajiangapp.dao.IBillDao;
 import com.chrisyoung.huajiangapp.domain.CBill;
@@ -42,7 +45,10 @@ public class BillDaoImpl extends BaseDao implements IBillDao {
         for (RealmObject b:queryRealmObjectsWithCondition("uId",uId,CBill.class)
              ) {
             CBill cb=(CBill)b;
-            bills.add(cb);
+            if(cb.getDelflag()!=1){
+                bills.add(cb);
+            }
+
         }
         return bills;
     }

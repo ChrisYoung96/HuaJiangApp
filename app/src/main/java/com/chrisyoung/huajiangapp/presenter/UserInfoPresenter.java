@@ -68,6 +68,10 @@ public class UserInfoPresenter  {
     }
 
 
+    public void closeRealm(){
+        userBiz.closeRealm();
+    }
+
 
 
 

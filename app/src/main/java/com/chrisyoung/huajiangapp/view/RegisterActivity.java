@@ -3,6 +3,7 @@ package com.chrisyoung.huajiangapp.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import com.chrisyoung.huajiangapp.uitils.ToastUtil;
 import com.chrisyoung.huajiangapp.view.vinterface.IRegisterInternetView;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,12 +68,14 @@ public class RegisterActivity extends BaseActivity implements IRegisterInternetV
 
     @Override
     public void jump2LoginActivity() {
+
         startActivity(new Intent(this, LoginActivity.class));
+        this.finish();
     }
 
     @Override
     public void refreshBtnTextIn30Seconds() {
-        CountDownTimer timer = new CountDownTimer(10000, 1000) {
+        CountDownTimer timer = new CountDownTimer(30000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 btnGetCode.setEnabled(false);
@@ -109,15 +113,29 @@ public class RegisterActivity extends BaseActivity implements IRegisterInternetV
     public void showError(String msg) {
         erroDialog = new QMUITipDialog.Builder(this)
                 .setIconType(QMUITipDialog.Builder.ICON_TYPE_FAIL)
-                .setTipWord("msg")
+                .setTipWord(msg)
                 .create();
         erroDialog.show();
+
+
+        Handler handler=new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                erroDialog.dismiss();
+            }
+        },2000);
 
     }
 
     @Override
     public void hideErrorDialog() {
         erroDialog.hide();
+    }
+
+    @Override
+    public LifecycleTransformer bindLifecycle() {
+        return bindToLifecycle();
     }
 
 

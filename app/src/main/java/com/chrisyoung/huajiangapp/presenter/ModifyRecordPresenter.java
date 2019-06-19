@@ -23,7 +23,7 @@ public class ModifyRecordPresenter {
         modifyRecordView.showRecord(recordManageBiz.getRecord(rId));
     }
 
-    public void updateRecord(String rId,String bId,String rMoney,String rType,String rkind,String rDate,String rWay,String rDesc){
+    public void updateRecord(String rId,String bId,String rMoney,String rType,String rkind,String rDate,String rWay,String rDesc,int rVersion){
         record=new CRecord();
         record.setrId(rId);
         record.setbId(bId);
@@ -33,12 +33,17 @@ public class ModifyRecordPresenter {
         record.setrWay(rWay);
         record.setrType(rType);
         record.setrDesc(rDesc);
+        record.setrVersion(rVersion+1);
         if(recordManageBiz.updateNewRecord(record)){
             modifyRecordView.showResult("成功");
             modifyRecordView.jump2MainActivity();
         }else{
             modifyRecordView.showResult("修改失败，数据错误");
         }
+    }
+
+    public void closeRealm(){
+        recordManageBiz.closeRealm();
     }
 
 }

@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="240dp"
+            android:layout_marginStart="220dp"
             android:text="收入"
             android:textSize="16sp" />
 
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="320dp"
+            android:layout_marginStart="300dp"
             android:text="支出"
             android:textSize="16sp" />
 
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ui_income"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="240dp"
+            android:layout_marginStart="220dp"
             android:layout_marginTop="0dp"
             android:textSize="15sp"
             android:text="0.00"
@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ui_cost"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="320dp"
+            android:layout_marginStart="300dp"
             android:layout_marginTop="0dp"
             android:text="0.00"
             android:textColor="@color/costColor"
@@ -119,13 +119,22 @@
 
 
     </RelativeLayout>
-    <ListView
-        android:id="@+id/recordModelListView"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/rl_r_subtitle"
-        android:layout_height="wrap_content">
 
-    </ListView>
+
+    <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
+        android:id="@+id/recordRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_r_subtitle">
+        <ListView
+            android:id="@+id/recordModelListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </ListView>
+
+    </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
+
 
 </RelativeLayout>
 

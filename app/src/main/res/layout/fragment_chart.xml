@@ -17,13 +17,13 @@
             android:id="@+id/text_sv_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
             android:ellipsize="marquee"
             android:gravity="center_horizontal|center"
             android:singleLine="true"
             android:text="@string/cost"
             android:textColor="@color/titleText"
-            android:textSize="20sp"
-            android:layout_marginTop="30dp"/>
+            android:textSize="20sp" />
 
 
         <ImageButton
@@ -32,17 +32,16 @@
             android:layout_height="48dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="19dp"
             android:layout_marginRight="19dp"
             android:background="@color/qmui_config_color_transparent"
-            android:src="@mipmap/switcher"
             android:drawablePadding="6dp"
             android:ellipsize="end"
             android:gravity="center"
             android:paddingStart="5dp"
             android:singleLine="true"
-            android:layout_marginTop="30dp"
-             />
+            android:src="@mipmap/switcher" />
 
     </RelativeLayout>
 

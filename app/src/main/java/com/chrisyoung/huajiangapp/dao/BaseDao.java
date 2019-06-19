@@ -55,7 +55,9 @@ public class BaseDao {
     }
 
     public List<? extends RealmObject> queryRealmObjectsWithCondition(String condition, String value, Class<? extends RealmObject> clazz) {
-        RealmResults<? extends RealmObject> realmResults = realm.where(clazz).equalTo(condition, value).findAll();
+        RealmResults<? extends RealmObject> realmResults = realm.where(clazz)
+                .equalTo(condition, value)
+                .findAll();
         List<? extends RealmObject> results = realm.copyFromRealm(realmResults);
         //.closeRealm(realm);
         return results;
@@ -63,7 +65,7 @@ public class BaseDao {
 
     public RealmObject queryRealmObjectWithCondition(String condition, String value, Class<? extends RealmObject> clazz) {
         RealmObject result = realm.where(clazz).equalTo(condition, value).findFirst();
-        //RealmHelper.closeRealm(realm);
+
         return result;
     }
 
@@ -81,6 +83,11 @@ public class BaseDao {
             e.printStackTrace();
         }
         return false;
+    }
+
+
+    public void closeRealm(){
+        RealmHelper.closeRealm(realm);
     }
 
 

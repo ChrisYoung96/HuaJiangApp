@@ -66,6 +66,8 @@ public class ModifyRecordActivity extends AppCompatActivity implements OnDateSet
     Button btnUrChooseWay;
     @BindView(R.id.btnModifyRecord)
     Button btnModifyRecord;
+    @BindView(R.id.txtUrVersion)
+    TextView txtUrVersion;
 
 
     private ModifyRecordPresenter recordPresenter;
@@ -159,11 +161,12 @@ public class ModifyRecordActivity extends AppCompatActivity implements OnDateSet
         txtUrRID.setText(cRecord.getrId());
         txtUrBID.setText(cRecord.getbId());
         txtUrCostMoney.setText(String.valueOf(cRecord.getrMoney()));
-        txtUrCostRecordDate.setText(DateFormatUtil.dateToString(cRecord.getrTime()));
+        txtUrCostRecordDate.setText(DateFormatUtil.dateAndTimeToString(cRecord.getrTime()));
         txtUrCostRecordDesc.setText(cRecord.getrDesc());
         btnUrChooseKind.setText(cRecord.getrKind());
         btnUrChooseWay.setText(cRecord.getrWay());
         textUrTitle.setText(cRecord.getrType());
+        txtUrVersion.setText(String.valueOf(cRecord.getrVersion()));
     }
 
     @Override
@@ -196,7 +199,8 @@ public class ModifyRecordActivity extends AppCompatActivity implements OnDateSet
                         , btnUrChooseKind.getText().toString()
                         , txtUrCostRecordDate.getText().toString()
                         , btnUrChooseWay.getText().toString()
-                        , txtUrCostRecordDesc.getText().toString());
+                        , txtUrCostRecordDesc.getText().toString()
+                        , Integer.parseInt(txtUrVersion.getText().toString()));
                 break;
         }
     }
@@ -204,5 +208,11 @@ public class ModifyRecordActivity extends AppCompatActivity implements OnDateSet
     @Override
     public void showResult(String result) {
         ToastUtil.showShort(this, result);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        recordPresenter.closeRealm();
     }
 }

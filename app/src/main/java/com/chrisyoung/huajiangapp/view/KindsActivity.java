@@ -31,6 +31,7 @@ public class KindsActivity extends AppCompatActivity implements ShowCostKindFrag
     ViewPager contentSKViewPager;
     List<Fragment> fragments = new ArrayList<>();
     String uId;
+    String token;
     BaseFragmentPagerAdapter baseFragmentPagerAdapter;
     ShowCostKindFragment showCostKindFragment;
     ShowIncomeKindFragment showIncomeKindFragment;
@@ -54,8 +55,9 @@ public class KindsActivity extends AppCompatActivity implements ShowCostKindFrag
 
     private void init() {
         uId = getIntent().getStringExtra("uId");
-        showCostKindFragment=ShowCostKindFragment.newInstance("支出",uId);
-        showIncomeKindFragment=ShowIncomeKindFragment.newInstance("收入",uId);
+        token=getIntent().getStringExtra("token");
+        showCostKindFragment=ShowCostKindFragment.newInstance(token,uId);
+        showIncomeKindFragment=ShowIncomeKindFragment.newInstance(token,uId);
         fragments.add(showCostKindFragment);
         fragments.add(showIncomeKindFragment);
         baseFragmentPagerAdapter = new BaseFragmentPagerAdapter(getSupportFragmentManager(), fragments);
@@ -75,4 +77,6 @@ public class KindsActivity extends AppCompatActivity implements ShowCostKindFrag
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+
 }

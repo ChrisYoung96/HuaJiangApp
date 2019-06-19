@@ -13,6 +13,8 @@ public class CUserDiyKind extends RealmObject {
     private String dKind; //自定义类型
     private int dStatus; //记录状态
     private int dVersion; //记录版本
+    private int delflag=0;
+
 
     public CUserDiyKind() {
         dId=UUIDUtils.getUUID();
@@ -64,5 +66,13 @@ public class CUserDiyKind extends RealmObject {
 
     public void setdVersion(int dVersion) {
         this.dVersion = dVersion;
+    }
+
+    public int getDelflag() {
+        return delflag;
+    }
+
+    public void setDelflag(int delflag) {
+        this.delflag = delflag;
     }
 }

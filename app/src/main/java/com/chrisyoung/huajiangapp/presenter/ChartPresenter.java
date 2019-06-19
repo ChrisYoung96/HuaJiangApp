@@ -29,4 +29,9 @@ public class ChartPresenter {
 
     }
 
+    public void closeRealm(){
+        billManageBiz.closeRealm();
+    }
+
+
 }

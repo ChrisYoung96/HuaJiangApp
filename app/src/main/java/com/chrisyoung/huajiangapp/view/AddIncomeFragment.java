@@ -2,6 +2,7 @@ package com.chrisyoung.huajiangapp.view;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -118,10 +119,10 @@ public class AddIncomeFragment extends BaseFragment implements IAddOrModifyRecor
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_income, container, false);
         unbinder = ButterKnife.bind(this, view);
         btsChooseIncomeKind.setPeekOnDismiss(true);
+        txtIncomeRecordDate.setText(DateFormatUtil.dateAndTimeToString(new Date()));
         return view;
     }
 
@@ -153,6 +154,7 @@ public class AddIncomeFragment extends BaseFragment implements IAddOrModifyRecor
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        presenter.closeRealm();
         unbinder.unbind();
     }
 
@@ -259,7 +261,9 @@ public class AddIncomeFragment extends BaseFragment implements IAddOrModifyRecor
 
     @Override
     public void jump2MainActivity() {
-
+        Intent intent=new Intent(getContext(),MainActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 
     @Override

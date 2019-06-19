@@ -1,5 +1,6 @@
 package com.chrisyoung.huajiangapp.dao.impl;
 
+import com.chrisyoung.huajiangapp.constant.StatusCode;
 import com.chrisyoung.huajiangapp.dao.BaseDao;
 import com.chrisyoung.huajiangapp.dao.IRecordDao;
 import com.chrisyoung.huajiangapp.domain.CBill;
@@ -44,25 +45,36 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
 
     @Override
     public ArrayList<CRecord> showAllRecords(String bId) {
-        RealmResults<CRecord> records = realm.where(CRecord.class).equalTo("bId", bId).findAll().sort("rTime");
+        RealmResults<CRecord> records = realm.where(CRecord.class).equalTo("bId", bId)
+                .equalTo("delflag",0)
+                .findAll()
+                .sort("rTime",Sort.DESCENDING);
         List<CRecord> results = realm.copyFromRealm(records);
         return new ArrayList<>(results);
     }
 
     @Override
     public ArrayList<CRecord> showRecordsNeedSynchronize(String bId) {
-        RealmResults<CRecord> r=realm.where(CRecord.class).equalTo("bId",bId).lessThan("rVersion",9).findAll().sort("rTime");
+        RealmResults<CRecord> r=realm.where(CRecord.class).equalTo("bId",bId).lessThan("rStatus",9).findAll().sort("rTime");
         List<CRecord> re=realm.copyFromRealm(r);
         return new ArrayList<>(re);
     }
 
     @Override
-    public ArrayList<CRecord> showRecordsByMonth(String bId, Date monthStart, Date monthEnd) {
+    public ArrayList<CRecord> showRecordsNeedSynchronize() {
+        RealmResults<CRecord> r=realm.where(CRecord.class).lessThan("rStatus",9).findAll().sort("rTime");
+        List<CRecord> re=realm.copyFromRealm(r);
+        return new ArrayList<>(re);
+    }
+
+    @Override
+    public ArrayList<CRecord> showRecordsByMonth(String bId, Date monthStart, Date monthEnd,Sort sort) {
         RealmResults<CRecord> records = realm.where(CRecord.class)
                 .equalTo("bId", bId)
+                .equalTo("delflag",0)
                 .between("rTime", monthStart, monthEnd)
                 .findAll()
-                .sort("rTime");
+                .sort("rTime",sort);
         List<CRecord> r = realm.copyFromRealm(records);
         return new ArrayList<>(r);
     }
@@ -77,6 +89,7 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
         RealmResults<CRecord> records = realm.where(CRecord.class)
                 .equalTo("bId", bId)
                 .between("rTime", monthStart, monthEnd)
+                .equalTo("delflag",0)
                 .equalTo("rType", type)
                 .findAll()
                 .sort("rTime");
@@ -89,6 +102,7 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
         RealmResults<CRecord> records = realm.where(CRecord.class)
                 .between("rTime", monthStart, monthEnd)
                 .equalTo("bId", bId)
+                .equalTo("delflag",0)
                 .equalTo("rType", type)
                 .equalTo("rWay", way)
                 .findAll()
@@ -102,6 +116,7 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
         RealmResults<CRecord> records = realm.where(CRecord.class)
                 .between("rTime", monthStart, monthEnd)
                 .equalTo("bId", bId)
+                .equalTo("delflag",0)
                 .equalTo("rType", type)
                 .equalTo("rKind", kind)
                 .findAll()
@@ -115,6 +130,7 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
        RealmResults<CRecord> records=realm.where(CRecord.class)
                 .between("rTime",monthStart,monthEnd)
                 .equalTo("bId",bId)
+               .equalTo("delflag",0)
                 .equalTo("rType",type)
                 .findAll()
                 .sort("rMoney",Sort.DESCENDING);
@@ -137,6 +153,7 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
                 .between("rTime",monthStart,monthEnd)
                 .equalTo("bId",bId)
                 .equalTo("rType",type)
+                .equalTo("delflag",0)
                 .findAll()
                 .sort("rMoney",Sort.ASCENDING);
         List<CRecord> r = realm.copyFromRealm(records);
@@ -157,6 +174,7 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
     public Double sumAllMoneyInAMonth(String bId, Date monthStart, Date monthEnd, String type) {
         RealmResults<CRecord> records = realm.where(CRecord.class)
                 .equalTo("bId", bId)
+                .equalTo("delflag",0)
                 .between("rTime", monthStart, monthEnd)
                 .equalTo("rType", type)
                 .findAll();
@@ -167,6 +185,7 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
     public Double sumAllMoneyOfWayInAMonth(String bId, Date monthStart, Date monthEnd, String type, String way) {
         RealmResults<CRecord> records = realm.where(CRecord.class)
                 .equalTo("bId", bId)
+                .equalTo("delflag",0)
                 .between("rTime", monthStart, monthEnd)
                 .equalTo("rType", type)
                 .equalTo("rWay", way)
@@ -178,6 +197,7 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
     public Double sumAllMoneyOfKindInAMonth(String bId, Date monthStart, Date monthEnd, String type, String kind) {
         RealmResults<CRecord> records = realm.where(CRecord.class)
                 .equalTo("bId", bId)
+                .equalTo("delflag",0)
                 .between("rTime", monthStart, monthEnd)
                 .equalTo("rType", type)
                 .equalTo("rKind", kind)
@@ -189,6 +209,7 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
     public Double avrgAllMoneyInAMonth(String bId, Date monthStart, Date monthEnd, String type) {
         return realm.where(CRecord.class)
                 .equalTo("bId", bId)
+                .equalTo("delflag",0)
                 .between("rTime", monthStart, monthEnd)
                 .equalTo("rType", type)
                 .findAll()
@@ -201,6 +222,7 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
         RealmResults<CRecord> records = realm.where(CRecord.class)
                 .between("rTime", monthStart, monthEnd)
                 .equalTo("bId", bId)
+                .equalTo("delflag",0)
                 .equalTo("rType", type)
                 .distinct("rKind")
                 .findAll()
@@ -215,6 +237,7 @@ public class RecordDaoImpl extends BaseDao implements IRecordDao {
         RealmResults<CRecord> records = realm.where(CRecord.class)
                 .between("rTime", monthStart, monthEnd)
                 .equalTo("bId", bId)
+                .equalTo("delflag",0)
                 .equalTo("rType", type)
                 .distinct("rWay")
                 .findAll()

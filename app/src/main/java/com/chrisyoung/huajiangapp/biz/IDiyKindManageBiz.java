@@ -14,5 +14,7 @@ public interface IDiyKindManageBiz {
 
     boolean deleteKind(String dId);
 
-    boolean fakeDeleteKind(CUserDiyKind kind);
+    boolean fakeDeleteKind(String dId);
+
+    void closeRealm();
 }

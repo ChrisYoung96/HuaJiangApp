@@ -17,6 +17,7 @@ import com.chrisyoung.huajiangapp.view.ModifyRecordActivity;
 import com.chrisyoung.huajiangapp.view.MyListView;
 import com.chrisyoung.huajiangapp.view.vinterface.OnViewGenerateListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class ShowRecordModleListViewAdapter extends BaseAdapter {
@@ -70,8 +71,19 @@ public class ShowRecordModleListViewAdapter extends BaseAdapter {
                 holder=(ViewHolder)convertView.getTag();
             }
             holder.txtRDate.setText(DateFormatUtil.dateToString(DateFormatUtil.longDateToshortDate(models.get(position).getDay())));
-            holder.txtTotalIncome.setText(String.valueOf(models.get(position).getTotalIncome()));
-            holder.txtTotalCost.setText(String.valueOf(models.get(position).getTotalCost()));
+            DecimalFormat df1 = new DecimalFormat("#.00");
+            double totalIncome=models.get(position).getTotalIncome();
+            if(totalIncome>0.00){
+                holder.txtTotalIncome.setText(df1.format(totalIncome));
+            }else{
+                holder.txtTotalIncome.setText(String.valueOf(totalIncome));
+            }
+           double totalCost=models.get(position).getTotalCost();
+            if(totalCost>0.0){
+                holder.txtTotalCost.setText(df1.format(totalCost));
+            }else{
+                holder.txtTotalCost.setText(String.valueOf(totalCost));
+            }
             ShowRecordListViewAdapter listViewAdapter=new ShowRecordListViewAdapter(models.get(position).getRecords(),context,listener);
             holder.recordItemListView.setAdapter(listViewAdapter);
             holder.recordItemListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

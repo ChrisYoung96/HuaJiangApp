@@ -24,6 +24,8 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.util.Attributes;
+import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import java.util.ArrayList;
 
@@ -40,7 +42,7 @@ import butterknife.Unbinder;
  * Use the {@link BillFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BillFragment extends BaseFragment implements IAddBillView ,OnViewGenerateListener {
+public class BillFragment extends BaseFragment implements IAddBillView, OnViewGenerateListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -50,18 +52,19 @@ public class BillFragment extends BaseFragment implements IAddBillView ,OnViewGe
     @BindView(R.id.billGridView)
     GridView billGridView;
     Unbinder unbinder;
+    @BindView(R.id.billRefreshLayout)
+    QMUIPullRefreshLayout billRefreshLayout;
 
     // TODO: Rename and change types of parameters
     private String uId;
-    private String mParam2;
+    private String token;
 
     private OnFragmentInteractionListener mListener;
 
     private BillPresenter billPresenter;
     private ShowBillGridViewAdapter adapter;
     private SwipeLayout swipeLayout;
-    private ArrayList<CBill>bills;
-
+    private ArrayList<CBill> bills;
 
 
     public BillFragment() {
@@ -90,9 +93,8 @@ public class BillFragment extends BaseFragment implements IAddBillView ,OnViewGe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            //uId = getArguments().getString(ARG_PARAM1);
-            uId="94d5f9cbd27b4526a9b90176f44037d7";
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            uId = getArguments().getString(ARG_PARAM1);
+            token = getArguments().getString(ARG_PARAM2);
 
         }
     }
@@ -107,12 +109,12 @@ public class BillFragment extends BaseFragment implements IAddBillView ,OnViewGe
         return view;
     }
 
-    private void init(){
-        billPresenter=new BillPresenter(this);
+    private void init() {
+        billPresenter = new BillPresenter(this, new MainActivity());
 
-        bills=billPresenter.showBills(uId);
-        if(bills!=null){
-            adapter=new ShowBillGridViewAdapter(bills,getContext(),this);
+        bills = billPresenter.showBills(uId);
+        if (bills != null) {
+            adapter = new ShowBillGridViewAdapter(bills, getContext(), this);
             adapter.setMode(Attributes.Mode.Multiple);
             billGridView.setAdapter(adapter);
             billGridView.setSelected(false);
@@ -120,17 +122,42 @@ public class BillFragment extends BaseFragment implements IAddBillView ,OnViewGe
             billGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String bId=bills.get(position).getbId();
-                    Intent intent=new Intent(getContext(),ModifyBillActivity.class);
-                    intent.putExtra("bId",bId);
-                    intent.putExtra("action",StatusCode.UPDATE);
+                    String bId = bills.get(position).getbId();
+                    Intent intent = new Intent(getContext(), ModifyBillActivity.class);
+                    intent.putExtra("bId", bId);
+                    intent.putExtra("action", StatusCode.UPDATE);
                     startActivity(intent);
                 }
             });
 
-        }else{
-            ToastUtil.showShort(getContext(),"请添加账本");
+        } else {
+            ToastUtil.showShort(getContext(), "请添加账本");
         }
+
+        billRefreshLayout.setOnPullListener(new QMUIPullRefreshLayout.OnPullListener() {
+            @Override
+            public void onMoveTarget(int offset) {
+
+            }
+
+            @Override
+            public void onMoveRefreshView(int offset) {
+
+            }
+
+            @Override
+            public void onRefresh() {
+                    billRefreshLayout.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            billPresenter.synchBillDataFromServer(token,uId);
+                            billRefreshLayout.finishRefresh();
+                        }
+                    },1000);
+
+
+            }
+        });
 
     }
 
@@ -165,26 +192,27 @@ public class BillFragment extends BaseFragment implements IAddBillView ,OnViewGe
 
     @Override
     public void resetUI() {
-
+        init();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        billPresenter.closeRealm();
         unbinder.unbind();
     }
 
     @OnClick(R.id.btnAddBill)
     public void onViewClicked() {
-        Intent intent=new Intent(getContext(),ModifyBillActivity.class);
-        intent.putExtra("uId",uId);
-        intent.putExtra("anciton",StatusCode.INSERT);
+        Intent intent = new Intent(getContext(), ModifyBillActivity.class);
+        intent.putExtra("uId", uId);
+        intent.putExtra("anciton", StatusCode.INSERT);
         startActivity(intent);
     }
 
     @Override
     public void initView(View v) {
-        swipeLayout=v.findViewById(R.id.gridItemLayout);
+        swipeLayout = v.findViewById(R.id.gridItemLayout);
         swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
             @Override
@@ -225,13 +253,38 @@ public class BillFragment extends BaseFragment implements IAddBillView ,OnViewGe
         v.findViewById(R.id.btnDeleteBill).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String bid=v.getTag().toString();
+                String bid = v.getTag().toString();
                 billPresenter.deleteBill(bid);
                 init();
 
             }
         });
 
+    }
+
+    @Override
+    public void showProgressDialog() {
+
+    }
+
+    @Override
+    public void hideProgressDialog() {
+
+    }
+
+    @Override
+    public void showError(String msg) {
+
+    }
+
+    @Override
+    public void hideErrorDialog() {
+
+    }
+
+    @Override
+    public LifecycleTransformer bindLifecycle() {
+        return bindToLifecycle();
     }
 
     /**

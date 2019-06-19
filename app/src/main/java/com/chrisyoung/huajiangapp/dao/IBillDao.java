@@ -20,4 +20,6 @@ public interface IBillDao {
 
     CBill findBill(String bId);
 
+    void closeRealm();
+
 }

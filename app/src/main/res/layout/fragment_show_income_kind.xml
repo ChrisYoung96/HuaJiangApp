@@ -11,6 +11,11 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:background="#EEEEEE">
+        <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
+            android:id="@+id/kindRefreshLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
         <GridView
             android:id="@+id/incomeKindGridView"
             android:layout_width="match_parent"
@@ -20,12 +25,15 @@
             android:horizontalSpacing="10dp">
 
         </GridView>
+        </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
         <Button
             android:id="@+id/btnAddIncomeKind"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="添加类别"/>
+            android:text="添加类别"
+            android:background="@color/colorPrimary"
+            android:textColor="#ffffff"/>
 
     </RelativeLayout>
 

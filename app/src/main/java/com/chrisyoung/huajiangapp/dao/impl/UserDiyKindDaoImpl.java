@@ -1,5 +1,6 @@
 package com.chrisyoung.huajiangapp.dao.impl;
 
+import com.chrisyoung.huajiangapp.constant.StatusCode;
 import com.chrisyoung.huajiangapp.dao.BaseDao;
 import com.chrisyoung.huajiangapp.dao.IUserDiyKindDao;
 import com.chrisyoung.huajiangapp.domain.CUser;
@@ -42,6 +43,7 @@ public class UserDiyKindDaoImpl extends BaseDao implements IUserDiyKindDao {
     public ArrayList<CUserDiyKind> showAllKinds(String uId,String type) {
         RealmResults<CUserDiyKind> kinds=realm.where(CUserDiyKind.class)
                 .equalTo("uId",uId)
+                .equalTo("delflag",0)
                 .equalTo("dType",type)
                 .findAll();
         List<CUserDiyKind> kinds1=realm.copyFromRealm(kinds);

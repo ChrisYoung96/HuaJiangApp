@@ -1,22 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:icon="@mipmap/calendar"
+        android:icon="@mipmap/canyin"
         android:title="@string/canyin"/>
     <item
-        android:icon="@mipmap/calendar"
-        android:title="@string/fushi"/>
+        android:icon="@mipmap/chaoshi"
+        android:title="@string/gouwu"/>
+
     <item
-        android:icon="@mipmap/calendar"
+        android:icon="@mipmap/yifu"
+        android:title="@string/fushi" />
+    <item
+        android:icon="@mipmap/jiaotong"
         android:title="@string/jiaotong"/>
     <item
-        android:icon="@mipmap/calendar"
+        android:icon="@mipmap/tongxun"
         android:title="@string/tongxun"/>
     <item
-        android:icon="@mipmap/calendar"
+        android:icon="@mipmap/shuma"
         android:title="@string/shuma"/>
     <item
-        android:icon="@mipmap/calendar"
+        android:icon="@mipmap/yule"
         android:title="@string/yule"/>
+    <item
+        android:icon="@mipmap/lingshi"
+        android:title="@string/lingshi"/>
+
+    <item
+        android:icon="@mipmap/kuaidi"
+        android:title="@string/kuaidi"/>
+
+    <item
+        android:icon="@mipmap/liwu"
+        android:title="@string/liwu"/>
+
+    <item
+        android:icon="@mipmap/shipin"
+        android:title="@string/shoushi"/>
+
+    <item
+        android:icon="@mipmap/yiliao"
+        android:title="@string/yiliao"/>
+
+    <item
+        android:icon="@mipmap/hongbao"
+        android:title="@string/hongbao"/>
+
+    <item
+        android:icon="@mipmap/yifu"
+        android:title="@string/fushi"/>
+
+    <item
+        android:icon="@mipmap/shuiguo"
+        android:title="@string/shuiguo"/>
+
+    <item
+        android:icon="@mipmap/huazhuangpin"
+        android:title="@string/huazhuangpin"/>
+    <item
+        android:icon="@mipmap/hufupin"
+        android:title="@string/hufupin"/>
+
+    <item
+        android:icon="@mipmap/jiaoyu"
+        android:title="@string/jiaoyu"/>
+
+    <item
+        android:icon="@mipmap/chongwu"
+        android:title="@string/chongwu"/>
+
+    <item
+        android:icon="@mipmap/baobao"
+        android:title="@string/baobao"/>
+
+    <item
+        android:icon="@mipmap/gaogenxie"
+        android:title="@string/xiezi"/>
+
+    <item
+        android:icon="@mipmap/qiche"
+        android:title="@string/qiche"/>
+
+    <item
+        android:icon="@mipmap/dianqi"
+        android:title="@string/dianqi"/>
+
+
+
+    <item
+        android:icon="@mipmap/bangong"
+        android:title="@string/bangong"/>
 
 </menu>

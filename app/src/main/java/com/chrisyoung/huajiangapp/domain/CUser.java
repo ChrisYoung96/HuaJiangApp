@@ -18,6 +18,7 @@ public class CUser extends RealmObject {
     private String uMail; //邮箱
     private String uPhoto; //头像路径
 
+
     private RealmList<CBill> bills;
     private RealmList<CUserDiyKind> cUserDiyKinds;
 

@@ -9,6 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.widget.ImageButton;
 
 import com.chrisyoung.huajiangapp.R;
+import com.chrisyoung.huajiangapp.constant.UserConfig;
+import com.chrisyoung.huajiangapp.uitils.SharedPreferenceUtil;
 import com.chrisyoung.huajiangapp.view.adapter.BaseFragmentPagerAdapter;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
@@ -48,8 +50,8 @@ public class AddRecordActivity extends FragmentActivity implements AddCostFragme
     }
 
     private void init() {
-        uId = getIntent().getStringExtra("uId");
-        bId = getIntent().getStringExtra("curBId");
+        uId = (String)SharedPreferenceUtil.get(this,UserConfig.USER_ID,"");
+        bId = (String)SharedPreferenceUtil.get(this,UserConfig.CUR_BID,"");
         tabNo=getIntent().getIntExtra("tabNo",tabNo);
         addIncomeFragment = AddIncomeFragment.newInstance("收入", bId,uId);
         addCostFragment = AddCostFragment.newInstance("支出", bId,uId);
@@ -80,6 +82,8 @@ public class AddRecordActivity extends FragmentActivity implements AddCostFragme
         startActivity(intent);
         this.finish();
     }
+
+
 }
 
 

@@ -6,4 +6,6 @@ public interface IUserDao {
     boolean addOrUpdateUser(CUser newUser);
 
     CUser showUserInfo(String uId);
+
+    void closeRealm();
 }

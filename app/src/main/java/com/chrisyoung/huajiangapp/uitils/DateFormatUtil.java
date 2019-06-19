@@ -110,11 +110,20 @@ public class DateFormatUtil {
     }
 
     public static Timestamp dateToTimestamp(Date date){
-        return new Timestamp(date.getTime());
+        if(date!=null){
+            return new Timestamp(date.getTime());
+        }else {
+            return new Timestamp(System.currentTimeMillis());
+        }
     }
 
     public static Date timestampToDate(Timestamp timestamp){
-        return new Date(timestamp.getTime());
+        if(timestamp!=null){
+            return new Date(timestamp.getTime());
+        }else{
+            return new Date();
+        }
+
     }
 
     public static Date getStartOfMonth(String year,String month){

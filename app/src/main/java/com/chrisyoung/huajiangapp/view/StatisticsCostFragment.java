@@ -13,8 +13,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.chrisyoung.huajiangapp.R;
+import com.chrisyoung.huajiangapp.constant.UserConfig;
 import com.chrisyoung.huajiangapp.presenter.StatisticsPresenter;
 import com.chrisyoung.huajiangapp.uitils.DateFormatUtil;
+import com.chrisyoung.huajiangapp.uitils.SharedPreferenceUtil;
 import com.chrisyoung.huajiangapp.view.vinterface.IStasisticsView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -108,6 +110,7 @@ public class StatisticsCostFragment extends BaseFragment implements OnDateSetLis
     }
 
     private void init(){
+        bId= (String) SharedPreferenceUtil.get(getContext(),UserConfig.CUR_BID,"");
         presenter=new StatisticsPresenter(this);
         btnSCChooseDate.setText(DateFormatUtil.getYearAndMonth(System.currentTimeMillis())+"▼");
         presenter.init(bId,System.currentTimeMillis(),type);
@@ -306,6 +309,7 @@ public class StatisticsCostFragment extends BaseFragment implements OnDateSetLis
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        presenter.closeRealm();
         unbinder.unbind();
     }
 

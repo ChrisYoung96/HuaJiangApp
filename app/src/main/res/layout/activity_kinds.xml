@@ -16,11 +16,11 @@
             android:id="@+id/text_sk_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
             android:ellipsize="marquee"
             android:gravity="center_horizontal|center"
             android:singleLine="true"
             android:text="类别"
-            android:layout_marginTop="30dp"
             android:textColor="@color/titleText"
             android:textSize="20dp" />
 

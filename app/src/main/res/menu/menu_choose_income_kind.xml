@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:icon="@mipmap/calendar"
+        android:icon="@mipmap/jianzhi"
         android:title="@string/jianzhi"/>
     <item
-        android:icon="@mipmap/calendar"
+        android:icon="@mipmap/gongzi"
         android:title="@string/gongzi"/>
     <item
-        android:icon="@mipmap/calendar"
+        android:icon="@mipmap/qitashouzhi1"
         android:title="@string/shenghuofei"/>
     <item
-        android:icon="@mipmap/calendar"
+        android:icon="@mipmap/licai"
         android:title="@string/licai"/>
+
+
+    <item
+        android:icon="@mipmap/hongbao"
+        android:title="@string/hongbao"/>
+
+    <item
+        android:icon="@mipmap/caipiao"
+        android:title="@string/caipiao"/>
+
+    <item
+        android:icon="@mipmap/caipiao"
+        android:title="@string/caipiao"/>
+
+
+
 
 
 </menu>

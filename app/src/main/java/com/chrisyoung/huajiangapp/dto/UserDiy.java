@@ -10,40 +10,42 @@ public class UserDiy implements Serializable {
   private String dType; //收入或支出
   private String dKind; //自定义类型
   private int dVersion;//记录版本
+  private int delflag=0;
 
 
-  public String getDId() {
+
+  public String getdId() {
     return dId;
   }
 
-  public void setDId(String dId) {
+  public void setdId(String dId) {
     this.dId = dId;
   }
 
 
-  public String getUId() {
+  public String getuId() {
     return uId;
   }
 
-  public void setUId(String uId) {
+  public void setuId(String uId) {
     this.uId = uId;
   }
 
 
-  public String getDType() {
+  public String getdType() {
     return dType;
   }
 
-  public void setDType(String dType) {
+  public void setdType(String dType) {
     this.dType = dType;
   }
 
 
-  public String getDKind() {
+  public String getdKind() {
     return dKind;
   }
 
-  public void setDKind(String dKind) {
+  public void setdKind(String dKind) {
     this.dKind = dKind;
   }
 
@@ -55,4 +57,11 @@ public class UserDiy implements Serializable {
     this.dVersion = dVersion;
   }
 
+  public int getDelflag() {
+    return delflag;
+  }
+
+  public void setDelflag(int delflag) {
+    this.delflag = delflag;
+  }
 }

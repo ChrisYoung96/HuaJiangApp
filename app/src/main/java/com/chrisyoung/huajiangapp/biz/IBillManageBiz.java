@@ -12,10 +12,12 @@ public interface IBillManageBiz {
 
     boolean deleteBill(String bId);
 
-    boolean fakeDeleteBill(CBill bill);
+    boolean fakeDeleteBill(String bId);
 
     ArrayList<CBill> showAllBills(String uId);
 
     CBill queryBill(String bId);
+
+    void closeRealm();
 
 }

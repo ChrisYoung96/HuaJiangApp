@@ -2,11 +2,11 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#d81b60</color>
     <color name="titleBackground">#58934e</color>
     <!--<color name="titleBackground">#7a9364</color>-->
     <color name="firstLayerBackground">#ffffff</color>
-    <color name="titleText">#ffffff</color>
+    <color name="titleText">#FFFFFF</color>
     <color name="textColor">#000000</color>
     <color name="incomeColor">#58934e</color>
     <color name="costColor">#58934e</color>

@@ -45,14 +45,14 @@ public interface ApiService {
     @GET("sychdata/bills2c")
     Observable<HttpResult<LinkedList<SychronizeDataItem<Bill>>>> sychronizeBillS2C(@Header("Authorization") String token, @Query("UserId") String uId);
 
-    @GET("sychdata/records2s")
+    @GET("sychdata/records2c")
     Observable<HttpResult<LinkedList<SychronizeDataItem<Record>>>> sychronizeRecordsS2C(@Header("Authorization") String token, @Query("bId") String bId);
 
     @GET("sychdata/diykindss2c")
     Observable<HttpResult<LinkedList<SychronizeDataItem<UserDiy>>>> sychronizeDiyKindsS2C(@Header("Authorization") String token, @Query("UserId") String uId);
 
     @POST("sychdata/billsc2s")
-    Observable<HttpResult<String>> sychronizeBillsC2s(@Header("Authorization") String token,@Body LinkedList<SychronizeDataItem<Bill>> bills);
+    Observable<HttpResult<String>> sychronizeBillsC2S(@Header("Authorization") String token, @Body LinkedList<SychronizeDataItem<Bill>> bills);
 
     @POST("sychdata/recordsc2s")
     Observable<HttpResult<String>> sychronizeRecordsC2S(@Header("Authorization") String token,@Body LinkedList<SychronizeDataItem<Record>> records);

@@ -21,4 +21,9 @@ public class UserInfoBiz implements IUserBiz {
     public boolean updateUserInfo(CUser user) {
        return userDao.addOrUpdateUser(user);
     }
+
+    @Override
+    public void closeRealm() {
+        userDao.closeRealm();
+    }
 }

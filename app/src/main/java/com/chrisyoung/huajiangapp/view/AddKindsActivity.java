@@ -14,6 +14,7 @@ import com.chrisyoung.huajiangapp.presenter.KindPresenter;
 import com.chrisyoung.huajiangapp.uitils.ToastUtil;
 import com.chrisyoung.huajiangapp.view.vinterface.IKindView;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import java.util.ArrayList;
 
@@ -44,7 +45,7 @@ public class AddKindsActivity extends AppCompatActivity  implements IKindView {
         QMUIStatusBarHelper.setStatusBarLightMode(this);
         type=getIntent().getStringExtra("type");
         uId=getIntent().getStringExtra("uId");
-        presenter=new KindPresenter(this);
+        presenter=new KindPresenter(new MainActivity(),this);
     }
 
     @OnClick({R.id.btnAKBack, R.id.btnAddKind})
@@ -78,7 +79,44 @@ public class AddKindsActivity extends AppCompatActivity  implements IKindView {
     }
 
     @Override
+    public void refreshUI() {
+
+    }
+
+    @Override
     public void showResult(String result) {
         ToastUtil.showShort(this,result);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.closeRealm();
+    }
+
+    @Override
+    public void showProgressDialog() {
+
+    }
+
+    @Override
+    public void hideProgressDialog() {
+
+    }
+
+    @Override
+    public void showError(String msg) {
+
+    }
+
+    @Override
+    public void hideErrorDialog() {
+
+    }
+
+    @Override
+    public LifecycleTransformer bindLifecycle() {
+        return null;
     }
 }

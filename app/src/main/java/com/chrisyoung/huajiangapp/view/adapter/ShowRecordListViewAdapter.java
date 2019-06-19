@@ -48,9 +48,11 @@ public class ShowRecordListViewAdapter extends BaseSwipeAdapter {
         TextView txtRMoney=convertView.findViewById(R.id.txtRMoney);
         TextView txtRWay=convertView.findViewById(R.id.txtRWay);
         TextView txtRTime=convertView.findViewById(R.id.txtRTime);
+        TextView txtRDesc=convertView.findViewById(R.id.txtRDesc);
         Button btn=convertView.findViewById(R.id.btnDeleteRecord);
         btn.setTag(records.get(position).getrId());
         txtRKind.setText(records.get(position).getrKind());
+        txtRDesc.setText(records.get(position).getrDesc());
         txtRWay.setText(records.get(position).getrWay());
         txtRMoney.setText(String.valueOf(records.get(position).getrMoney()));
         txtRTime.setText(DateFormatUtil.dateToString(records.get(position).getrTime()));

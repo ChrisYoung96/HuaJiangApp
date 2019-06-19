@@ -61,7 +61,7 @@ public class DataManager {
     }
 
     public Observable<HttpResult<String>> synchronizeBillsC2S(String token, LinkedList<SychronizeDataItem<Bill>> bills) {
-        return service.sychronizeBillsC2s(token, bills);
+        return service.sychronizeBillsC2S(token, bills);
     }
 
     public Observable<HttpResult<String>> synchronizeRecordsC2S(String token, LinkedList<SychronizeDataItem<Record>> records) {

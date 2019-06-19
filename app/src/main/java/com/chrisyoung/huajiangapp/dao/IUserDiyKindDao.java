@@ -19,4 +19,6 @@ public interface IUserDiyKindDao {
 
     ArrayList<CUserDiyKind> showKindsNeedSynchronize(String uId);
 
+    void closeRealm();
+
 }

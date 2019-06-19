@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.view.menu.MenuItemImpl;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -126,6 +128,7 @@ public class AddCostFragment extends BaseFragment implements IAddOrModifyRecordV
         View view = inflater.inflate(R.layout.fragment_add_cost, container, false);
         unbinder = ButterKnife.bind(this, view);
         btsChooseCostKind.setPeekOnDismiss(true);
+        txtCostRecordDate.setText(DateFormatUtil.dateAndTimeToString(new Date()));
         return view;
     }
 
@@ -156,6 +159,7 @@ public class AddCostFragment extends BaseFragment implements IAddOrModifyRecordV
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        presenter.closeRealm();
         unbinder.unbind();
     }
 
@@ -200,7 +204,7 @@ public class AddCostFragment extends BaseFragment implements IAddOrModifyRecordV
         for (CUserDiyKind k :
                 kinds) {
             Menu menu = menuSheetView.getMenu();
-            menu.add(k.getdKind()).setIcon(R.mipmap.tab_bill_default);
+            menu.add(k.getdKind()).setIcon(R.mipmap.qitashouzhi2);
         }
         menuSheetView.updateMenu();
 
@@ -220,10 +224,9 @@ public class AddCostFragment extends BaseFragment implements IAddOrModifyRecordV
             }
         });
         menuSheetView.inflateMenu(R.menu.menu_choose_cost_way);
-
-
-
+        menuSheetView.setColumnWidthDp(5);
         btsChooseCostKind.showWithSheetView(menuSheetView);
+
     }
 
     private void showDatePicker() {
@@ -280,7 +283,7 @@ public class AddCostFragment extends BaseFragment implements IAddOrModifyRecordV
 
     @Override
     public void showResult(String result) {
-        ToastUtil.showShort(getContext(), result);
+        ToastUtil.showShort(getContext(),"添加成功");
     }
 
     /**

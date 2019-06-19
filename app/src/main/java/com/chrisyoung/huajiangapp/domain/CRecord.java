@@ -20,6 +20,8 @@ public class CRecord extends RealmObject {
     private String rWay; //支付方式
     private int rStatus; //记录状态
     private int rVersion; //记录版本
+    private int delflag=0;
+
 
 
     @Index
@@ -109,5 +111,13 @@ public class CRecord extends RealmObject {
 
     public void setrVersion(int rVersion) {
         this.rVersion = rVersion;
+    }
+
+    public int getDelflag() {
+        return delflag;
+    }
+
+    public void setDelflag(int delflag) {
+        this.delflag = delflag;
     }
 }

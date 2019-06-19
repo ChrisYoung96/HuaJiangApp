@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 
+import io.realm.Sort;
+
 public class RecordManageBizImpl implements IRecordManageBiz {
     private ArrayList<RViewModel> rViewModels;
     private IRecordDao recordDao;
@@ -28,9 +30,9 @@ public class RecordManageBizImpl implements IRecordManageBiz {
     }
 
     @Override
-    public ArrayList<RViewModel> showRecordsInAMonth(String bId, Date start, Date end,String type) {
+    public ArrayList<RViewModel> showRecordsInAMonth(String bId, Date start, Date end, String type, Sort sort) {
         rViewModels.clear();
-        ArrayList<CRecord> records = recordDao.showRecordsByMonth(bId,start,end);
+        ArrayList<CRecord> records = recordDao.showRecordsByMonth(bId,start,end,sort);
         if (records != null && !records.isEmpty()) {
             Date temp = DateFormatUtil.stringToDate("1900年01月01日");
             RViewModel rViewModel = new RViewModel();
@@ -84,9 +86,25 @@ public class RecordManageBizImpl implements IRecordManageBiz {
     }
 
     @Override
-    public boolean fakeDeleteRecord(CRecord record) {
-        record.setrStatus(StatusCode.DELETE);
-        return recordDao.addOrUpdateRecord(record);
+    public boolean fakeDeleteRecord(String rId) {
+        CRecord record=recordDao.showARecord(rId);
+        CRecord newRecord=new CRecord();
+        if(record!=null){
+           newRecord.setbId(record.getbId());
+           newRecord.setrId(record.getrId());
+           newRecord.setrStatus(StatusCode.DELETE);
+           newRecord.setrVersion(record.getrVersion());
+           newRecord.setrMoney(record.getrMoney());
+           newRecord.setrType(record.getrType());
+           newRecord.setrWay(record.getrWay());
+           newRecord.setrTime(record.getrTime());
+           newRecord.setrKind(record.getrKind());
+           newRecord.setrDesc(record.getrDesc());
+           newRecord.setDelflag(1);
+           return recordDao.addOrUpdateRecord(newRecord);
+        }
+        return false;
+
     }
 
     @Override
@@ -198,6 +216,11 @@ public class RecordManageBizImpl implements IRecordManageBiz {
     @Override
     public ArrayList<CRecord> getAllWay(String bId, Date monthStart, Date monthEnd, String type){
         return recordDao.findAllWay(bId, monthStart, monthEnd, type);
+    }
+
+    @Override
+    public void closeRealm() {
+        recordDao.closeRealm();
     }
 
 

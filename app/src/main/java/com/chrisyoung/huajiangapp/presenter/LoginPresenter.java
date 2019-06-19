@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.chrisyoung.huajiangapp.biz.IUserBiz;
 import com.chrisyoung.huajiangapp.biz.impl.UserInfoBiz;
+import com.chrisyoung.huajiangapp.constant.ResultCode;
 import com.chrisyoung.huajiangapp.constant.UserConfig;
 import com.chrisyoung.huajiangapp.domain.CUser;
 import com.chrisyoung.huajiangapp.dto.AppUser;
@@ -48,11 +49,17 @@ public class LoginPresenter extends BasePresenter {
 
             getToken.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
+                    .compose(loginView.bindLifecycle())
                     .doOnNext(new Consumer<HttpResult<String>>() {
                         @Override
                         public void accept(HttpResult<String> result) throws Exception {
-                            token=result.getData();
-                            SharedPreferenceUtil.put(context,UserConfig.TOKEN,token);
+                            if(result.getCode()==ResultCode.SUCCESS.code()){
+                                token=result.getData();
+                                SharedPreferenceUtil.put(context,UserConfig.TOKEN,token);
+                            }else{
+                                return;
+                            }
+
 
                         }
                     })
@@ -64,13 +71,15 @@ public class LoginPresenter extends BasePresenter {
                         }
                     })
                     .observeOn(AndroidSchedulers.mainThread())
+                    .compose(loginView.bindLifecycle())
                     .subscribe(new Consumer<HttpResult<AppUser>>() {
                         @Override
                         public void accept(HttpResult<AppUser> result) throws Exception {
-                            AppUser uId=result.getData();
+                            AppUser uId = result.getData();
                             System.out.println(result.getCode());
-                            SharedPreferenceUtil.put(context,UserConfig.USER_ID,uId.getuId());
-                            CUser user=new CUser();
+                            SharedPreferenceUtil.put(context, UserConfig.USER_ID, uId.getuId());
+                            SharedPreferenceUtil.put(context, UserConfig.USER_NAME, uId.getuName());
+                            CUser user = new CUser();
                             user.setuId(uId.getuId());
                             user.setuName(uId.getuName());
                             user.setuPhone(uId.getuPhone());
@@ -82,6 +91,12 @@ public class LoginPresenter extends BasePresenter {
                             loginView.hideProgressDialog();
                             loginView.jump2MainActivity(uId.getuId());
                         }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+                            loginView.hideProgressDialog();
+                            loginView.showError("用户名或密码错误");
+                        }
                     });
 
 
@@ -91,4 +106,10 @@ public class LoginPresenter extends BasePresenter {
         }
 
     }
+
+
+    public void closeRealm(){
+       userBiz.closeRealm();
+    }
+
 }

@@ -22,6 +22,8 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.util.Attributes;
+import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import java.util.ArrayList;
 
@@ -48,10 +50,13 @@ public class ShowCostKindFragment extends BaseFragment implements IKindView, OnV
     Unbinder unbinder;
     @BindView(R.id.btnAddCostKind)
     Button btnAddCostKind;
+    @BindView(R.id.kindRefreshLayout1)
+    QMUIPullRefreshLayout kindRefreshLayout1;
 
     // TODO: Rename and change types of parameters
-    private String type;
+    private static final String type="支出";
     private String uId;
+    private String token;
 
     private KindPresenter presenter;
 
@@ -87,7 +92,7 @@ public class ShowCostKindFragment extends BaseFragment implements IKindView, OnV
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            type = getArguments().getString(ARG_PARAM1);
+            token = getArguments().getString(ARG_PARAM1);
             uId = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -129,11 +134,37 @@ public class ShowCostKindFragment extends BaseFragment implements IKindView, OnV
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        presenter.closeRealm();
         unbinder.unbind();
     }
 
     private void init() {
-        presenter = new KindPresenter(this);
+        presenter = new KindPresenter(new MainActivity(),this);
+        kindRefreshLayout1.setOnPullListener(new QMUIPullRefreshLayout.OnPullListener() {
+            @Override
+            public void onMoveTarget(int offset) {
+
+            }
+
+            @Override
+            public void onMoveRefreshView(int offset) {
+
+            }
+
+            @Override
+            public void onRefresh() {
+                kindRefreshLayout1.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        presenter.synchKindDataFromServer(token,uId);
+                        kindRefreshLayout1.finishRefresh();
+                    }
+                },1000);
+
+
+            }
+        });
+
         presenter.showKinds(uId, type);
     }
 
@@ -154,6 +185,11 @@ public class ShowCostKindFragment extends BaseFragment implements IKindView, OnV
         costKindGridView.setSelected(false);
         costKindGridView.setNumColumns(4);
 
+    }
+
+    @Override
+    public void refreshUI() {
+        init();
     }
 
     @Override
@@ -200,8 +236,10 @@ public class ShowCostKindFragment extends BaseFragment implements IKindView, OnV
             @Override
             public void onClick(View v) {
                 String cId = v.getTag().toString();
-                presenter.deleteKind(cId);
-                init();
+                if (presenter.deleteKind(cId)) {
+                    init();
+                }
+
 
             }
         });
@@ -209,10 +247,35 @@ public class ShowCostKindFragment extends BaseFragment implements IKindView, OnV
 
     @OnClick(R.id.btnAddCostKind)
     public void onViewClicked() {
-        Intent intent=new Intent(getContext(),AddKindsActivity.class);
-        intent.putExtra("type",type);
-        intent.putExtra("uId",uId);
+        Intent intent = new Intent(getContext(), AddKindsActivity.class);
+        intent.putExtra("type", type);
+        intent.putExtra("uId", uId);
         getContext().startActivity(intent);
+    }
+
+    @Override
+    public void showProgressDialog() {
+
+    }
+
+    @Override
+    public void hideProgressDialog() {
+
+    }
+
+    @Override
+    public void showError(String msg) {
+
+    }
+
+    @Override
+    public void hideErrorDialog() {
+
+    }
+
+    @Override
+    public LifecycleTransformer bindLifecycle() {
+        return bindToLifecycle();
     }
 
     /**

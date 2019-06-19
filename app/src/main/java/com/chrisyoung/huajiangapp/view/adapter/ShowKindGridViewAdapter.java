@@ -46,7 +46,7 @@ public class ShowKindGridViewAdapter extends BaseSwipeAdapter {
         TextView t=(TextView)convertView.findViewById(R.id.txtShowKindName);
         ImageView img=convertView.findViewById(R.id.icon_kind);
         t.setText(kinds.get(position).getdKind());
-        img.setImageDrawable(context.getDrawable(R.mipmap.attention));
+        img.setImageDrawable(context.getDrawable(R.mipmap.qitashouzhi2));
         ImageButton btn=convertView.findViewById(R.id.btnDeleteKind);
         btn.setTag(kinds.get(position).getdId());
 

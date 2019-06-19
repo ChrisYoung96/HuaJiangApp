@@ -2,6 +2,7 @@ package com.chrisyoung.huajiangapp.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,6 +21,7 @@ import com.chrisyoung.huajiangapp.view.vinterface.ILoginInternetView;
 import com.qmuiteam.qmui.layout.QMUIButton;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+import com.trello.rxlifecycle2.LifecycleTransformer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,8 +41,6 @@ public class LoginActivity extends BaseActivity implements ILoginInternetView {
     EditText etPassword;
     @BindView(R.id.rl_userPassword)
     RelativeLayout rlUserPassword;
-    @BindView(R.id.cb_checkbox)
-    CheckBox cbCheckbox;
     @BindView(R.id.btn_login)
     Button btnLogin;
     @BindView(R.id.iv_unameClear)
@@ -85,7 +85,7 @@ public class LoginActivity extends BaseActivity implements ILoginInternetView {
                 break;
             case R.id.btn_regist:
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-                this.finish();
+
         }
 
     }
@@ -119,6 +119,14 @@ public class LoginActivity extends BaseActivity implements ILoginInternetView {
                 .setTipWord(msg)
                 .create();
         edialog.show();
+
+        Handler handler=new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                edialog.dismiss();
+            }
+        },2000);
     }
 
     @Override
@@ -127,7 +135,18 @@ public class LoginActivity extends BaseActivity implements ILoginInternetView {
     }
 
     @Override
+    public LifecycleTransformer bindLifecycle() {
+        return bindToLifecycle();
+    }
+
+    @Override
     public void showResult(String result) {
         ToastUtil.showShort(this, result);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        loginPresenter.closeRealm();
     }
 }

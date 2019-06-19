@@ -4,10 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.AddCostFragment">
+
     <com.flipboard.bottomsheet.BottomSheetLayout
         android:id="@+id/btsChooseCostKind"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
         <RelativeLayout
             android:id="@+id/rl_adc_layer1"
@@ -20,7 +23,7 @@
 
             <EditText
                 android:id="@+id/txtCostMoney"
-                android:layout_width="wrap_content"
+                android:layout_width="187dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
@@ -28,6 +31,7 @@
                 android:layout_marginTop="35dp"
                 android:background="@null"
                 android:hint="金额"
+                android:inputType="numberDecimal"
                 android:textSize="20sp" />
 
             <TextView
@@ -36,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="134dp"
                 android:layout_marginTop="36dp"
-                android:layout_marginEnd="31dp"
+                android:layout_marginEnd="10dp"
                 android:layout_toStartOf="@+id/ui_cost_shugang1"
                 android:text="元"
                 android:textColor="#a6a3a3"
@@ -47,21 +51,21 @@
                 android:layout_width="1dip"
                 android:layout_height="20dp"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="43dp"
-                android:layout_marginEnd="21dp"
+                android:layout_marginTop="42dp"
+                android:layout_marginEnd="15dp"
                 android:layout_toStartOf="@+id/imgCostKindImg"
                 android:background="#BBB5B5" />
 
             <ImageView
                 android:id="@+id/imgCostKindImg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="30dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="7dp"
                 android:layout_marginBottom="3dp"
                 android:layout_toStartOf="@+id/btnChooseCostKind"
-                android:src="@mipmap/tab_account_default" />
+                android:src="@mipmap/qitashouzhi3" />
 
             <Button
                 android:id="@+id/btnChooseCostKind"
@@ -94,14 +98,14 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="27dp"
                 android:text="2019年12月01日"
-                android:textSize="19sp" />
+                android:textSize="13sp" />
 
             <com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
                 android:id="@+id/btnChooseCostDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ui_cost_henggang1"
-                android:layout_marginStart="17dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="21dp"
                 android:layout_toEndOf="@+id/txtCostRecordDate"
                 android:background="@color/qmui_config_color_transparent"
@@ -113,7 +117,7 @@
                 android:layout_height="20dp"
                 android:layout_below="@id/ui_cost_henggang1"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="14dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="33dp"
                 android:layout_marginEnd="16dp"
                 android:layout_toEndOf="@+id/btnChooseCostDate"
@@ -124,7 +128,7 @@
                 android:layout_width="60dp"
                 android:layout_height="31dp"
                 android:layout_below="@id/ui_cost_henggang1"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="22dp"
                 android:layout_marginEnd="10dp"
                 android:layout_toStartOf="@+id/textView4"
@@ -184,7 +188,9 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="35dp"
                 android:layout_marginEnd="20dp"
-                android:text="添加" />
+                android:background="@color/colorPrimary"
+                android:text="添加"
+                android:textColor="#ffffff" />
 
             <TextView
                 android:id="@+id/textView3"

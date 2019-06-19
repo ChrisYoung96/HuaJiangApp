@@ -2,6 +2,7 @@ package com.chrisyoung.huajiangapp.presenter;
 
 import android.content.Context;
 
+import com.chrisyoung.huajiangapp.constant.ResultCode;
 import com.chrisyoung.huajiangapp.dto.UserAuths;
 import com.chrisyoung.huajiangapp.dto.VerificationCode;
 import com.chrisyoung.huajiangapp.network.DataManager;
@@ -34,9 +35,9 @@ public class RegistPresenter extends BasePresenter{
     }
 
     public void Register(String identify,String credential,String c){
-        if(!isCodeExpired(code)){
-            registerView.showError("code is expired");
-        }else{
+//        if(!isCodeExpired(code)){
+//            registerView.showError("验证码已过期");
+//        }else{
             if(verifyCode(c)){
                 UserAuths auths=new UserAuths();
                 auths.setCredential(credential);
@@ -45,6 +46,7 @@ public class RegistPresenter extends BasePresenter{
                 dataManager.register(auths)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
+                        .compose(registerView.bindLifecycle())
                         .subscribe(new Observer<HttpResult<String>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
@@ -53,7 +55,12 @@ public class RegistPresenter extends BasePresenter{
 
                             @Override
                             public void onNext(HttpResult<String> result) {
-                                registerView.jump2LoginActivity();
+                                if(result.getCode().equals(ResultCode.SUCCESS.code())){
+                                    registerView.jump2LoginActivity();
+                                }else{
+                                    registerView.showError(result.getMsg());
+                                }
+
 
                             }
 
@@ -68,8 +75,10 @@ public class RegistPresenter extends BasePresenter{
 
                             }
                         });
+            }else{
+                registerView.showError("验证码错误");
             }
-        }
+//        }
 
 
     }
@@ -78,6 +87,7 @@ public class RegistPresenter extends BasePresenter{
         dataManager.getCode(phone)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(registerView.bindLifecycle())
                 .subscribe(new Observer<HttpResult<VerificationCode>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -112,6 +122,6 @@ public class RegistPresenter extends BasePresenter{
 
    private boolean isCodeExpired(VerificationCode code){
        Time t=new Time(System.currentTimeMillis());
-        return t.getTime()- code.getCreateTime()>30*1000;
+        return t.getTime()- code.getCreateTime()>300*1000;
     }
 }

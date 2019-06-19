@@ -22,7 +22,7 @@
             android:singleLine="true"
             android:layout_marginTop="30dp"
             android:text="添加类别"
-            android:textColor="@color/textColor"
+            android:textColor="@color/titleText"
             android:textSize="20dp" />
 
 
@@ -77,12 +77,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl_ak_layer1"
         android:layout_marginTop="10dp">
+
         <Button
             android:id="@+id/btnAddKind"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="@string/保存"/>
+            android:background="@color/colorPrimary"
+            android:text="@string/保存"
+            android:textColor="#ffffff"/>
     </RelativeLayout>
 
 

@@ -7,10 +7,12 @@ import com.chrisyoung.huajiangapp.domain.RViewModel;
 import java.util.ArrayList;
 import java.util.Date;
 
+import io.realm.Sort;
+
 public interface IRecordManageBiz {
     CRecord getRecord(String rId);
 
-    ArrayList<RViewModel> showRecordsInAMonth(String bId, Date start, Date end,String type);
+    ArrayList<RViewModel> showRecordsInAMonth(String bId, Date start, Date end, String type, Sort sort);
 
     Double getTotalCostInAMonth(String bId,Date monthStart,Date monthEnd);
 
@@ -18,7 +20,7 @@ public interface IRecordManageBiz {
 
     boolean deleteRecord(String rId);
 
-    boolean fakeDeleteRecord(CRecord record);
+    boolean fakeDeleteRecord(String rId);
 
     CRecord showRecordInformation(String rId);
 
@@ -50,4 +52,5 @@ public interface IRecordManageBiz {
 
     public ArrayList<CRecord> getAllWay(String bId, Date monthStart, Date monthEnd, String type);
 
+    void closeRealm();
 }

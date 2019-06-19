@@ -16,13 +16,13 @@
             android:id="@+id/text_b_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
             android:ellipsize="marquee"
             android:gravity="center_horizontal|center"
             android:singleLine="true"
             android:text="@string/zhangben"
             android:textColor="@color/titleText"
-            android:textSize="20sp"
-            android:layout_marginTop="30dp"/>
+            android:textSize="20sp" />
 
         <ImageButton
             android:id="@+id/btnAddBill"
@@ -36,7 +36,7 @@
             android:drawablePadding="6dp"
             android:ellipsize="end"
             android:paddingStart="5dp"
-            android:src="@mipmap/tab_add_default" />
+            android:src="@mipmap/xinjian1" />
 
     </RelativeLayout>
     <RelativeLayout
@@ -46,6 +46,11 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:background="#EEEEEE">
+        <com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout
+            android:id="@+id/billRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
        <GridView
            android:id="@+id/billGridView"
            android:layout_width="match_parent"
@@ -55,6 +60,7 @@
            android:horizontalSpacing="10dp">
 
        </GridView>
+        </com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout>
 
     </RelativeLayout>
 

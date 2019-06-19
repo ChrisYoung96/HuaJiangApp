@@ -41,8 +41,8 @@ public class AddCostRecordPresenter {
         CBill b=billManageBiz.queryBill(bId);
         if(b!=null){
             if(recordManageBiz.addRecord(b,record)){
-                addCostRecordView.showResult("成功");
-                addCostRecordView.cleareText();
+                addCostRecordView.showResult("添加成功");
+                addCostRecordView.jump2MainActivity();
             }else{
                 addCostRecordView.showResult("添加失败");
             }
@@ -55,5 +55,11 @@ public class AddCostRecordPresenter {
     public ArrayList<CUserDiyKind> loadDiyKind(String uId){
         return diyKindManageBiz.showKind(uId,"支出");
 
+    }
+
+    public void closeRealm(){
+        diyKindManageBiz.closeRealm();
+        billManageBiz.closeRealm();
+        recordManageBiz.closeRealm();
     }
 }

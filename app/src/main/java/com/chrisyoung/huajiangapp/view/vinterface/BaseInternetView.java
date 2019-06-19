@@ -1,5 +1,7 @@
 package com.chrisyoung.huajiangapp.view.vinterface;
 
+import com.trello.rxlifecycle2.LifecycleTransformer;
+
 public interface BaseInternetView extends BaseView {
     void showProgressDialog();
 
@@ -8,4 +10,7 @@ public interface BaseInternetView extends BaseView {
     void showError(String msg);
 
     void hideErrorDialog();
+
+    LifecycleTransformer bindLifecycle();
+
 }
